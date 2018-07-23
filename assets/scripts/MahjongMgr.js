@@ -47,6 +47,9 @@ cc.Class({
         _sides:null,
         _pres:null,
         _foldPres:null,
+        ndList      :  cc.Node,
+        ndItem      :  cc.Node,
+        
     },
     
     onLoad:function(){
@@ -82,6 +85,15 @@ cc.Class({
         mahjongSprites.push("wind_west");
         mahjongSprites.push("wind_south");
         mahjongSprites.push("wind_north");
+
+        // this._creatCard();
+        this.addCard();
+        this.comNodePool = this.addComponent("ComNodePool")
+        this.cards = {
+            0:{suit:3 , point:10 , index:0},
+            1:{suit:3 , point:10 , index:0},
+            2:{suit:3 , point:10 , index:0}
+        }
     },
     
     getMahjongSpriteByID:function(id){
@@ -190,5 +202,57 @@ cc.Class({
     
     getFoldPre:function(localIndex){
         return this._foldPres[localIndex];
-    }
+    },
+    addCard:function(){
+        cc.loader.loadRes("hall/prefabs/NodePools/pbCard", (err, prefab)=>{
+            var newNode = cc.instantiate(prefab);
+            // this.ndItem.addChild(newNode);
+            // if(this.ndList.children){
+            //     let  ndList_children= this.ndList.children;
+            //     while(ndList_children.length > 0 ){
+                    this.comNodePool.putNode(newNode);
+            //     }
+            // }
+            _.each(this.cards , (card , index)=>{
+              let ndItem =  this.comNodePool.getNode(newNode);
+              let com = ndItem.getComponent('PbCard');
+                com.init( card.suit , card.point , true );
+                this.ndList.addChild(ndItem);
+            })
+        })
+        // _.each(this.pbCard.children , (node , index)=>{
+        //     // var newNode = cc.instantiate(prefab);
+        //     // this.pbCard.addChild(newNode);
+        //     let newPrefab = cc.vv.ComNodePool.getNode(newNode);
+        //         node.addChild(newNode);
+        // });
+    },
+    
+    //  创建并且添加牌
+    // addCard : function( nd , card , isFront = true , showAction = false ){
+    //     let container = nd;
+    //     let com = cc.vv.NPHelper.getNode('PbCard').getComponent('PbCard');
+    //     // com.init( card.suit , card.point , isFront );
+    //     container.addChild( com.node );
+    //     // if( showAction ) com.showCardFrontWithFlipAction();
+    //     // return com;
+    // },
+    // _creatCard:function(){
+    //     let card = 0;
+    //     // let cardData = GameMsgHandler.getCardsByCid(0);//数组里面有三张牌的数据
+    //     // let startPos  = this._getStartPos(0);
+    //     // let cidIsZero = 1;
+    //     // let type = 3;// 三张
+    //     // let item = this.comNodePool.getNode( this.ndPoker );
+    //     // item.setPosition( startPos );
+    //     // item.scale = cidIsZero;
+    //     // item.active = true ;
+    //     // // item.children[1].active = true ;
+    //     // item.getChildByName("frame").active = false;
+    //     // this.node.addChild( item ) ;
+    //     // _.each(cardData , (card , index)=>{
+    //         this.addCard( this.pbCard , card , true , false );
+    //     // })
+    //     // return item;
+    // }
 });

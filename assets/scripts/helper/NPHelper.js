@@ -12,12 +12,12 @@
  * Path['Key'] = Value ;
  */
 var Paths   = {
-    PbToast     : 'hall/prefabs/NodePools/pbToast'          ,  //@注意：‘pb’的大小写
-    PbTopInfo   : 'hall/prefabs/NodePools/pbTopInfo'        ,
-    PbLoading   : 'hall/prefabs/NodePools/pbLoading'        ,
-    PbCard      : 'hall/prefabs/NodePools/pbCard'           ,
-    PbTouchMask : 'hall/prefabs/NodePools/pbTouchMask'      , 
-    ComChatSF   : 'hall/prefabs/NodePools/ComChatSF'        , 
+    // PbToast     : 'hall/prefabs/NodePools/pbToast'          ,  //@注意：‘pb’的大小写
+    // PbTopInfo   : 'hall/prefabs/NodePools/pbTopInfo'        ,
+    // PbLoading   : 'hall/prefabs/NodePools/pbLoading'        ,
+    PbCard         : 'hall/prefabs/NodePools/pbCard'           ,
+    // PbTouchMask : 'hall/prefabs/NodePools/pbTouchMask'      , 
+    // ComChatSF   : 'hall/prefabs/NodePools/ComChatSF'        , 
 };
 
 // pool
@@ -39,29 +39,29 @@ function testLog(){
 /**
  * initHelper
  */
-function initHelper( cb ){
+function initHelper( cb = null ){
     let loaded = 0 ;
     _.each( Paths , function( value , key ){
-            CCLoaderHelper.getRes( value , cc.Prefab , function (err, prefab) { 
-            cc.log( '@ NPHelper: <' + key + '> is loaded' );
-            loaded ++ ;
-            ndNodeBackup[ key ] = cc.instantiate( prefab );
+        // cc.vv.CCLoaderHelper.getRes( value , cc.Prefab , function (err, prefab) { 
+        //     cc.log( '@ NPHelper: <' + key + '> is loaded' );
+        //     loaded ++ ;
+            // ndNodeBackup[ key ] = cc.instantiate( prefab );
             if( loaded >= _.size( Paths ) ){
                 _initPool();
                 if( cb ) cb();
                 return ;
             }
-        }); 
+        // }); 
     });
 };
 
 // _initPool
 function _initPool () {
     // cc.log('@ _initPool');
-    for(let name in Paths){  
+    // for(let name in Paths){  
         ndPoolList[ name ] = new cc.NodePool( name );
         ndPoolList[ name ].put( getNode( name ) );
-    } 
+    // } 
 };
 
 
@@ -107,13 +107,14 @@ function putNode( name , node ){
 function getNode( name = 'PbCard' ){
     //debug
     testLog();
+    _initPool();
 
     try{
         let item = ndPoolList[name].get();
-        if ( !item ) {
-            // item = cc.instantiate( cc.loader.getRes( Paths[name] ) ); 
-            item = cc.instantiate( ndNodeBackup[name] ) ;
-        }
+        // if ( !item ) {
+        //     // item = cc.instantiate( cc.loader.getRes( Paths[name] ) ); 
+        //     item = cc.instantiate( ndNodeBackup[name] ) ;
+        // }
         item.x = 0 ;
         item.y = 0 ;
         item.scale = 1 ;

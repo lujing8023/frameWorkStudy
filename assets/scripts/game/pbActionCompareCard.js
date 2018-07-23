@@ -136,7 +136,7 @@ cc.Class({
     //  创建并且添加牌
     addCard : function( nd , card , isFront = true , showAction = false ){
         let container = nd;
-        let com = NPHelper.getNode('PbCard').getComponent('PbCard');
+        let com = cc.vv.NPHelper.getNode('PbCard').getComponent('PbCard');
         com.init( card.suit , card.point , isFront );
         container.addChild( com.node );
         if( showAction ) com.showCardFrontWithFlipAction();

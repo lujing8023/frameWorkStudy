@@ -56,8 +56,11 @@ function initMgr(){
     // cc.vv.utils = new Utils();
 
 
-    //var NPHelper = require("NPHelper");
-    //cc.vv.NPHelper = new NPHelper();
+    cc.vv.ComNodePool = require("ComNodePool");
+    // cc.vv.NPHelper.initHelper();
+
+    // cc.vv.CCLoaderHelper = require("CCLoaderHelper");
+    // cc.vv.CCLoaderHelper.initHelper();
     
     //var ComNodePool = require("ComNodePool");
     //cc.vv.ComNodePool = new ComNodePool();
