@@ -54,9 +54,15 @@ function initMgr(){
 
     // var Utils = require("Utils");
     // cc.vv.utils = new Utils();
-
+/**
+ * 項目腳本引入
+ */
 
     cc.vv.ComNodePool = require("ComNodePool");
+    // cc.vv.ServerRouters = require("ServerRouters");
+    // cc.vv.NotifyHelper = require("NotifyHelper");
+
+
     // cc.vv.NPHelper.initHelper();
 
     // cc.vv.CCLoaderHelper = require("CCLoaderHelper");

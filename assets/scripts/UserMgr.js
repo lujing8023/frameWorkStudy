@@ -17,7 +17,11 @@ cc.Class({
     },
     
     guestAuth:function(){
-        var account = cc.args["account"];
+        // UserServer.guestLogin( _.random( 100000,999999 ) + '' , (event)=>{
+        //     gLocalData.userInfo.account = UserHandler.getData().account ;
+        //     DataHelper.saveAllData();
+        // });
+        var account = _.random( 100000,999999 ) + '';
         if(account == null){
             account = cc.sys.localStorage.getItem("account");
         }
@@ -26,8 +30,8 @@ cc.Class({
             account = Date.now();
             cc.sys.localStorage.setItem("account",account);
         }
-        
-        cc.vv.http.sendRequest("/guest",{account:account},this.onAuth);
+        let guestLogin        = 'connector.authorizationHandler.login'
+        cc.vv.http.sendRequest(guestLogin,{  type:0 , account : account , game:cc.currentGame ? cc.currentGame : 'nn' },this.onAuth);
     },
     
     onAuth:function(ret){
@@ -44,34 +48,35 @@ cc.Class({
     },
     
     login:function(){
-        var self = this;
-        var onLogin = function(ret){
-            if(ret.errcode !== 0){
-                console.log(ret.errmsg);
-            }
-            else{
-                if(!ret.userid){
-                    //jump to register user info.
-                    cc.director.loadScene("createrole");
-                }
-                else{
-                    console.log("【玩家信息】",ret);
-                    self.account = ret.account;
-        			self.userId = ret.userid;
-        			self.userName = ret.name;
-        			self.lv = ret.lv;
-        			self.exp = ret.exp;
-        			self.coins = ret.coins;
-        			self.gems = ret.gems;
-                    self.roomData = ret.roomid;
-                    self.sex = ret.sex;
-                    self.ip = ret.ip;
-        			cc.director.loadScene("hall");
-                }
-            }
-        };
-        cc.vv.wc.show("正在登录游戏");
-        cc.vv.http.sendRequest("/login",{account:this.account,sign:this.sign},onLogin);
+        cc.director.loadScene("hall");
+        // var self = this;
+        // var onLogin = function(ret){
+        //     if(ret.errcode !== 0){
+        //         console.log(ret.errmsg);
+        //     }
+        //     else{
+        //         if(!ret.userid){
+        //             //jump to register user info.
+        //             cc.director.loadScene("createrole");
+        //         }
+        //         else{
+        //             console.log("【玩家信息】",ret);
+        //             self.account = ret.account;
+        // 			self.userId = ret.userid;
+        // 			self.userName = ret.name;
+        // 			self.lv = ret.lv;
+        // 			self.exp = ret.exp;
+        // 			self.coins = ret.coins;
+        // 			self.gems = ret.gems;
+        //             self.roomData = ret.roomid;
+        //             self.sex = ret.sex;
+        //             self.ip = ret.ip;
+        // 			cc.director.loadScene("hall");
+        //         }
+        //     }
+        // };
+        // cc.vv.wc.show("正在登录游戏");
+        // cc.vv.http.sendRequest("/login",{account:this.account,sign:this.sign},onLogin);
     },
     
     create:function(name){

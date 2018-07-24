@@ -1,5 +1,5 @@
-// var URL = "http://118.25.176.115:9000";
-var URL = "http://127.0.0.1:9000";
+var URL = "http://118.25.176.115:9000";
+// var URL = "http://127.0.0.1:9000";
 var HTTP = cc.Class({
     extends: cc.Component,
 
