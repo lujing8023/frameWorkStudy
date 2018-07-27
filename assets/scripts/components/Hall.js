@@ -38,6 +38,11 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
+
+        //初始化游戏监听
+        GamesMgr.initGame("nn");
+
+
         if(!cc.sys.isNative && cc.sys.isMobile){
             var cvs = this.node.getComponent(cc.Canvas);
             cvs.fitHeight = true;
@@ -218,12 +223,15 @@ cc.Class({
         //     cc.vv.alert.show("提示","房间已经创建!\n必须解散当前房间才能创建新的房间");
         //     return;
         // }
-        console.log("onCreateRoomClicked");
-        // this.createRoomWin.active = true; 
-        let msg = {baseScore: 10, scoreMin: 1000}
-        RoomServer.createRoom( msg, ()=>{
+        // console.log("onCreateRoomClicked");
+        // // this.createRoomWin.active = true; 
+        // let msg = {baseScore: 10, scoreMin: 1000}
+        // RoomServer.createRoom( msg, ()=>{
+        //     cc.director.loadScene("mjgame");
+        // })
+        RoomServer.match(4 , ()=>{
             cc.director.loadScene("mjgame");
-        })
+        });
     },
     
     onBtnTaobaoClicked:function(){

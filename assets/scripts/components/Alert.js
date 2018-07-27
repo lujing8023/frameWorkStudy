@@ -22,6 +22,7 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
+        return;
         if(cc.vv == null){
             return;
         }

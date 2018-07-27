@@ -25,6 +25,7 @@ cc.Class({
     },
     
     onLoad: function () {
+        return;
         if(!cc.sys.isNative && cc.sys.isMobile){
             var cvs = this.node.getComponent(cc.Canvas);
             cvs.fitHeight = true;

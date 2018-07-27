@@ -53,6 +53,7 @@ cc.Class({
     },
     
     onLoad:function(){
+        return;
         if(cc.vv == null){
             return;
         }
