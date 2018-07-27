@@ -21,6 +21,8 @@ function urlParse(){
 }
 
 function initMgr(){
+    // window.pomelo = require('pomelo');
+    // window.SocketHelper = require('SocketHelper');
     cc.vv = {};
     var UserMgr = require("UserMgr");
     cc.vv.userMgr = new UserMgr();
@@ -30,7 +32,7 @@ function initMgr(){
     
     cc.vv.http = require("HTTP");
     cc.vv.global = require("Global");
-    cc.vv.net = require("Net");
+    cc.vv.net = SocketHelper;
     
     var GameNetMgr = require("GameNetMgr");
     cc.vv.gameNetMgr = new GameNetMgr();
@@ -99,6 +101,11 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
+        //初始化Data
+        window.DataHelper = require('DataHelper').initHelper();
+        //初始化网络
+        SocketHelper.initNet();
+        // SocketHelper.initNet( ()=>{ this._onLoadDone();} );
         if(!cc.sys.isNative && cc.sys.isMobile){
             var cvs = this.node.getComponent(cc.Canvas);
             cvs.fitHeight = true;
@@ -107,14 +114,19 @@ cc.Class({
         initMgr();
         console.log('【启动游戏】'); 
         this._mainScene = 'loading';
-        this.showSplash(function(){
-            var url = cc.url.raw('resources/ver/cv.txt');
-            cc.loader.load(url,function(err,data){
-                cc.VERSION = data;
-                console.log('current core version:' + cc.VERSION);
-                this.getServerInfo();
-            }.bind(this));
-        }.bind(this));
+        cc.director.loadScene('loading');
+        // this.showSplash(function(){
+        //     var url = cc.url.raw('resources/ver/cv.txt');
+        //     cc.loader.load(url,function(err,data){
+                
+        //         //资源加载完   马上转入登录场景
+
+        //         //下面是关于检查热更新的
+        //         cc.VERSION = data;
+        //         console.log('current core version:' + cc.VERSION);
+        //         // this.getServerInfo();
+        //     }.bind(this));
+        // }.bind(this));
     },
 
     onBtnDownloadClicked:function(){

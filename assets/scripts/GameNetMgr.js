@@ -164,6 +164,7 @@ cc.Class({
     
     initHandlers:function(){
         var self = this;
+        return;
         cc.vv.net.addHandler("login_result",function(data){
             console.log("【房间数据】",data);
             if(data.errcode === 0){

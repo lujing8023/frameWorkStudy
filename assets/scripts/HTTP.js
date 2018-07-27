@@ -11,17 +11,17 @@ var HTTP = cc.Class({
         sendRequest : function(path,data,handler,extraUrl){
             var xhr = cc.loader.getXMLHttpRequest();
             xhr.timeout = 5000;
-            var str = "?";
-            for(var k in data){
-                if(str != "?"){
-                    str += "&";
-                }
-                str += k + "=" + data[k];
-            }
+            // var str = "?";
+            // for(var k in data){
+            //     if(str != "?"){
+            //         str += "&";
+            //     }
+            //     str += k + "=" + data[k];
+            // }
             if(extraUrl == null){
                 extraUrl = HTTP.url;
             }
-            var requestURL = extraUrl + path + encodeURI(str);
+            var requestURL = extraUrl  //+ path + encodeURI(str);
             console.log("RequestURL:" + requestURL);
             xhr.open("GET",requestURL, true);
             if (cc.sys.isNative){
@@ -54,5 +54,28 @@ var HTTP = cc.Class({
             xhr.send();
             return xhr;
         },
+
+        
     },
+    // pomelo:request( route, params, (data) => {
+            // if( this.state === state.REQUESTING ){
+            //     this.state = state.CONNECTED;
+            //     MsgHelper.removeLoading();
+            //     if( data.code === 200 ){
+            //         let off = TimeHelper.getCTime() - before;
+            //         log("@ responsed : " + route + " delay: " + off );
+            //         log( data.msg );
+            //         if( cb1 && _.isFunction(cb1) ) cb1( data.msg );
+            //     }else{
+            //         log("@ request error : " + route + " Error code : " + data.code + ' : ' + data.msg );
+            //         if( cbError && _.isFunction(cbError) ){
+            //             cbError( data );
+            //         }else{
+            //             // let info = data.msg + ' (error:' + data.code + ')';
+            //             let info = data.msg ;
+            //             MsgHelper.pushToast( info );
+            //         }
+            //     }
+            // }
+        // }),
 });

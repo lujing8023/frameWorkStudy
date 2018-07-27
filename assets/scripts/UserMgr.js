@@ -32,6 +32,7 @@ cc.Class({
         }
         let guestLogin        = 'connector.authorizationHandler.login'
         cc.vv.http.sendRequest(guestLogin,{  type:0 , account : account , game:cc.currentGame ? cc.currentGame : 'nn' },this.onAuth);
+        // cc.vv.http.request(guestLogin,{  type:0 , account : account , game:cc.currentGame ? cc.currentGame : 'nn' },this.onAuth);
     },
     
     onAuth:function(ret){

@@ -11,6 +11,7 @@ var Global = cc.Class({
         fnDisconnect:null,
         handlers:{},
         addHandler:function(event,fn){
+            return;
             if(this.handlers[event]){
                 console.log("event:" + event + "' handler has been registered.");
                 return;

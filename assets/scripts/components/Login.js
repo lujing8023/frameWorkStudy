@@ -54,11 +54,11 @@ cc.Class({
             cc.director.loadScene("loading");
             return;
         }
-        cc.vv.http.url = cc.vv.http.master_url;
-        cc.vv.net.addHandler('push_need_create_role',function(){
-            console.log("onLoad:push_need_create_role");
-            cc.director.loadScene("createrole");
-        });
+        // cc.vv.http.url = cc.vv.http.master_url;
+        // cc.vv.net.addHandler('push_need_create_role',function(){
+        //     console.log("onLoad:push_need_create_role");
+        // });
+        // cc.director.loadScene("createrole");
         
         cc.vv.audioMgr.playBGM("bgMain.mp3");
         
@@ -88,7 +88,22 @@ cc.Class({
     },
     
     onBtnQuickStartClicked:function(){
-        cc.vv.userMgr.guestAuth();
+        let account = _.random( 100000,999999 ) + "";
+        let guestLogin        = 'connector.authorizationHandler.login';
+        let param             = {  type:0 , account : account , game:cc.currentGame ? cc.currentGame : 'nn' }
+        // let obj = {  type:0 , account : account , game:cc.currentGame ? cc.currentGame : 'nn' }
+        cc.log("【初次請求發送的消息】",param)
+        SocketHelper.request( guestLogin , param , 
+            (msg) => { 
+                // cc.log('111');
+                cc.director.loadScene("hall");
+                // server._onLoginSuccess(msg); 
+                // if( cb ) cb();
+            } ,
+            // (action) => { server._onLoginFailed(action); } ,
+            true
+        );
+        // cc.vv.Net.send(guestLogin , obj);
     },
     
     onBtnWeichatClicked:function(){

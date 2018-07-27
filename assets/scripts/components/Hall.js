@@ -78,25 +78,25 @@ cc.Class({
         this.helpWin.addComponent("OnBack");
         this.xiaoxiWin.addComponent("OnBack");
         
-        if(!cc.vv.userMgr.notice){
-            cc.vv.userMgr.notice = {
-                version:null,
-                msg:"数据请求中...",
-            }
-        }
+        // if(!cc.vv.userMgr.notice){
+        //     cc.vv.userMgr.notice = {
+        //         version:null,
+        //         msg:"数据请求中...",
+        //     }
+        // }
         
-        if(!cc.vv.userMgr.gemstip){
-            cc.vv.userMgr.gemstip = {
-                version:null,
-                msg:"数据请求中...",
-            }
-        }
-        cc.log("......................",cc.vv.userMgr.notice.msg);
-        this.lblNotice.string = cc.vv.userMgr.notice.msg;
+        // if(!cc.vv.userMgr.gemstip){
+        //     cc.vv.userMgr.gemstip = {
+        //         version:null,
+        //         msg:"数据请求中...",
+        //     }
+        // }
+        // cc.log("......................",cc.vv.userMgr.notice.msg);
+        // this.lblNotice.string = cc.vv.userMgr.notice.msg;
         
-        this.refreshInfo();
-        this.refreshNotice();
-        this.refreshGemsTip();
+        // this.refreshInfo();
+        // this.refreshNotice();
+        // this.refreshGemsTip();
         
         cc.vv.audioMgr.playBGM("bgMain.mp3");
 
@@ -120,7 +120,7 @@ cc.Class({
             account:cc.vv.userMgr.account,
             sign:cc.vv.userMgr.sign,
         };
-        cc.vv.http.sendRequest("/get_user_status",data,onGet.bind(this));
+        // cc.vv.http.sendRequest("/get_user_status",data,onGet.bind(this));
     },
     
     refreshGemsTip:function(){
@@ -141,7 +141,7 @@ cc.Class({
             type:"fkgm",
             version:cc.vv.userMgr.gemstip.version
         };
-        cc.vv.http.sendRequest("/get_message",data,onGet.bind(this));
+        // cc.vv.http.sendRequest("/get_message",data,onGet.bind(this));
     },
     
     refreshNotice:function(){
@@ -165,7 +165,7 @@ cc.Class({
             type:"notice",
             version:cc.vv.userMgr.notice.version
         };
-        cc.vv.http.sendRequest("/get_message",data,onGet.bind(this));
+        // cc.vv.http.sendRequest("/get_message",data,onGet.bind(this));
     },
     
     initButtonHandler:function(btnPath){
@@ -214,12 +214,16 @@ cc.Class({
     },
     
     onCreateRoomClicked:function(){
-        if(cc.vv.gameNetMgr.roomId != null){
-            cc.vv.alert.show("提示","房间已经创建!\n必须解散当前房间才能创建新的房间");
-            return;
-        }
+        // if(cc.vv.gameNetMgr.roomId != null){
+        //     cc.vv.alert.show("提示","房间已经创建!\n必须解散当前房间才能创建新的房间");
+        //     return;
+        // }
         console.log("onCreateRoomClicked");
-        this.createRoomWin.active = true;   
+        // this.createRoomWin.active = true; 
+        let msg = {baseScore: 10, scoreMin: 1000}
+        RoomServer.createRoom( msg, ()=>{
+            cc.director.loadScene("mjgame");
+        })
     },
     
     onBtnTaobaoClicked:function(){
