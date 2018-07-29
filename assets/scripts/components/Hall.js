@@ -230,7 +230,7 @@ cc.Class({
         //     cc.director.loadScene("mjgame");
         // })
         RoomServer.match(4 , ()=>{
-            cc.director.loadScene("mjgame");
+            cc.director.loadScene("GameScene_NN");
         });
     },
     

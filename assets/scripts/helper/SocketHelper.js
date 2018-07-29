@@ -126,7 +126,7 @@ SocketHelper.prototype.disconnect = function(){
 SocketHelper.prototype.onHeartbeatTimeout = function(){
     cc.log("@ onHeartbeatTimeout") ;
     this.state = state.HEARTBEATOUT ;
-    MsgHelper.pushLoading();
+    // MsgHelper.pushLoading();
     // this.state = state.DISCONNECT ;
     // this.reconnect();
 }
@@ -140,7 +140,7 @@ SocketHelper.prototype.onDisconnect = function(){
 SocketHelper.prototype.onClose = function(){
     log('@ onClose State : ');
     this.state = state.CLOSED ;
-    MsgHelper.pushLoading();
+    // MsgHelper.pushLoading();
     // this.state = state.DISCONNECT ;
     // this.reconnect();
 };

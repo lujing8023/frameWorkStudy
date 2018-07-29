@@ -65,7 +65,7 @@ function initMgr(){
     // cc.vv.NotifyHelper = require("NotifyHelper");
 
 
-    // cc.vv.NPHelper.initHelper();
+    // NPHelper.initHelper();
 
     // cc.vv.CCLoaderHelper = require("CCLoaderHelper");
     // cc.vv.CCLoaderHelper.initHelper();

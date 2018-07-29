@@ -16,20 +16,20 @@ module.exports._getSF = function( path ) {
 };
 
 // url = 'http://wx.qlogo.cn/mmopen/Po9mkm3Z42tolYpxUVpY6mvCmqalibOpcJ2jG3Qza5qgtibO1NLFNUF7icwCibxPicbGmkoiciaqKEIdvvveIBfEQqal8vkiavHIeqFT/0.jpg';
-// module.exports.setSpriteByUrl = function( sprite , url , cb = null , tType = 'jpg' , showLoading = false ){
-//     if( url === '' || url == null ){
-//         if(cb)cb(); 
-//         return ;
-//     }
+module.exports.setSpriteByUrl = function( sprite , url , cb = null , tType = 'jpg' , showLoading = false ){
+    if( url === '' || url == null ){
+        if(cb)cb(); 
+        return ;
+    }
 
-//     if( showLoading ) MsgHelper.pushLoading();
-//     cc.loader.load({ url:url,type:tType },function(err,texture){
-//         if( showLoading ) MsgHelper.removeLoading();
-//         var frame = new cc.SpriteFrame(texture);
-//         sprite.spriteFrame = frame ;
-//         if(cb)cb();
-//     });
-// };
+    // if( showLoading ) MsgHelper.pushLoading();
+    cc.loader.load({ url:url,type:tType },function(err,texture){
+        // if( showLoading ) MsgHelper.removeLoading();
+        var frame = new cc.SpriteFrame(texture);
+        sprite.spriteFrame = frame ;
+        if(cb)cb();
+    });
+};
 
 
 

@@ -54,24 +54,24 @@ function _initGlobalData(){
     /**
      * Helpers
      */
-    // window.ActionHelper      = require('ActionHelper');
+    window.ActionHelper      = require('ActionHelper');
     // window.DeviceHelper      = require('DeviceHelper'); //二维码 
     window.NPHelper          = require('NPHelper');
-    // window.PBHelper          = require('PBHelper');
+    window.PBHelper          = require('PBHelper');
     // window.StringHelper      = require('StringHelper');
     // window.StringCheckHelper = require('StringCheckHelper');
     window.TexHelper         = require('TexHelper');//获取图片资源
-    // window.TimeHelper        = require('TimeHelper');
+    window.TimeHelper        = require('TimeHelper');
     // window.GameHelper        = require('GameHelper').initHelper();   // @todo？？？？？
     window.NotifyHelper      = require('NotifyHelper');//????
     window.CCLoaderHelper    = require('CCLoaderHelper');
     // window.MathHelper        = require('MathHelper').initHelper();
     window.MsgHelper         = require('MsgHelper').initHelper();
-    // window.PlatformHelper    = require('PlatformHelper');//???
+    window.PlatformHelper    = require('PlatformHelper');//???
     // window.WXHelper          = require('WXHelper');
     // window.MWHelper          = require('MWHelper');
     // window.FuncHelper        = require('FuncHelper');
-    // window.RandomListHelper  = require('RandomListHelper');
+    window.RandomListHelper  = require('RandomListHelper');
     // window.NativeHelper      = require('NativeHelper');
     // window.ObjHelper         = require('ObjHelper');
     window.SocketHelper      = require('SocketHelper');
