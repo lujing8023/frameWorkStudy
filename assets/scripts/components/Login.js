@@ -96,6 +96,8 @@ cc.Class({
         SocketHelper.request( guestLogin , param , 
             (msg) => { 
                 // cc.log('111');
+                UserHandler.setData(msg);
+                // cc.log("【获取玩家ID】",UserHandler.getId());
                 cc.director.loadScene("hall");
                 // server._onLoginSuccess(msg); 
                 // if( cb ) cb();

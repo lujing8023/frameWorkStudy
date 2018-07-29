@@ -82,35 +82,36 @@ handler.onHandleMsg_Data = function( action ){
      */
     if( name === OnAction.ROOM_CHANGE_STATE ){
         GameMsgHandler.setRoomState( action.msg );
+        cc.log("【取出来的消息】",GameMsgHandler.getData());
+        cc.log("【取出来的时间】",GameMsgHandler.getData().state.time);
+        let type = action.msg.type ;
 
-        // let type = action.msg.type ;
-
-        // switch( type ){
-        //     case 1 :
-        //         // 由 ENTER_ROOM 里面一起发了 或者 单局结束后下一局发
-        //         GameMsgHandler.resetData();
-        //         break;
-        //     case 2 :
-        //         break;
-        //     case 3 :
-        //         break;
-        //     case 4 :
-        //         break;
-        //     case 5 :
-        //         break;
-        //     case 6 :
-        //         break;
-        //     case 7 :
-        //         // _.each( action.msg.result.seats , (score,sid)=>{
-        //         //     if( score == null ) return ;
-        //         //     let user = GameMsgHandler.getUserBySid( sid );
-        //         //     if(user){
-        //         //         user.gold += parseFloat(score) ;
-        //         //         // user.gold = user.gold.toFixed(3) ;
-        //         //     } 
-        //         // });
-        //         break;
-        // }
+        switch( type ){
+            case 1 :
+                // 由 ENTER_ROOM 里面一起发了 或者 单局结束后下一局发
+                GameMsgHandler.resetData();
+                break;
+            case 2 :
+                break;
+            case 3 :
+                break;
+            case 4 :
+                break;
+            case 5 :
+                break;
+            case 6 :
+                break;
+            case 7 :
+                // _.each( action.msg.result.seats , (score,sid)=>{
+                //     if( score == null ) return ;
+                //     let user = GameMsgHandler.getUserBySid( sid );
+                //     if(user){
+                //         user.gold += parseFloat(score) ;
+                //         // user.gold = user.gold.toFixed(3) ;
+                //     } 
+                // });
+                break;
+        }
         return;
     }
 
@@ -302,8 +303,8 @@ handler.onHandleMsg_Data = function( action ){
      * 0-10
      */
     if( name === OnAction.ROUND_BEGIN ){
-        // GameMsgHandler.getData().state.round = action.msg ;
-        // GameMsgHandler.resetDataHands();
+        GameMsgHandler.getData().state.round = action.msg ;
+        GameMsgHandler.resetDataHands();
         return;
     }
     

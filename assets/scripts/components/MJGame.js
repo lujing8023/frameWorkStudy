@@ -22,9 +22,14 @@ cc.Class({
         _hupaiLists:[],
         _playEfxs:[],
         _opts:[],
+
+        lbRoomId            :   cc.Label,
+        ndBetScoreArr       :   cc.Node,
+        ndSureNiuButton     :   cc.Node,
     },
     
     onLoad: function () {
+        this._initRoomInfo();
         return;
         if(!cc.sys.isNative && cc.sys.isMobile){
             var cvs = this.node.getComponent(cc.Canvas);
@@ -61,6 +66,10 @@ cc.Class({
         this.onGameBeign();
         cc.vv.audioMgr.playBGM("bgFight.mp3");
         cc.vv.utils.addEscEvent(this.node);
+    },
+
+    _initRoomInfo:function(){
+        this.lbRoomId.string = GameMsgHandler.getRoomInfos();
     },
     
     initView:function(){

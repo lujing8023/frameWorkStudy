@@ -181,10 +181,10 @@ cc.Class({
     
     
     initLabels:function(){
-        this.lblName.string = cc.vv.userMgr.userName;
+        this.lblName.string = UserHandler.getNick();
         this.lblMoney.string = cc.vv.userMgr.coins;
         this.lblGems.string = cc.vv.userMgr.gems;
-        this.lblID.string = "ID:" + cc.vv.userMgr.userId;
+        this.lblID.string = "ID:" + UserHandler.getId();
     },
     
     onBtnClicked:function(event){

@@ -60,7 +60,7 @@ function _initGlobalData(){
     // window.PBHelper          = require('PBHelper');
     // window.StringHelper      = require('StringHelper');
     // window.StringCheckHelper = require('StringCheckHelper');
-    // window.TexHelper         = require('TexHelper');//获取图片资源
+    window.TexHelper         = require('TexHelper');//获取图片资源
     // window.TimeHelper        = require('TimeHelper');
     // window.GameHelper        = require('GameHelper').initHelper();   // @todo？？？？？
     window.NotifyHelper      = require('NotifyHelper');//????
@@ -86,7 +86,7 @@ function _initGlobalData(){
     /**
      * Handlers
      */
-    // window.UserHandler       = require('UserHandler');
+    window.UserHandler       = require('UserHandler');
     // window.RoomHandler       = require('RoomHandler');
     // window.WalletHandler     = require('WalletHandler');
     // window.NoticeHandler     = require('NoticeHandler');

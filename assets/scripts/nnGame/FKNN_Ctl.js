@@ -9,31 +9,32 @@ cc.Class({
     },
 
     onLoad: function () {
+        // return;
         //DATA
-        this._playersNumMax     = Configs.Params.MaxPlayers.nn ;
-        this._comScheduler      = this.addComponent('ComScheduler') ;   //scheduler
-        this._comScheduler2     = this.addComponent('ComScheduler') ;
-        this._comRandomBanker   = this.addComponent('ComRandomBanker') ;
-        this._comFunc           = this.addComponent('ComFuncChecker') ;
-        this._comVoicePlayer    = this.addComponent( 'ComVoicePlayer' ) ;
+        this._playersNumMax     = 9 ;
+        // this._comScheduler      = this.addComponent('ComScheduler') ;   //scheduler
+        // this._comScheduler2     = this.addComponent('ComScheduler') ;
+        // this._comRandomBanker   = this.addComponent('ComRandomBanker') ;
+        // this._comFunc           = this.addComponent('ComFuncChecker') ;
+        // this._comVoicePlayer    = this.addComponent( 'ComVoicePlayer' ) ;
         this._target            = this.node.getComponent( this._targetComName );
         this._startAniTime      = 1.0 ;
-        this._target._ui.ndMic.addComponent('ComVoiceRecorder');
+        // this._target._ui.ndMic.addComponent('ComVoiceRecorder');
 
         //UI
-        this._target._ui.showArmGameStart( false );
+        // this._target._ui.showArmGameStart( false );
         // if(GameMsgHandler.getData().type == 2)this._target._ui.showMatching();
         // this._target._ui.showCountDown( GameMsgHandler.getData().state.timer ? GameMsgHandler.getData().state.timer / 1000 : 0 , true );
         // this._target._ui.showInviteBtns( true , GameMsgHandler.isRoomOwner() , !GameMsgHandler.getData().guild ,!GameMsgHandler.getData().guild );
-        this._target._ui.showInviteBtns( true , GameMsgHandler.isRoomOwner() , true , true );
-        this._target._ui.setBtnsOfPlayState( true , GameMsgHandler.canRubCard() );
+        // this._target._ui.showInviteBtns( true , GameMsgHandler.isRoomOwner() , true , true );
+        // this._target._ui.setBtnsOfPlayState( true , GameMsgHandler.canRubCard() );
 
         //DEBUG
 
         //switch
-        this.showBankerswitch = false;
-        this._comRandomBanker.reset();
-        this.bankerActionOver = true ;
+        // this.showBankerswitch = false;
+        // this._comRandomBanker.reset();
+        // this.bankerActionOver = true ;
         
         
     },
@@ -107,74 +108,74 @@ cc.Class({
             //     SocketHelper.disconnectSelf = false;
             //     pomelo.disconnect();
             // }
-            MsgHelper.pushLoading();
-            FuncHelper.addFunc(  MsgHelper.removeLoading , GameHelper.isLogined );
+            // MsgHelper.pushLoading();
+            // FuncHelper.addFunc(  MsgHelper.removeLoading , GameHelper.isLogined );
         });
         NTF.register( NOTIFY_GAME_OUT , ()=>{
-            this._resetAll();
-            SocketHelper.disconnect();
+            // this._resetAll();
+            // SocketHelper.disconnect();
         });
         NTF.register( ACFG.RoundResult , ()=>{
             // PBHelper.addNode( 'DlgResult' );
-            let bankerSid =GameMsgHandler.getBankerSid()  ;
-            let baseScore = GameMsgHandler.getData().baseScore ;
-            let scores = GameMsgHandler.getStateResult();
-            let seats  = GameMsgHandler.getSeats();
+            // let bankerSid =GameMsgHandler.getBankerSid()  ;
+            // let baseScore = GameMsgHandler.getData().baseScore ;
+            // let scores = GameMsgHandler.getStateResult();
+            // let seats  = GameMsgHandler.getSeats();
             // List
-            let once = true; // 用来标记庄家动画是否播放过
+            // let once = true; // 用来标记庄家动画是否播放过
             
-            let comGoldActionLayer = this._target._goldActionLayer;
-            if( !comGoldActionLayer ) return ;
-            _.each( seats , (seat,i)=>{
-                let user = seat.user ;
-                let isPlaying = user ? GameMsgHandler.isPlayerPlaying(user.id) : false ;
-                if( user && isPlaying ){
-                    // let item = [ user.nick , seat.hand.formation.cards , oxname , scores[i].score.change , (banker == i) , ( mySid == i ) ];
-                    let getHeadPos = ( sid )=>{  
-                        let ndHead          = $G.gCData.gComPlayers[ GameMsgHandler.getCid( sid ) ].ndHead ;
-                        let worldPos        = ndHead.parent.convertToWorldSpaceAR( ndHead.getPosition() );
-                        let convertPos      = this._target._ui.ndRoot.convertToNodeSpaceAR( worldPos );
-                        return convertPos; 
-                    } ;
-                    if( GameMsgHandler.getBankerSid() != i ){
-                        cc.log( '######123' ,scores , isPlaying , scores[i] , i )
-                        if(scores[i].score.change < 0){
-                            comGoldActionLayer.playerMoveBanker( Math.abs( scores[i].score.change ) / baseScore , getHeadPos( i ) , getHeadPos( bankerSid ) );
-                            if( once ){
-                                let time = comGoldActionLayer.playerToBankerTime + comGoldActionLayer.timeSum   ;
-                                this._comScheduler2.once( 'showAnimation' ,  ()=>{
-                                    $G.gCData.gComPlayers[ GameMsgHandler.getCid( bankerSid ) ].showAnimation();
-                                },time);
-                            }
-                            once = false; 
-                        }else{
-                            comGoldActionLayer.bankerMovePlayer( Math.abs( scores[i].score.change ) / baseScore , getHeadPos( bankerSid ) , getHeadPos( i ) );
-                        }
-                    }
-                }
-            });
-            let haveWin = _.find( seats , (seat,i)=>{ 
-                let user = seat.user ;
-                let isPlaying = user ? GameMsgHandler.isPlayerPlaying(user.id) : false ;
-                if( user && isPlaying ){
-                    if( GameMsgHandler.getBankerSid() != i ){
-                         return scores[i].score.change > 0;
-                    }
-                }
-            })
-            let time = comGoldActionLayer.playerToBankerTime + comGoldActionLayer.timeSum   ;
-            // Self Win
-            let isPlaying = GameMsgHandler.isSelfPlaying() ;
-            this._comScheduler2.once( 'updateRoundScore' ,  ()=>{
-                if(isPlaying){
-                    let isWin = scores[ GameMsgHandler.getSid(0) ].score.change >=0 ;
-                    this._target._ui.showResultTitle(isWin);
-                    if(scores[ GameMsgHandler.getSid(0) ].score.play > scores[ GameMsgHandler.getSid(0) ].score.result)this._target._ui.showMostWin();
-                }
-                this.updateRoundScore();
-                // this._resetAll();
-                // this._comScheduler2.clearAll();
-            } , time * (haveWin ? 2 : 1)) ;
+            // let comGoldActionLayer = this._target._goldActionLayer;
+            // if( !comGoldActionLayer ) return ;
+            // _.each( seats , (seat,i)=>{
+            //     let user = seat.user ;
+            //     let isPlaying = user ? GameMsgHandler.isPlayerPlaying(user.id) : false ;
+            //     if( user && isPlaying ){
+            //         // let item = [ user.nick , seat.hand.formation.cards , oxname , scores[i].score.change , (banker == i) , ( mySid == i ) ];
+            //         let getHeadPos = ( sid )=>{  
+            //             let ndHead          = $G.gCData.gComPlayers[ GameMsgHandler.getCid( sid ) ].ndHead ;
+            //             let worldPos        = ndHead.parent.convertToWorldSpaceAR( ndHead.getPosition() );
+            //             let convertPos      = this._target._ui.ndRoot.convertToNodeSpaceAR( worldPos );
+            //             return convertPos; 
+            //         } ;
+            //         if( GameMsgHandler.getBankerSid() != i ){
+            //             cc.log( '######123' ,scores , isPlaying , scores[i] , i )
+            //             if(scores[i].score.change < 0){
+            //                 comGoldActionLayer.playerMoveBanker( Math.abs( scores[i].score.change ) / baseScore , getHeadPos( i ) , getHeadPos( bankerSid ) );
+            //                 if( once ){
+            //                     let time = comGoldActionLayer.playerToBankerTime + comGoldActionLayer.timeSum   ;
+            //                     this._comScheduler2.once( 'showAnimation' ,  ()=>{
+            //                         $G.gCData.gComPlayers[ GameMsgHandler.getCid( bankerSid ) ].showAnimation();
+            //                     },time);
+            //                 }
+            //                 once = false; 
+            //             }else{
+            //                 comGoldActionLayer.bankerMovePlayer( Math.abs( scores[i].score.change ) / baseScore , getHeadPos( bankerSid ) , getHeadPos( i ) );
+            //             }
+            //         }
+            //     }
+            // });
+            // let haveWin = _.find( seats , (seat,i)=>{ 
+            //     let user = seat.user ;
+            //     let isPlaying = user ? GameMsgHandler.isPlayerPlaying(user.id) : false ;
+            //     if( user && isPlaying ){
+            //         if( GameMsgHandler.getBankerSid() != i ){
+            //              return scores[i].score.change > 0;
+            //         }
+            //     }
+            // })
+            // let time = comGoldActionLayer.playerToBankerTime + comGoldActionLayer.timeSum   ;
+            // // Self Win
+            // let isPlaying = GameMsgHandler.isSelfPlaying() ;
+            // this._comScheduler2.once( 'updateRoundScore' ,  ()=>{
+            //     if(isPlaying){
+            //         let isWin = scores[ GameMsgHandler.getSid(0) ].score.change >=0 ;
+            //         this._target._ui.showResultTitle(isWin);
+            //         if(scores[ GameMsgHandler.getSid(0) ].score.play > scores[ GameMsgHandler.getSid(0) ].score.result)this._target._ui.showMostWin();
+            //     }
+            //     this.updateRoundScore();
+            //     // this._resetAll();
+            //     // this._comScheduler2.clearAll();
+            // } , time * (haveWin ? 2 : 1)) ;
         });
 
         // 游戏开始倒计时
@@ -186,8 +187,8 @@ cc.Class({
         // 游戏倒计时结束（ 认识不足无法开始 ）
         NTF.register( ACFG.RoomStateTimerStop , ()=>{
             // TODO:
-            this._target._ui.showCountDown( 0 , false );
-            if(GameMsgHandler.getData().type == 2)this._target._ui.showMatching();
+            // this._target._ui.showCountDown( 0 , false );
+            // if(GameMsgHandler.getData().type == 2)this._target._ui.showMatching();
         });
 
         // 玩家牛币变动
@@ -197,7 +198,7 @@ cc.Class({
 
         // 房间解散
         NTF.register( ACFG.DISMISS_ROOM , ()=>{
-            GameLogic.leaveRoom( true ) ;
+            // GameLogic.leaveRoom( true ) ;
         });
 
         // 进入房间 - 平时不会触发，当在结算界面点击别人分享的微信链接回到游戏时，会触发
@@ -224,11 +225,11 @@ cc.Class({
         // LEAVE_ROOM
         NTF.register( ACFG.LEAVE_ROOM , (event)=>{ 
             
-            if( Constants.ClearReason.REQUEST() != event.detail ){
-                GameLogic.leaveRoom();
-            }
-            this._comScheduler2.clearAll();
-            this._resetAll();
+            // if( Constants.ClearReason.REQUEST() != event.detail ){
+            //     GameLogic.leaveRoom();
+            // }
+            // this._comScheduler2.clearAll();
+            // this._resetAll();
         });
 
 
@@ -239,182 +240,191 @@ cc.Class({
         // Round
         NTF.register( ACFG.ROUND_BEGIN , ()=>{
             // this._target._ui.lbGameTurn.string = GameMsgHandler.getRoundInfo();
-            this._target._ui.showCountDown( 0 , false );
-            this._target._ui.showArmGameStart( true );
-            this._target._ui.showDealerSpeak( GameMsgHandler.getData().area ? GameMsgHandler.getData().area : 0 );
+            // this._target._ui.showCountDown( 0 , false );
+            // this._target._ui.showArmGameStart( true );
+            // this._target._ui.showDealerSpeak( GameMsgHandler.getData().area ? GameMsgHandler.getData().area : 0 );
         });
         
 
         // 掉线
         NTF.register( ACFG.PLAYER_HOST       , (event)=>{
-            $G.gCData.gComPlayers[GameMsgHandler.getCid(event.detail.seat)].showMiss( event.detail.hosting ) ;
+            // $G.gCData.gComPlayers[GameMsgHandler.getCid(event.detail.seat)].showMiss( event.detail.hosting ) ;
         });
 
         // 玩家加入、玩家退出
         NTF.register( ACFG.ADD_PLAYER        , (event)=>{ 
-            if(event.detail.user.id == UserHandler.getId() && GameMsgHandler.getRoomStateType() == 1){
-                GameMsgHandler.resetData();
-                this.jumpRoomState(GameMsgHandler.getRoomStateType());
-            }else{
-                this.updatePlayer( GameMsgHandler.getCid(event.detail.index) )     
-            }
+            // if(event.detail.user.id == UserHandler.getId() && GameMsgHandler.getRoomStateType() == 1){
+            //     GameMsgHandler.resetData();
+            //     this.jumpRoomState(GameMsgHandler.getRoomStateType());
+            // }else{
+            //     this.updatePlayer( GameMsgHandler.getCid(event.detail.index) )     
+            // }
         } );
-        NTF.register( ACFG.REMOVE_PLAYER     , (event)=>{ this.updatePlayer( GameMsgHandler.getCid(event.detail) )} );
+        //移除玩家
+        // NTF.register( ACFG.REMOVE_PLAYER     , (event)=>{ this.updatePlayer( GameMsgHandler.getCid(event.detail) )} );
 
         // 准备、叫庄、下注
-        NTF.register( ACFG.PLAYER_READY      , (event)=>{ this.updatePlayerState( GameMsgHandler.getCid(event.detail.seat) )} );
-        NTF.register( ACFG.PLAYER_BANKER     , (event)=>{ this.updatePlayerState( GameMsgHandler.getCid(event.detail.seat) )} );
-        NTF.register( ACFG.PLAYER_BID        , (event)=>{ this.updatePlayerState( GameMsgHandler.getCid(event.detail.seat) )} );
+        // NTF.register( ACFG.PLAYER_READY      , (event)=>{
+        //      this.updatePlayerState( GameMsgHandler.getCid(event.detail.seat) )} 
+        //     );
+        NTF.register( ACFG.PLAYER_BANKER     , (event)=>{
+            cc.log("【玩家抢庄的位置】",event.detail.seat)
+             this.updatePlayerState( GameMsgHandler.getCid(event.detail.seat) )} 
+            );
+        NTF.register( ACFG.PLAYER_BID        , (event)=>{
+            cc.log("【玩家下注的位置】",event.detail.seat)
+             this.updatePlayerState( GameMsgHandler.getCid(event.detail.seat) )} 
+            );
         
         // 系统决定庄家
         NTF.register( ACFG.ROOM_BANKER       , (event)=>{ 
             // AudioMgr_Game.playSpecial('banker');
-            if(event.detail == null){
+            // if(event.detail == null){
 
-            }else{
-                this._comRandomBanker.enableBankerAction(true);
-            }
+            // }else{
+            //     this._comRandomBanker.enableBankerAction(true);
+            // }
         });
         
         // 玩家的手牌
         NTF.register( ACFG.PLAYER_ADD_CARDS  , (event)=>{ 
-            let cards = event.detail ;
+            // let cards = event.detail ;
 
-            // 显示手牌
-            let time  = 0.125 ;
-            let start = this._startAniTime ;
-            let comCards = [];
-            let delay    = 0;
-            let showAction = GameMsgHandler.getRoomStateType() === 2 || GameMsgHandler.getRoomStateType() === 5 ;
-            // let showAction = true ;
-            _.each( cards , (card,i)=>{
-                delay = ( time * ( i + 1 )) + start ;
-                this._comScheduler.once( 'AddCards' ,  ()=>{
-                    AudioMgr_Game.playSpecial('dispatch');
-                    comCards.push( $G.gCData.gComPlayers[ 0 ].addCard( 1 , card , !showAction , false ));
-                    _.each( GameMsgHandler.getSeats() , (seat,index)=>{
-                        let cid = GameMsgHandler.getCid( index );
-                        if( cid > 0 && seat && seat.user){
-                            let isPlaying = GameMsgHandler.isPlayerPlaying( seat.user.id );
-                            if( isPlaying ){
-                                $G.gCData.gComPlayers[ cid ].addCard( 1 , card , false );
-                            }
-                        }
-                    });
-                } , delay);
-            });
-            if( showAction ){
-                delay += ( time * comCards.length ) ;
-                this._comScheduler.once( 'FlipCards' , ()=>{ _.each( comCards , (card)=>{
-                    if(comCards.length == 1 && GameMsgHandler.canRubCard()) {
+            // // 显示手牌
+            // let time  = 0.125 ;
+            // let start = this._startAniTime ;
+            // let comCards = [];
+            // let delay    = 0;
+            // let showAction = GameMsgHandler.getRoomStateType() === 2 || GameMsgHandler.getRoomStateType() === 5 ;
+            // // let showAction = true ;
+            // _.each( cards , (card,i)=>{
+            //     delay = ( time * ( i + 1 )) + start ;
+            //     this._comScheduler.once( 'AddCards' ,  ()=>{
+            //         AudioMgr_Game.playSpecial('dispatch');
+            //         comCards.push( $G.gCData.gComPlayers[ 0 ].addCard( 1 , card , !showAction , false ));
+            //         _.each( GameMsgHandler.getSeats() , (seat,index)=>{
+            //             let cid = GameMsgHandler.getCid( index );
+            //             if( cid > 0 && seat && seat.user){
+            //                 let isPlaying = GameMsgHandler.isPlayerPlaying( seat.user.id );
+            //                 if( isPlaying ){
+            //                     $G.gCData.gComPlayers[ cid ].addCard( 1 , card , false );
+            //                 }
+            //             }
+            //         });
+            //     } , delay);
+            // });
+            // if( showAction ){
+            //     delay += ( time * comCards.length ) ;
+            //     this._comScheduler.once( 'FlipCards' , ()=>{ _.each( comCards , (card)=>{
+            //         if(comCards.length == 1 && GameMsgHandler.canRubCard()) {
 
-                    }else{
-                        card.showCardFrontWithFlipAction()
-                    }
-                    }) 
-                } , delay );
-            }
-            delay += 1 ;  
+            //         }else{
+            //             card.showCardFrontWithFlipAction()
+            //         }
+            //         }) 
+            //     } , delay );
+            // }
+            // delay += 1 ;  
 
-            if(GameMsgHandler.getCardsByCid(0).length == 4 || !GameMsgHandler.canRubCard()) this._comScheduler.once( 'ChooseCards' , ()=>{ this.updateCardsChoosed(); } , delay );
+            // if(GameMsgHandler.getCardsByCid(0).length == 4 || !GameMsgHandler.canRubCard()) this._comScheduler.once( 'ChooseCards' , ()=>{ this.updateCardsChoosed(); } , delay );
            
         });
 
         // 摆牛完成
         NTF.register( ACFG.PLAYER_PLAY          , (event)=>{ 
-            let com = $G.gCData.gComPlayers[ GameMsgHandler.getCid( event.detail.seat ) ];
-            com.moveCardsToShowArea();
-            com.showOxResult(-1);
-            let count = 5 ;
+            // let com = $G.gCData.gComPlayers[ GameMsgHandler.getCid( event.detail.seat ) ];
+            // com.moveCardsToShowArea();
+            // com.showOxResult(-1);
+            // let count = 5 ;
             
-            let cards = [];
-            _.times( count , ()=>{
-                cards.push( {point:1,suit:1} );
-            });
-            com.removeCards( 1 );
-            com.removeCards( 2 );
-            //  用于解决，亮牌瞬间断线续玩动画延迟等问题
-            if(GameMsgHandler.getCid( event.detail.seat ) == 0){
-                this._comScheduler.clear('FlipCards');
-                this._comScheduler.clear('AddCards');
-                this._comScheduler.clear('showBanker');
-                this._comScheduler.clear('_bankerAction');
-                // this.showBanker( GameMsgHandler.getCid( GameMsgHandler.getBankerSid() ) );
-            }
-            com.addCards( 2 , cards , false );
-            this.updateSelfBtns();
-
-            // @ temp remove
-            // let ndRubCard = cc.find( 'ndRubCard' , cc.director.getScene().getChildByName('Canvas') )
-            // if(ndRubCard && GameMsgHandler.getCid( event.detail.seat ) == 0){
-            //     ndRubCard.removeFromParent();
-            //     ndRubCard.destroy();
+            // let cards = [];
+            // _.times( count , ()=>{
+            //     cards.push( {point:1,suit:1} );
+            // });
+            // com.removeCards( 1 );
+            // com.removeCards( 2 );
+            // //  用于解决，亮牌瞬间断线续玩动画延迟等问题
+            // if(GameMsgHandler.getCid( event.detail.seat ) == 0){
+            //     this._comScheduler.clear('FlipCards');
+            //     this._comScheduler.clear('AddCards');
+            //     this._comScheduler.clear('showBanker');
+            //     this._comScheduler.clear('_bankerAction');
+            //     // this.showBanker( GameMsgHandler.getCid( GameMsgHandler.getBankerSid() ) );
             // }
+            // com.addCards( 2 , cards , false );
+            // this.updateSelfBtns();
+
+            // // @ temp remove
+            // // let ndRubCard = cc.find( 'ndRubCard' , cc.director.getScene().getChildByName('Canvas') )
+            // // if(ndRubCard && GameMsgHandler.getCid( event.detail.seat ) == 0){
+            // //     ndRubCard.removeFromParent();
+            // //     ndRubCard.destroy();
+            // // }
         });
 
         // 展示手牌
         NTF.register( ACFG.PLAYER_SHOW_HAND     , (event)=>{
-            this._target._ui.showClock(false);
+            // this._target._ui.showClock(false);
 
-            let formations = event.detail;
+            // let formations = event.detail;
 
-            let sids   = [];
-            _.times( Configs.Params.MaxPlayers.nn , (i)=>{  sids[i]=i; }) ;
-            let banker = GameMsgHandler.getBankerSid();
-            cc.log( 'banker:' + banker );
-            let cursid = banker ;
-            _.each( sids , (sid,index)=>{
-                cursid += 1 ;
-                if( cursid >= _.size(sids) ){
-                    cursid = 0 ;
-                } 
-                sids[index] = cursid ;
-            });
-            cc.log( sids );
+            // let sids   = [];
+            // _.times( Configs.Params.MaxPlayers.nn , (i)=>{  sids[i]=i; }) ;
+            // let banker = GameMsgHandler.getBankerSid();
+            // cc.log( 'banker:' + banker );
+            // let cursid = banker ;
+            // _.each( sids , (sid,index)=>{
+            //     cursid += 1 ;
+            //     if( cursid >= _.size(sids) ){
+            //         cursid = 0 ;
+            //     } 
+            //     sids[index] = cursid ;
+            // });
+            // cc.log( sids );
 
-            let delay = 0.05 ;
-            _.each( sids , ( sid )=>{
-                let formation = formations[sid] ;
-                if( formation ){
-                    this._comScheduler.once( 'ShowCards' ,  ()=>{
-                        let com = $G.gCData.gComPlayers[ GameMsgHandler.getCid( sid ) ];
-                        com.removeCards( 1 );
-                        com.removeCards( 2 );
-                        com.addCards( 2 , formation.cards , true );
-                        let index = this._target._logic.getIndex( formation.type , formation.value );
-                        com.showOxResult( index ); // 0.2 s
+            // let delay = 0.05 ;
+            // _.each( sids , ( sid )=>{
+            //     let formation = formations[sid] ;
+            //     if( formation ){
+            //         this._comScheduler.once( 'ShowCards' ,  ()=>{
+            //             let com = $G.gCData.gComPlayers[ GameMsgHandler.getCid( sid ) ];
+            //             com.removeCards( 1 );
+            //             com.removeCards( 2 );
+            //             com.addCards( 2 , formation.cards , true );
+            //             let index = this._target._logic.getIndex( formation.type , formation.value );
+            //             com.showOxResult( index ); // 0.2 s
 
-                        let sexIsMan = GameMsgHandler.getUserBySid( sid ).sex == 0 ;
-                        AudioMgr_Game.playPokerType( index , sexIsMan );
-                    } , delay );
-                    delay += 0.4 ;
-                }
-            });
+            //             let sexIsMan = GameMsgHandler.getUserBySid( sid ).sex == 0 ;
+            //             AudioMgr_Game.playPokerType( index , sexIsMan );
+            //         } , delay );
+            //         delay += 0.4 ;
+            //     }
+            // });
         });
         
         // 自己在旁观 -> 展示卡背
         NTF.register( ACFG.PLAYER_SHOW_CARDS   , (event)=>{ 
-            let isSelfPlaying = GameMsgHandler.isSelfPlaying();
-            if( isSelfPlaying ) return ;
+            // let isSelfPlaying = GameMsgHandler.isSelfPlaying();
+            // if( isSelfPlaying ) return ;
 
-            let sid   = event.detail.seat ;
-            let count = event.detail.cards ;
-            count = count == 1 ? 5 : count ;
+            // let sid   = event.detail.seat ;
+            // let count = event.detail.cards ;
+            // count = count == 1 ? 5 : count ;
 
-            let cards = [];
-            _.times( count , ()=>{
-                cards.push( {point:1,suit:1} );
-            });
-            let com = $G.gCData.gComPlayers[ GameMsgHandler.getCid( sid ) ];
-            com.removeCards( 1 );
-            com.addCards( 1 , cards , false );
+            // let cards = [];
+            // _.times( count , ()=>{
+            //     cards.push( {point:1,suit:1} );
+            // });
+            // let com = $G.gCData.gComPlayers[ GameMsgHandler.getCid( sid ) ];
+            // com.removeCards( 1 );
+            // com.addCards( 1 , cards , false );
         });
 
         
 
         // 魔窗
         NTF.register( NOTIFY_MAGIC_WINDOW , (event)=>{ 
-            FuncHelper.addFunc( MWHelper.checkAndExecute , GameHelper.isLogined );
+            // FuncHelper.addFunc( MWHelper.checkAndExecute , GameHelper.isLogined );
         });
 
     },
@@ -426,10 +436,10 @@ cc.Class({
     initRoomInfo : function(){
         let infos = GameMsgHandler.getRoomInfos();
         this._target._ui.showRoomInfo( infos );
-        this._target._ui.lbRoomType.string =  GameMsgHandler.getData().type == 2 ? '房型：' + $G.gStrings.Room.names[ GameMsgHandler.getData().area - 1 ] : '房号：' + GameMsgHandler.getData().id ;
-        this._target._ui.lbScoreMin.string =  '准入：' + StringHelper.getValueChinese( GameMsgHandler.getData().scoreMin );
+        // this._target._ui.lbRoomType.string =  GameMsgHandler.getData().type == 2 ? '房型：' + $G.gStrings.Room.names[ GameMsgHandler.getData().area - 1 ] : '房号：' + GameMsgHandler.getData().id ;
+        // this._target._ui.lbScoreMin.string =  '准入：' + StringHelper.getValueChinese( GameMsgHandler.getData().scoreMin );
         // this._target._ui.ndBtnChangeTable.active = GameMsgHandler.getData().type == 2 ;
-        this._target._ui.ndBtnCopyRoomId.active  = GameMsgHandler.getData().type == 3 ;
+        // this._target._ui.ndBtnCopyRoomId.active  = GameMsgHandler.getData().type == 3 ;
     },
 
      /**
@@ -449,9 +459,10 @@ cc.Class({
      */
     initPlayers : function(){
         let maxRight = parseInt( this._playersNumMax / 2 );
-        _.times( this._playersNumMax , function( cid ){
+        _.times( 1 , function( cid ){
             let node = ( cid == 0 ) ? cc.instantiate( this._target._ui.pbActorSelf ) : cc.instantiate( this._target._ui.pbActorLeft ) ;
-            node.active = false ;
+            // let node = ( cid == 0 ) ? cc.instantiate( this._target._ui.pbActorSelf ) : cc.instantiate( this._target._ui.pbActorLeft ) ;
+            node.active = true ;
             let com = node.getComponent('PbPlayer_NN');
             com.init( cid );
             if( cid >= 1 && cid <= maxRight ){
@@ -460,6 +471,7 @@ cc.Class({
             $G.gCData.gComPlayers[ cid ] = com ;
             let name = '' + cid ;
             this._target._ui.ndActorPosContainer.getChildByName(name).addChild( node );
+            // this._target._ui.ndActorPosContainer.getChildByName(name).active = true;
         } , this );
     },
 
@@ -502,11 +514,11 @@ cc.Class({
            ( GameMsgHandler.getData().bankerMode == 1 && GameMsgHandler.getRoomStateType() == 4) ){
             if( banker != null ){
                 let bankerCid = GameMsgHandler.getCid( banker );
-                this.showBanker( bankerCid );
+                // this.showBanker( bankerCid );
             }
         }
         
-        this.updateCardsAll();
+        // this.updateCardsAll();
     },
 
 
@@ -527,10 +539,10 @@ cc.Class({
         com.showScore( user.score ? user.score : 0 );
         com.showMiss( GameMsgHandler.getSeatByCid(cid).hosting );
         com.showHead( user.head );
-        if(GameMsgHandler.getCurrentRound() <= 1){
-            com.showReady( GameMsgHandler.getSeatByCid(cid).ready );
-        }
-        this.updatePlayerState( cid );
+        // if(GameMsgHandler.getCurrentRound() <= 1){
+        //     com.showReady( GameMsgHandler.getSeatByCid(cid).ready );
+        // }
+        // this.updatePlayerState( cid );
 
 
         // Debug - 显示全部玩家的UI
@@ -547,7 +559,7 @@ cc.Class({
       showBanker : function( index ){
         this.bankerActionOver = true ;
 
-        AudioMgr_Game.playSpecial('banker');
+        // AudioMgr_Game.playSpecial('banker');
 
         this._comFunc.execute();
         
@@ -598,73 +610,82 @@ cc.Class({
                 case 0 : 
                     break;
                 case 1 :
-                    this._resetAll();
-                    this.updatePlayers();
-                    this.updateEvenyRound(); 
-                    this._target.node.removeChildByTag(9999);
-                    this._target._ui.showClock(false);
-                    this._target._ui.showCountDown( GameMsgHandler.getData().state.timer ? GameMsgHandler.getData().state.timer / 1000 : 0 , true );
-                    if(GameMsgHandler.getData().type == 2 && !GameMsgHandler.getData().playing && !GameMsgHandler.getData().state.timer)this._target._ui.showMatching();
+                    // this._resetAll();
+                    // this.updatePlayers();
+                    // this.updateEvenyRound(); 
+                    // this._target.node.removeChildByTag(9999);
+                    // this._target._ui.showClock(false);
+                    // cc.log("【时间111】",GameMsgHandler.getData().state.time)
+                    this._target._ui.showCountDown( GameMsgHandler.getData().state.time ? GameMsgHandler.getData().state.time / 1000 : 0 , true );
+                    // if(GameMsgHandler.getData().type == 2 && !GameMsgHandler.getData().playing && !GameMsgHandler.getData().state.timer)this._target._ui.showMatching();
                     break;
                 case 2 :
+                    // cc.log("【时间222】",GameMsgHandler.getData().state.time)
                     if( GameMsgHandler.getRoomStateType() === 2 ){
-                        AudioMgr_Game.playSpecial('start');
-                        // this._target._ui.showCountDown( 0 , false );
+                        // AudioMgr_Game.playSpecial('start');
+                        this._target._ui.showCountDown( GameMsgHandler.getData().state.time ? GameMsgHandler.getData().state.time / 1000 : 0 , true );
                         // this._target._ui.showArmGameStart( true );
                     }
                     // 固定庄模式/轮庄模式直接显示庄家
-                    if(( GameMsgHandler.getData().bankerMode == 3 )||( GameMsgHandler.getData().bankerMode == 2 && GameMsgHandler.getCurrentRound() >= 1 )  ){
-                        let banker = GameMsgHandler.getData().state.banker ;
-                        if( banker != null ) $G.gCData.gComPlayers[ GameMsgHandler.getCid( banker )].showBanker( true ); 
-                        // this.showBanker( banker );
-                    }
-                    this.clearAllPlayersState();
+                    // if(( GameMsgHandler.getData().bankerMode == 3 )||( GameMsgHandler.getData().bankerMode == 2 && GameMsgHandler.getCurrentRound() >= 1 )  ){
+                    //     let banker = GameMsgHandler.getData().state.banker ;
+                    //     if( banker != null ) $G.gCData.gComPlayers[ GameMsgHandler.getCid( banker )].showBanker( true ); 
+                    //     // this.showBanker( banker );
+                    // }
+                    // this.clearAllPlayersState();
                     break;
                 case 3 :
-                    this._target._ui.showClock( true , GameMsgHandler.getRoomState().time / 1000 );
+                // cc.log("【时间333】",GameMsgHandler.getData().state.time)
+                this._target._ui.showCountDown( GameMsgHandler.getData().state.time ? GameMsgHandler.getData().state.time / 1000 : 0 , true );
                     break;
                 case 4 :
-                    this.clearAllPlayersState();
-                    this._target._ui.showClock(false);
+                // cc.log("【时间444】",GameMsgHandler.getData().state.time)
+                this._target._ui.showCountDown( GameMsgHandler.getData().state.time ? GameMsgHandler.getData().state.time / 1000 : 0 , true );
+                this._target._ui.BetButton(true);
+                    // this.clearAllPlayersState();
+                    // this._target._ui.showClock(false);
                     if(( GameMsgHandler.getData().bankerMode == 3 )||( GameMsgHandler.getData().bankerMode == 2 && GameMsgHandler.getCurrentRound() >= 1 )  ){
-                        this._target._ui.showClock( true , GameMsgHandler.getRoomState().time / 1000);
+                        this._target._ui.showCountDown( GameMsgHandler.getData().state.time ? GameMsgHandler.getData().state.time / 1000 : 0 , true );
                     }
-                    if( GameMsgHandler.getData().bankerMode == 1 ){
-                        let BankerList =  this._comRandomBanker.getBankerList();
-                        if( BankerList != null && this._comRandomBanker.couldShowBankerAction ){
-                            this.bankerActionOver = false ;
-                            let TimeList = this._comRandomBanker.getTimeList();
-                            _.each(BankerList , (banker,index)=>{
-                                if(index > 0){
-                                    this._comScheduler.once("_bankerAction",()=>{this._bankerAction(BankerList[index - 1],banker);},TimeList[index] );
-                                }else{
-                                    this._comScheduler.once("_bankerAction",()=>{this._bankerAction(null,banker);},TimeList[index] );
-                                }
-                                if(index== _.size(BankerList) -1){
-                                    // this.scheduleOnce(()=>this.showBanker( GameMsgHandler.getCid( GameMsgHandler.getBankerSid() ) ),TimeList[index]);
-                                    this._comScheduler.once("showBanker",()=>this.showBanker( GameMsgHandler.getCid( GameMsgHandler.getBankerSid() ) ),TimeList[index]);
-                                }
-                            });
-                        }else{
-                            this.showBanker( GameMsgHandler.getCid( GameMsgHandler.getBankerSid() ) );
-                        }
-                    }
+                    // if( GameMsgHandler.getData().bankerMode == 1 ){
+                    //     let BankerList =  this._comRandomBanker.getBankerList();
+                    //     if( BankerList != null && this._comRandomBanker.couldShowBankerAction ){
+                    //         this.bankerActionOver = false ;
+                    //         let TimeList = this._comRandomBanker.getTimeList();
+                    //         _.each(BankerList , (banker,index)=>{
+                    //             if(index > 0){
+                    //                 this._comScheduler.once("_bankerAction",()=>{this._bankerAction(BankerList[index - 1],banker);},TimeList[index] );
+                    //             }else{
+                    //                 this._comScheduler.once("_bankerAction",()=>{this._bankerAction(null,banker);},TimeList[index] );
+                    //             }
+                    //             if(index== _.size(BankerList) -1){
+                    //                 // this.scheduleOnce(()=>this.showBanker( GameMsgHandler.getCid( GameMsgHandler.getBankerSid() ) ),TimeList[index]);
+                    //                 this._comScheduler.once("showBanker",()=>this.showBanker( GameMsgHandler.getCid( GameMsgHandler.getBankerSid() ) ),TimeList[index]);
+                    //             }
+                    //         });
+                    //     }else{
+                    //         this.showBanker( GameMsgHandler.getCid( GameMsgHandler.getBankerSid() ) );
+                    //     }
+                    // }
                     break;
                 case 5 :
-                    this._target._ui.showClock( false );
+                    this._target._ui.BetButton(false);
+                    // this._target._ui.showClock( false );
                     break;
                 case 6 :
-                    this._target._ui.showClock( true , GameMsgHandler.getRoomState().time / 1000 );
-                    this.updateOxAutoBtnText();
+                    this._target._ui.showSureButton(true);
+                    // this._target._ui.showClock( true , GameMsgHandler.getRoomState().time / 1000 );
+                    // this.updateOxAutoBtnText();
                     break;
                 case 7 :
+                    this._target._ui.showSureButton(false)
                     // PBHelper.addNode( 'DlgResult' );
                     // this._resetAll();
                     break;
             }
 
             // 从前面移到了末尾，因为 bankerActionOver 字段会影响selfBtn
-            this.updateSelfBtns();
+            // this.updateSelfBtns();
         },
 
        /**
@@ -688,6 +709,8 @@ cc.Class({
         * updatePlayerState : cid
         */
         updatePlayerState : function( cid ){
+            cc.log("【传进来的cid】",cid);
+            cc.log("【玩家的seat】",GameMsgHandler.getSeatByCid(cid))
             let seat  = GameMsgHandler.getSeatByCid(cid);
             let currentState = GameMsgHandler.getRoomStateType();
             let com  = $G.gCData.gComPlayers[cid];
@@ -715,15 +738,15 @@ cc.Class({
                     AudioMgr_Game.playRob( seat.banker , ( seat.user.sex == 0 ) );
                     break;
                 case 4 :
-                    this._comFunc.addFunc( ()=>{
+                    // this._comFunc.addFunc( ()=>{
                         com.showState( null );
-                        let bid = seat.bid
-                        if(!isPlaying)bid = null
-                        com.showCallScore( bid );
-                        AudioMgr_Game.playScore( seat.bid , seat.user.sex == 0 );
-                    },()=>{
-                        return this.bankerActionOver ;
-                    });
+                        let score = seat.bid
+                        if(!isPlaying) score = null
+                        com.showCallScore( score );
+                    //     AudioMgr_Game.playScore( seat.bid , seat.user.sex == 0 );
+                    // },()=>{
+                    //     return this.bankerActionOver ;
+                    // });
                     break;
                 case 5 :
                     break;

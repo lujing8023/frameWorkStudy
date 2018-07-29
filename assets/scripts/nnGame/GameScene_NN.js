@@ -13,7 +13,8 @@ cc.Class({
     },
 
     start : function () {
-        AudioMgr_Game.playMusic("loadGameScene");
+        return;
+        // AudioMgr_Game.playMusic("loadGameScene");
         //MsgHelper
         MsgHelper.resumeMsgHelper();
         MsgHelper.check();
@@ -25,29 +26,30 @@ cc.Class({
     },
 
     _load : function(){
-         //coms
-         this._ui                    = this.getComponent('FKNN_UI');   //单独提供UI接口 , 不含逻辑 
-         this._ctl                   = this.addComponent("FKNN_Ctl");  //复合控制UI + 音效 + 逻辑等
-         this._logic                 = require('FKNN_Logic');          //牛牛算法
-         this._ntf                   = this.addComponent('ComNotify'); //控件 - Notify
-         this._comScheduler          = this.addComponent('ComScheduler') ;
+        //coms
+        this._ui                    = this.getComponent('FKNN_UI');   //单独提供UI接口 , 不含逻辑 
+        this._ctl                   = this.addComponent("FKNN_Ctl");  //复合控制UI + 音效 + 逻辑等
+        this._logic                 = require('FKNN_Logic');          //牛牛算法
+        this._ntf                   = this.addComponent('ComNotify'); //控件 - Notify
+        // this._comScheduler          = this.addComponent('ComScheduler') ;
         //  this._goldActionLayer       = cc.find('ndRoot/ComGoldActionLayer',this.node).getComponent('PbGoldActionLayer');   // GCoin动画层
+        // return;
 
          //init
-         this._ui.initNodes();
-         this._ctl.initRoomInfo();
-         this._ctl.initDealer();
+        //  this._ui.initNodes();
+        //  this._ctl.initRoomInfo();
+        //  this._ctl.initDealer();
          this._ctl.initPlayers();
-         // this._ctl.updatePlayers();
+        //  this._ctl.updatePlayers();
          // this._ctl.updateSelfBtns();
-         let state = GameMsgHandler.getRoomStateType() ;
-         this._ctl.jumpRoomState( state );
-         this._ctl.updatePlayers();
-         this._ctl.updateSelfBtns();
+        //  let state = GameMsgHandler.getRoomStateType() ;
+        //  this._ctl.jumpRoomState( state );
+        //  this._ctl.updatePlayers();
+        //  this._ctl.updateSelfBtns();
  
          //notifys
          this._ctl.initNotifys();
-         this._ui.updateTable();
+        //  this._ui.updateTable();
     },
 
     onButtonClicked : function( event , custom ){

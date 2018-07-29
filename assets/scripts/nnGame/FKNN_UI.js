@@ -12,85 +12,90 @@ cc.Class({
         pbActorLeft         : cc.Prefab ,
         ndActorPosContainer : cc.Node   ,
         
-        lbRoomInfo          : cc.Label  ,
-        lbFeeMode           : cc.Label  ,
-        lbGameMode          : cc.Label  ,
-        lbBankerMode        : cc.Label  ,
-        lbGameTurn          : cc.Label  ,
-        lbBaseScore         : cc.Label  ,
-        lbRoomType          : cc.Label  ,
-        lbScoreMin          : cc.Label  ,
+        // lbRoomInfo          : cc.Label  ,
+        // lbFeeMode           : cc.Label  ,
+        // lbGameMode          : cc.Label  ,
+        // lbBankerMode        : cc.Label  ,
+        // lbGameTurn          : cc.Label  ,
+        // lbBaseScore         : cc.Label  ,
+        // lbRoomType          : cc.Label  ,
+        // lbScoreMin          : cc.Label  ,
 
-        ndState             : cc.Node   , 
-        lbState             : cc.Label  ,
+        // ndState             : cc.Node   , 
+        // lbState             : cc.Label  ,
 
-        ndClock             : cc.Node   ,
+        // ndClock             : cc.Node   ,
 
-        armGameStart        : dragonBones.ArmatureDisplay   ,
+        // armGameStart        : dragonBones.ArmatureDisplay   ,
 
-        ndBtns_Init         : cc.Node   ,
+        // ndBtns_Init         : cc.Node   ,
         //wait,rob,bet,showOx(btnsPlay)
-        ndBtnsOfPlayer      : {
-            default         : [] ,
-            type            : cc.Node 
-        },
-        ndBtnSit            : cc.Node ,
+        // ndBtnsOfPlayer      : {
+        //     default         : [] ,
+        //     type            : cc.Node 
+        // },
+        // ndBtnSit            : cc.Node ,
 
-        lbOxAuto            : cc.Label  ,
+        // lbOxAuto            : cc.Label  ,
 
-        ndCardCalcContainer : cc.Node   ,
+        // ndCardCalcContainer : cc.Node   ,
 
         // ndMore              :  cc.Node ,
-        ndMoreBtns          :  cc.Node ,
-        ndCardCountBtns     :  cc.Node ,
-        ndVictory           :  cc.Node ,
-        ndFailure           :  cc.Node ,
+        // ndMoreBtns          :  cc.Node ,
+        // ndCardCountBtns     :  cc.Node ,
+        // ndVictory           :  cc.Node ,
+        // ndFailure           :  cc.Node ,
 
-        lbRoundCost         : cc.Label ,
-        lbCountDown         : cc.Label ,
-        lbMostWin           : cc.Label ,
+        // lbRoundCost         : cc.Label ,
+        ndCountDown            : cc.Node,
+        lbCountDown            : cc.Label ,
+        // lbMostWin           : cc.Label ,
         // ndGoldItem          :  cc.Node ,
 
-        pbarBattery         : cc.ProgressBar ,
+        // pbarBattery         : cc.ProgressBar ,
 
-        ndResultAni         : cc.Node  ,
+        // ndResultAni         : cc.Node  ,
 
-        ndRoot              : cc.Node  ,
+        // ndRoot              : cc.Node  ,
 
-        ndBtnChangeTable    : cc.Node  ,
-        ndBtnCopyRoomId     : cc.Node  ,
-        ndDealerSpeak       : cc.Node  ,
+        // ndBtnChangeTable    : cc.Node  ,
+        // ndBtnCopyRoomId     : cc.Node  ,
+        // ndDealerSpeak       : cc.Node  ,
 
-        ndMic                       : cc.Node   ,
-        ndClockContainer            : cc.Node   ,
-        ndVoiceStateContainer       : cc.Node   ,
-        ndGoldActionLayerContainer  : cc.Node   ,
+        // ndMic                       : cc.Node   ,
+        // ndClockContainer            : cc.Node   ,
+        // ndVoiceStateContainer       : cc.Node   ,
+        // ndGoldActionLayerContainer  : cc.Node   ,
 
-        spTableBg                   : cc.Sprite ,
-        spTableL                    : cc.Sprite ,
-        spTableR                    : cc.Sprite ,
-        spDealer                    : cc.Sprite ,
+        // spTableBg                   : cc.Sprite ,
+        // spTableL                    : cc.Sprite ,
+        // spTableR                    : cc.Sprite ,
+        // spDealer                    : cc.Sprite ,
 
-        ndTime                      : cc.Node   ,
+        // ndTime                      : cc.Node   ,
+
+        lbRoomID                       : cc.Label,
+        ndBetScoreButton               : cc.Node,
+        ndSureResultButton             : cc.Node,
     },  
 
     onLoad: function () {
-        this._comScheduler      = this.addComponent('ComScheduler') ;
-        this.ndDealerSpeak.active    = false;
-        this.lbRoundCost.node.active = false;
-        this.lbMostWin.node.active   = false;
-        // this.lbCountDown.node.active = false;
-        this.scoreTime              = 0.5 ;
-        this.waitTime               = 2 ;
-        this.roundCostTime          = 3 ;   //  提示收取手续费的展示时间
-        this.mostWinTime            = 5 ;   //  提示输赢不能超过携带值的展示时间
-        this.dealerSpeakTime        = 5 ;   //  荷官说话时间
-        this.ndMoreBtns.active      = false ;
-        this.ndCardCountBtns.active = false ;
-        this.ndVictory.active       = false ;
-        this.ndFailure.active       = false ;
+        // this._comScheduler      = this.addComponent('ComScheduler') ;
+        // this.ndDealerSpeak.active    = false;
+        // this.lbRoundCost.node.active = false;
+        // this.lbMostWin.node.active   = false;
+        this.lbCountDown.node.active = false;
+        // this.scoreTime              = 0.5 ;
+        // this.waitTime               = 2 ;
+        // this.roundCostTime          = 3 ;   //  提示收取手续费的展示时间
+        // this.mostWinTime            = 5 ;   //  提示输赢不能超过携带值的展示时间
+        // this.dealerSpeakTime        = 5 ;   //  荷官说话时间
+        // this.ndMoreBtns.active      = false ;
+        // this.ndCardCountBtns.active = false ;
+        // this.ndVictory.active       = false ;
+        // this.ndFailure.active       = false ;
         
-        this.isiwns = this.ndVictory.parent;
+        // this.isiwns = this.ndVictory.parent;
         // this.ndGoldItem.active = false ;
         // this.ndResultAni.active = false ;
 
@@ -114,7 +119,14 @@ cc.Class({
             },false);
         });
     },
-
+    //显示和隐藏下分按钮
+    BetButton:function(state = false){
+        this.ndBetScoreButton.active = state;
+    },
+    //显示确认按钮
+    showSureButton:function(state = false){
+        this.ndSureResultButton.active = state;
+    },
     updateTable : function () {
         if( this.spTableBg.spriteFrame == null ) this.spTableBg.spriteFrame = TexHelper.getTableBg();
 
@@ -149,10 +161,11 @@ cc.Class({
     showCountDown : function ( time = 0 , show = true ) {
         if(time <= 0 )this.lbCountDown.node.active = false ;
         if( show ){
-            this.lbCountDown.node.active = show ;
+            this.ndCountDown.active = show ;
+            this.lbCountDown.node.active = show;
             this._initTime( Math.ceil( time ) ) ;
         }else{
-            this.lbCountDown.node.active = show;
+            this.ndCountDown.active = show;
         }
     },
 
@@ -322,29 +335,31 @@ cc.Class({
 
     _initTime : function( time ){
         if( time <= 0 ) {
-            this.lbCountDown.node.active = false;
+            this.ndCountDown.active = false;
             return ;
         }
         if( time < 1 ) time = 0 ;
         this.timeOri   = time ;
         this.timeInt   = time ;
         this.timeFloat = time ;
-        this.lbCountDown.string = `游戏即将开始：${Math.ceil(time)}` ;
+        this.lbCountDown.string = time;
+        // this.lbCountDown.string = `游戏即将开始：${Math.ceil(time)}` ;
         this.scheduleActive  = true ;
     },
 
     _updateTime : function(){
         this.timeInt -- ;
         if( this.timeInt < 0 ) return ;
-        this.lbCountDown.string = `游戏即将开始：${Math.ceil(this.timeInt)}` ;
+        this.lbCountDown.string = Math.ceil(this.timeInt);
         // if( this.timeInt <= 2 )  AudioMgr_Game.playSpecial('alert');
     },
+
 
     _updateLight : function(dt){
         this.timeFloat -= dt ;
         if( this.timeFloat < 0 ){
             this._removeSchedule();
-            this.lbCountDown.node.active = false ;
+            this.ndCountDown.active = false ;
             return ;
         }
         let timeInt = Math.ceil( this.timeFloat ); 

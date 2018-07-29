@@ -28,19 +28,21 @@ cc.Class({
     },
     
     onInputFinished:function(roomId){
-        cc.vv.userMgr.enterRoom(roomId,function(ret){
-            if(ret.errcode == 0){
-                this.node.active = false;
-            }
-            else{
-                var content = "房间["+ roomId +"]不存在，请重新输入!";
-                if(ret.errcode == 4){
-                    content = "房间["+ roomId + "]已满!";
-                }
-                cc.vv.alert.show("提示",content);
-                this.onResetClicked();
-            }
-        }.bind(this)); 
+        // cc.vv.userMgr.enterRoom(roomId,function(ret){
+        //     if(ret.errcode == 0){
+        //         this.node.active = false;
+        //     }
+        //     else{
+        //         var content = "房间["+ roomId +"]不存在，请重新输入!";
+        //         if(ret.errcode == 4){
+        //             content = "房间["+ roomId + "]已满!";
+        //         }
+        //         cc.vv.alert.show("提示",content);
+        //         this.onResetClicked();
+        //     }
+        // }.bind(this)); 
+        // var roomId = this.parseRoomID();
+        RoomServer.joinRoom( $G.gCData.gAreaType ,  roomId );
     },
     
     onInput:function(num){

@@ -18,9 +18,9 @@ var handler = module.exports ;
  * Data
  */
 handler.setData = function( msg ){
-    $G.gSData.gRoom = msg;
+    $G.gSData.gRoom = mssg;
 
-    // handler.updateSeatIds();
+    handler.updateSeatIds();
     handler.setRoomState(msg.state);
 };
 
@@ -82,13 +82,14 @@ handler.getRoomInfoNames = function(){
 
 handler.getRoomInfos = function(){
     let names = handler.getRoomInfoNames();
-    return [    `房号：${ names.id }`,
-                `${ names.payMode }`,
-                `底注：${ names.baseScore }`,
-                `${ names.timesMode }`,
-                `${ names.bankerMode }`,
-                handler.getRoundInfo()
-    ];
+    return  names.id//[    `房号：${ names.id }`,
+                // `${ names.payMode }`,
+                // `底注：${ names.baseScore }`,
+                // `${ names.timesMode }`,
+                // `${ names.bankerMode }`,
+                // handler.getRoundInfo()
+               
+    //];
 };
 
 handler.getRoundInfo = function(){

@@ -4737,7 +4737,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 19.47,
+      "width": 19,
       "height": 40
     },
     "_rotationX": 0,
@@ -4824,7 +4824,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 19.47,
+      "width": 19,
       "height": 40
     },
     "_rotationX": 0,
@@ -4911,7 +4911,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 19.47,
+      "width": 19,
       "height": 40
     },
     "_rotationX": 0,
@@ -4998,7 +4998,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 19.47,
+      "width": 19,
       "height": 40
     },
     "_rotationX": 0,
@@ -5085,7 +5085,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 19.47,
+      "width": 19,
       "height": 40
     },
     "_rotationX": 0,
@@ -5172,7 +5172,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 19.47,
+      "width": 19,
       "height": 40
     },
     "_rotationX": 0,
@@ -7313,7 +7313,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 22.25,
+      "width": 22,
       "height": 40
     },
     "_rotationX": 0,
@@ -7400,7 +7400,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 22.25,
+      "width": 22,
       "height": 40
     },
     "_rotationX": 0,
@@ -7487,7 +7487,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 22.25,
+      "width": 22,
       "height": 40
     },
     "_rotationX": 0,
@@ -7574,7 +7574,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 22.25,
+      "width": 22,
       "height": 40
     },
     "_rotationX": 0,
@@ -7661,7 +7661,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 22.25,
+      "width": 22,
       "height": 40
     },
     "_rotationX": 0,
@@ -7748,7 +7748,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 22.25,
+      "width": 22,
       "height": 40
     },
     "_rotationX": 0,

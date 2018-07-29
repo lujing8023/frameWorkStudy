@@ -36,38 +36,40 @@ cc.Class({
     },
 
     onLoad: function () {
-        let effHead= this.node.getChildByName('eff_head');
-        this.defaultNickFontSize = this.ndChatInfo.getChildByName('info').getComponent(cc.Label).fontSize   ; 
-        if(effHead) effHead.active                              = false ;
-        this.ndChatBubble.active                                = false ;
-        this.ndLoseScore.getChildByName('score').opacity        = 0;
-        this.ndWinScore.getChildByName('score').opacity         = 0;
-        this.ndLoseScore.active                                 = false ;
-        this.ndWinScore.active                                  = false ;
-        this._oxResultScale                                     = this.spOxResult.node.scale ;
-        this._bankerScale                                       = this.ndBanker.scale ;
-        this._chatSche                                          = null ;
-        this.scoreTime                                          = 0.5 ;
-        this.waitTime                                           = 4 ;
-        this.startPos                                           = cc.v2( this.ndLoseScore.getChildByName('score').getPosition().x , this.ndLoseScore.getChildByName('score').getPosition().y - 40 );
-        this._comScheduler                                      = this.addComponent('ComScheduler') ;
-        this._ntf                                               = this.addComponent('ComNotify');
-        this._ntf.register( NOTIFY_VOICE_PLAY_START , (event)=>{
-            if( event.detail.cid == this.cid ){
-                // this.ndChatBubble.active = true ;
-            }
-        });
-        this._ntf.register( NOTIFY_VOICE_PLAY_END , (event)=>{
-            this.ndChatBubble.active = false ;
-        });
-        this.resetAll();
+        this.spState.node.active = false;
+        // return;
+        // let effHead= this.node.getChildByName('eff_head');
+        // this.defaultNickFontSize = this.ndChatInfo.getChildByName('info').getComponent(cc.Label).fontSize   ; 
+        // // if(effHead) effHead.active                              = false ;
+        // this.ndChatBubble.active                                = false ;
+        // this.ndLoseScore.getChildByName('score').opacity        = 0;
+        // this.ndWinScore.getChildByName('score').opacity         = 0;
+        // this.ndLoseScore.active                                 = false ;
+        // this.ndWinScore.active                                  = false ;
+        // this._oxResultScale                                     = this.spOxResult.node.scale ;
+        // this._bankerScale                                       = this.ndBanker.scale ;
+        // this._chatSche                                          = null ;
+        // this.scoreTime                                          = 0.5 ;
+        // this.waitTime                                           = 4 ;
+        // this.startPos                                           = cc.v2( this.ndLoseScore.getChildByName('score').getPosition().x , this.ndLoseScore.getChildByName('score').getPosition().y - 40 );
+        // this._comScheduler                                      = this.addComponent('ComScheduler') ;
+        // this._ntf                                               = this.addComponent('ComNotify');
+        // this._ntf.register( NOTIFY_VOICE_PLAY_START , (event)=>{
+        //     if( event.detail.cid == this.cid ){
+        //         // this.ndChatBubble.active = true ;
+        //     }
+        // });
+        // this._ntf.register( NOTIFY_VOICE_PLAY_END , (event)=>{
+        //     this.ndChatBubble.active = false ;
+        // });
+        // this.resetAll();
 
-        this._sfChatFace = NPHelper.getNode('ComChatSF').getComponent('ComChatSF') ;
+        // this._sfChatFace = NPHelper.getNode('ComChatSF').getComponent('ComChatSF') ;
     },
 
     onDestroy : function(){
-        this._comScheduler.clearAll();
-        NPHelper.putNode( 'ComChatSF' , this._sfChatFace.node );
+        // this._comScheduler.clearAll();
+        // NPHelper.putNode( 'ComChatSF' , this._sfChatFace.node );
     },
         
     start: function(){
@@ -109,50 +111,50 @@ cc.Class({
     },
 
     showAnimation : function () {
-        let effHead = this.node.getChildByName('eff_head');
-        if( effHead ){
-            effHead.active = true ;
-            effHead.getComponent(cc.Animation).play();
-        }
+        // let effHead = this.node.getChildByName('eff_head');
+        // if( effHead ){
+        //     effHead.active = true ;
+        //     effHead.getComponent(cc.Animation).play();
+        // }
     },
 
     // 部分reset：每局结束的时候调用
     resetPart : function(){
-        this.showOxResult(-1,false);
-        this.showBanker(false);
+        // this.showOxResult(-1,false);
+        // this.showBanker(false);
         this.showState(null,false);
-        this.removeCards(2);
-        this.removeCards(1);
+        // this.removeCards(2);
+        // this.removeCards(1);
     },
 
     // 彻底reset：addplayer的时候调用
     resetAll : function(){
-        let effHead = this.node.getChildByName('eff_head');
-        effHead.active = false ;
-        this.ndLoseScore.active         = false ;
-        this.ndWinScore.active          = false ;
-        this.resetPart();
-        this.showMiss( false );
-        this.showChat( false );
+        // let effHead = this.node.getChildByName('eff_head');
+        // effHead.active = false ;
+        // this.ndLoseScore.active         = false ;
+        // this.ndWinScore.active          = false ;
+        // this.resetPart();
+        // this.showMiss( false );
+        // this.showChat( false );
     },
 
     setRightMode : function(){
-        this.isRightModeEnabled                      =  true ;
-        this.ndHead.x                               *=  -1 ;
-        this.ndMiss.x                               *=  -1 ;
-        this.ndBanker.x                             *=  -1 ;
-        this.spState.node.x                         *=  -1 ;
-        this.spOxResult.node.x                      *=  -1 ;
-        this.ndOxBg.x                               *=  -1 ;
-        this.ndCardShowContainer.x                  *=  -1 ;
-        this.ndCardHolderContainer.x                *=  -1 ;
-        // this.ndChat.x                               *=  -1 ;
-        this.ndChatFace.x                           *=  -1 ;
-        this.ndChatInfo.x                           *=  -1 ;
-        this.ndLoseScore.x                          *=  -1 ;
-        this.ndWinScore.x                           *=  -1 ;
-        this.ndChatBubble.x                         *=  -1 ;
-        this.node.getChildByName('eff_head').x      *=  -1 ;
+        // this.isRightModeEnabled                      =  true ;
+        // this.ndHead.x                               *=  -1 ;
+        // this.ndMiss.x                               *=  -1 ;
+        // this.ndBanker.x                             *=  -1 ;
+        // this.spState.node.x                         *=  -1 ;
+        // this.spOxResult.node.x                      *=  -1 ;
+        // this.ndOxBg.x                               *=  -1 ;
+        // this.ndCardShowContainer.x                  *=  -1 ;
+        // this.ndCardHolderContainer.x                *=  -1 ;
+        // // this.ndChat.x                               *=  -1 ;
+        // this.ndChatFace.x                           *=  -1 ;
+        // this.ndChatInfo.x                           *=  -1 ;
+        // this.ndLoseScore.x                          *=  -1 ;
+        // this.ndWinScore.x                           *=  -1 ;
+        // this.ndChatBubble.x                         *=  -1 ;
+        // this.node.getChildByName('eff_head').x      *=  -1 ;
     },
 
     //onHeadClicked 
@@ -249,6 +251,7 @@ cc.Class({
         if( this.spOxResult.node.active != show ) this.spOxResult.node.active = show ;
         if( this.ndOxBg.active != show ) this.ndOxBg.active = show ;
         if( show ){
+            //ToDo(后面这里的图片要改)
             this.spOxResult.spriteFrame = result === -1 ? this.sfFinish : TexHelper.getOXType( result ) ;
             this.spOxResult.node.scale = this._oxResultScale * 3 ;
             this.spOxResult.node.runAction( ActionHelper.getScaleTo( 0.2 , this._oxResultScale ));
