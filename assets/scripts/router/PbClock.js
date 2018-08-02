@@ -42,14 +42,14 @@ cc.Class({
             NotifyHelper.notify( NOTIFY_SHOW_321 );
         }
         if(this.timeInt <= 3 && cc.currentGame == 'bjl'){
-            AudioMgr_Game.gameAlert();
+            // AudioMgr_Game.gameAlert();
             return
         }
         if( this.timeInt <= 2 ){
             if(cc.currentGame == 'bjl'){
                 return
             }
-            AudioMgr_Game.playSpecial('alert');
+            // AudioMgr_Game.playSpecial('alert');
         } 
     },
 
@@ -61,8 +61,8 @@ cc.Class({
             return ;
         }
 
-        let per = this.timeFloat / this.timeOri ;
-        this.pbarLight.progress = per ;
+        // let per = this.timeFloat / this.timeOri ;
+        // this.pbarLight.progress = per ;
         let timeInt = Math.ceil( this.timeFloat ); 
         if( timeInt != this.timeInt ){
             this.updateTime();

@@ -229,9 +229,7 @@ cc.Class({
         // RoomServer.createRoom( msg, ()=>{
         //     cc.director.loadScene("mjgame");
         // })
-        RoomServer.match(4 , ()=>{
-            cc.director.loadScene("GameScene_NN");
-        });
+        this.createRoomWin.active = true
     },
     
     onBtnTaobaoClicked:function(){

@@ -19,16 +19,16 @@ cc.Class({
     // use this for initialization
     onLoad: function () {
 
-        this._gamelist = this.node.getChildByName('game_list');
+        // this._gamelist = this.node.getChildByName('game_list');
 
-        this._leixingxuanze = [];
-        var t = this.node.getChildByName("leixingxuanze");
-        for (var i = 0; i < t.childrenCount; ++i) {
-            var n = t.children[i].getComponent("RadioButton");
-            if (n != null) {
-                this._leixingxuanze.push(n);
-            }
-        }
+        // this._leixingxuanze = [];
+        // var t = this.node.getChildByName("leixingxuanze");
+        // for (var i = 0; i < t.childrenCount; ++i) {
+        //     var n = t.children[i].getComponent("RadioButton");
+        //     if (n != null) {
+        //         this._leixingxuanze.push(n);
+        //     }
+        // }
     },
 
     onBtnBack: function () {
@@ -85,43 +85,46 @@ cc.Class({
     },
 
     createRoom: function () {
+        RoomServer.match(4 , ()=>{
+            cc.director.loadScene("GameScene_NN");
+        });
         var self = this;
-        var onCreate = function (ret) {
-            if (ret.errcode !== 0) {
-                cc.log("创建房间失败回调里回调过来的信息",ret);
-                cc.vv.wc.hide();
-                //console.log(ret.errmsg);
-                if (ret.errcode == 2222) {
-                    cc.vv.alert.show("提示", "钻石不足，创建房间失败!");
-                }
-                else {
-                    cc.vv.alert.show("提示", "创建房间失败,错误码:" + ret.errcode);
-                }
-            }
-            else {
-                cc.log("创建房间成功回调里回调过来的信息",ret);
-                cc.vv.gameNetMgr.connectGameServer(ret);
-            }
-        };
+        // var onCreate = function (ret) {
+        //     if (ret.errcode !== 0) {
+        //         cc.log("创建房间失败回调里回调过来的信息",ret);
+        //         cc.vv.wc.hide();
+        //         //console.log(ret.errmsg);
+        //         if (ret.errcode == 2222) {
+        //             cc.vv.alert.show("提示", "钻石不足，创建房间失败!");
+        //         }
+        //         else {
+        //             cc.vv.alert.show("提示", "创建房间失败,错误码:" + ret.errcode);
+        //         }
+        //     }
+        //     else {
+        //         cc.log("创建房间成功回调里回调过来的信息",ret);
+        //         cc.vv.gameNetMgr.connectGameServer(ret);
+        //     }
+        // };
 
-        var type = this.getType();
-        var conf = null;
-        if (type == 'xzdd') {
-            conf = this.constructSCMJConf();
-        }
-        else if (type == 'xlch') {
-            conf = this.constructSCMJConf();
-        }
-        conf.type = type;
+        // var type = this.getType();
+        // var conf = null;
+        // if (type == 'xzdd') {
+        //     conf = this.constructSCMJConf();
+        // }
+        // else if (type == 'xlch') {
+        //     conf = this.constructSCMJConf();
+        // }
+        // conf.type = type;
 
-        var data = {
-            account: cc.vv.userMgr.account,
-            sign: cc.vv.userMgr.sign,
-            conf: JSON.stringify(conf)
-        };
-        console.log(data);
-        cc.vv.wc.show("正在创建房间");
-        cc.vv.http.sendRequest("/create_private_room", data, onCreate);
+        // var data = {
+        //     account: cc.vv.userMgr.account,
+        //     sign: cc.vv.userMgr.sign,
+        //     conf: JSON.stringify(conf)
+        // };
+        // console.log(data);
+        // cc.vv.wc.show("正在创建房间");
+        // cc.vv.http.sendRequest("/create_private_room", data, onCreate);
     },
 
     constructSCMJConf: function () {
@@ -156,18 +159,18 @@ cc.Class({
     // called every frame, uncomment this function to activate update callback
     update: function (dt) {
 
-        var type = this.getType();
-        if (this.lastType != type) {
-            this.lastType = type;
-            for (var i = 0; i < this._gamelist.childrenCount; ++i) {
-                this._gamelist.children[i].active = false;
-            }
+    //     var type = this.getType();
+    //     if (this.lastType != type) {
+    //         this.lastType = type;
+    //         for (var i = 0; i < this._gamelist.childrenCount; ++i) {
+    //             this._gamelist.children[i].active = false;
+    //         }
 
-            var game = this._gamelist.getChildByName(type);
-            if (game) {
-                game.active = true;
-            }
-            this._currentGame = game;
-        }
+    //         var game = this._gamelist.getChildByName(type);
+    //         if (game) {
+    //             game.active = true;
+    //         }
+    //         this._currentGame = game;
+    //     }
     },
 });

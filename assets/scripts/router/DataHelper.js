@@ -62,7 +62,7 @@ function _initGlobalData(){
     // window.StringCheckHelper = require('StringCheckHelper');
     window.TexHelper         = require('TexHelper');//获取图片资源
     window.TimeHelper        = require('TimeHelper');
-    // window.GameHelper        = require('GameHelper').initHelper();   // @todo？？？？？
+    window.GameHelper        = require('GameHelper').initHelper();   // @todo？？？？？
     window.NotifyHelper      = require('NotifyHelper');//????
     window.CCLoaderHelper    = require('CCLoaderHelper');
     // window.MathHelper        = require('MathHelper').initHelper();

@@ -225,7 +225,7 @@
     },
     "_enabled": true,
     "_spriteFrame": {
-      "__uuid__": "90282fe9-ff84-46f5-beab-1998887e4565"
+      "__uuid__": "3e01c30e-044d-4d20-9cb9-05c97a4bee7a"
     },
     "_type": 3,
     "_sizeMode": 0,
@@ -240,7 +240,9 @@
     "_isTrimmedMode": true,
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
-    "_atlas": null
+    "_atlas": {
+      "__uuid__": "4201ef1f-4abc-4af0-8e84-e9e776943900"
+    }
   },
   {
     "__type__": "cc.ProgressBar",
@@ -317,7 +319,7 @@
     "_position": {
       "__type__": "cc.Vec2",
       "x": 0,
-      "y": -3.7
+      "y": 2
     },
     "_skewX": 0,
     "_skewY": 0,
@@ -363,7 +365,7 @@
     "_right": 0,
     "_top": 0,
     "_bottom": 0,
-    "_verticalCenter": -3.7,
+    "_verticalCenter": 2,
     "_horizontalCenter": 0,
     "_isAbsLeft": true,
     "_isAbsRight": true,

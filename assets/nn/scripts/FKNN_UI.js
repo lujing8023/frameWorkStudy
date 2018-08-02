@@ -100,7 +100,7 @@ cc.Class({
         this.ndTime.addComponent('ComTime');
 
         let nodeNames  = ['PbClock','PbGoldActionLayer'];
-        let containers = [ this.ndVoiceStateContainer , this.ndClockContainer , this.ndGoldActionLayerContainer ] ;
+        let containers = [this.ndClockContainer , this.ndGoldActionLayerContainer ] ;
 
         let self = this ;
         _.each( nodeNames , (name,i)=>{
