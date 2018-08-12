@@ -286,8 +286,15 @@ cc.Class({
         cc.log("@showClock" + time );
         time = parseInt( time );
         if( time <= 0 ) return ;
-        this.ndClock.active = show ;
-        if(show) if(this.ndClockContainer.children[0])this.ndClockContainer.children[0].getComponent('PbClock').initTime( time );
+        this.ndClockContainer.active = show ;
+        if(show) {
+            if(this.ndClockContainer.children[0]){
+                this.ndClockContainer.children[0].getComponent('PbClock').initTime( time );
+            }
+        }
+        // else{
+        //     this.ndClockContainer.children[0].getComponent('PbClock').initTime( time );
+        // }
     },
 
     /**

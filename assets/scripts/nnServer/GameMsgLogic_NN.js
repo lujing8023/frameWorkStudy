@@ -37,7 +37,7 @@ handler.onHandleMsg_Data = function( action ){
      */
     if( name === OnAction.LEAVE_ROOM ){
         UserHandler.getData()['room'] = null ;
-        ChatHandler.clearMessages();
+        // ChatHandler.clearMessages();
         $G.gCData.gRoomLeaved = true ;
 
         if( action.msg == 7 ){

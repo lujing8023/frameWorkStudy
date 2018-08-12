@@ -98,17 +98,17 @@ cc.Class({
             /**
              * TODO:测试代码需要打苹果包测试，，目前安卓没问题
              */
-            // if( SocketHelper.isConnected() ){
-            // //     MsgHelper.pushLoading();
-            //     GameHelper.autoLogin();
-            // }else{
-            // //     MsgHelper.pushLoading();
-            // //     MsgHelper.pushToast('no net no net')
-            //     SocketHelper.disconnectSelf = false;
-            //     pomelo.disconnect();
-            // }
+            if( SocketHelper.isConnected() ){
+            //     MsgHelper.pushLoading();
+                GameHelper.autoLogin();
+            }else{
+            //     MsgHelper.pushLoading();
+            //     MsgHelper.pushToast('no net no net')
+                SocketHelper.disconnectSelf = false;
+                pomelo.disconnect();
+            }
             // MsgHelper.pushLoading();
-            // FuncHelper.addFunc(  MsgHelper.removeLoading , GameHelper.isLogined );
+            FuncHelper.addFunc(  MsgHelper.removeLoading , GameHelper.isLogined );
         });
         NTF.register( NOTIFY_GAME_OUT , ()=>{
             this._resetAll();
@@ -290,7 +290,7 @@ cc.Class({
             _.each( cards , (card,i)=>{
                 delay = ( time * ( i + 1 )) + start ;
                 this._comScheduler.once( 'AddCards' ,  ()=>{
-                    // AudioMgr_Game.playSpecial('dispatch');
+                    AudioMgr_Game.playSpecial('dispatch');
                     comCards.push( $G.gCData.gComPlayers[ 0 ].addCard( 1 , card , !showAction , false ));
                     _.each( GameMsgHandler.getSeats() , (seat,index)=>{
                         let cid = GameMsgHandler.getCid( index );
@@ -385,7 +385,7 @@ cc.Class({
                         com.showOxResult( index ); // 0.2 s
 
                         let sexIsMan = GameMsgHandler.getUserBySid( sid ).sex == 0 ;
-                        // AudioMgr_Game.playPokerType( index , sexIsMan );
+                        AudioMgr_Game.playPokerType( index , sexIsMan );
                     } , delay );
                     delay += 0.4 ;
                 }
@@ -547,7 +547,7 @@ cc.Class({
       showBanker : function( index ){
         this.bankerActionOver = true ;
 
-        // AudioMgr_Game.playSpecial('banker');
+        AudioMgr_Game.playSpecial('banker');
 
         this._comFunc.execute();
         
@@ -573,7 +573,7 @@ cc.Class({
 
       },
       _bankerAction(first,last){
-        // AudioMgr_Game.playSpecial('bankerRandom');
+        AudioMgr_Game.playSpecial('bankerRandom');
         if(first != null)$G.gCData.gComPlayers[ GameMsgHandler.getCid( first ) ].hideBankerAction();
         if(last != null)$G.gCData.gComPlayers[ GameMsgHandler.getCid( last ) ].showBankerAction();
       },
@@ -608,7 +608,7 @@ cc.Class({
                     break;
                 case 2 :
                     if( GameMsgHandler.getRoomStateType() === 2 ){
-                        // AudioMgr_Game.playSpecial('start');
+                        AudioMgr_Game.playSpecial('start');
                         // this._target._ui.showCountDown( 0 , false );
                         // this._target._ui.showArmGameStart( true );
                     }
@@ -714,7 +714,7 @@ cc.Class({
                     }else{
                         com.showState(null,false);
                     }
-                    // AudioMgr_Game.playRob( seat.banker , ( seat.user.sex == 0 ) );
+                    AudioMgr_Game.playRob( seat.banker , ( seat.user.sex == 0 ) );
                     break;
                 case 4 :
                     this._comFunc.addFunc( ()=>{
@@ -722,7 +722,7 @@ cc.Class({
                         let bid = seat.bid
                         if(!isPlaying)bid = null
                         com.showCallScore( bid );
-                        // AudioMgr_Game.playScore( seat.bid , seat.user.sex == 0 );
+                        AudioMgr_Game.playScore( seat.bid , seat.user.sex == 0 );
                     },()=>{
                         return this.bankerActionOver ;
                     });

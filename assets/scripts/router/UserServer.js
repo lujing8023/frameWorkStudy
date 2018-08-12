@@ -163,8 +163,9 @@ server._sendLogin = function( route , param , cb ){
     // cc.log("【请求头】",route);
     // cc.log("【请求格式】",param);
     SocketHelper.request( route , param , (msg) => { 
-            server._onLoginSuccess(msg); 
-            MsgHelper.initHelper();
+            UserHandler.setData( msg );
+            // server._onLoginSuccess(msg); 
+            // MsgHelper.initHelper();
             if( cb ) cb();
         } ,
         (action) => { server._onLoginFailed(action); } ,

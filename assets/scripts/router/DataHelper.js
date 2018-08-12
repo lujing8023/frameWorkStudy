@@ -48,7 +48,7 @@ function _initGlobalData(){
     // window.Configs           = require('Configs');
     window.ServerRouters     = require('ServerRouters');
     // window.HttpRouters       = require('HttpRouters');
-    // window.Constants         = require('Constants');
+    window.Constants         = require('Constants');
     require('GlobalGameData').init();
 
     /**
@@ -70,7 +70,7 @@ function _initGlobalData(){
     window.PlatformHelper    = require('PlatformHelper');//???
     // window.WXHelper          = require('WXHelper');
     // window.MWHelper          = require('MWHelper');
-    // window.FuncHelper        = require('FuncHelper');
+    window.FuncHelper        = require('FuncHelper');
     window.RandomListHelper  = require('RandomListHelper');
     // window.NativeHelper      = require('NativeHelper');
     // window.ObjHelper         = require('ObjHelper');
@@ -79,7 +79,7 @@ function _initGlobalData(){
     // window.EtherHelper       = require('EtherHelper');
     // window.ListAddItemHelper = require('ListAddItemHelper');
     // window.UpdateHelper      = require('UpdateHelper');
-    // window.AudioHelper       = require('AudioHelper');
+    window.AudioHelper       = require('AudioHelper');
     //temp 废弃废弃废弃废弃  用替代AudioMgr_Game
     // window.AudioMgr_Game    = require('AudioMgr_Game');
     

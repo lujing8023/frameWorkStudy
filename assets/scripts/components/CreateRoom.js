@@ -14,6 +14,22 @@ cc.Class({
         _leixingxuanze: null,
         _gamelist: null,
         _currentGame: null,
+        ndBtnsOfRoomType      : {
+            default         : [] ,
+            type            : cc.Node 
+        },
+        ndBtnsOfRoomPay      : {
+            default         : [] ,
+            type            : cc.Node 
+        },
+        lb12Round      : {
+            default         : [] ,
+            type            : cc.Label 
+        },
+        lb30Round      : {
+            default         : [] ,
+            type            : cc.Label 
+        },
     },
 
     // use this for initialization
@@ -29,6 +45,11 @@ cc.Class({
         //         this._leixingxuanze.push(n);
         //     }
         // }
+        //默认第一个选项
+        this.chooseRoomType(null , 0);
+
+        //默认选择房主付
+        this.chooseRoomPay(null , 0);
     },
 
     onBtnBack: function () {
@@ -36,13 +57,13 @@ cc.Class({
     },
 
     onBtnOK: function () {
-        var usedTypes = ['xzdd', 'xlch'];
-        var type = this.getType();
-        if (usedTypes.indexOf(type) == -1) {
-            return;
-        }
+        // var usedTypes = ['xzdd', 'xlch'];
+        // var type = this.getType();
+        // if (usedTypes.indexOf(type) == -1) {
+        //     return;
+        // }
 
-        this.node.active = false;
+        // this.node.active = false;
         this.createRoom();
     },
 
@@ -173,4 +194,49 @@ cc.Class({
     //         this._currentGame = game;
     //     }
     },
+    //选房间类型的按钮
+    chooseRoomType:function(Event , custom){
+        let type = parseInt(custom)
+        _.each(this.ndBtnsOfRoomType , (node , index)=>{
+            if(type == index){
+                node.active = true;
+            }else{
+                node.active = false;
+            }
+        })
+    },
+
+    //选择房间支付类型
+    chooseRoomPay:function(Event , custom){
+        let type = parseInt(custom)
+        _.each(this.ndBtnsOfRoomPay , (node , index)=>{
+            if(type == index){
+                node.active = true;
+            }else{
+                node.active = false;
+            }
+        })
+        this._changePayNum(type);
+        
+    },
+
+    //改变房卡数量
+    _changePayNum:function(type){
+       if(type == 0){
+           _.each(this.lb12Round , (lb , index)=>{
+               lb.string = `${4+index}人（12局）房卡x${4+index}`;
+           })
+           _.each(this.lb30Round , (lb , index)=>{
+                lb.string = `${4+index}人（30局）房卡x${8+index*2}`;
+           })
+       }else{
+            _.each(this.lb12Round , (lb , index)=>{
+                lb.string = `${4+index}人（12局）房卡x${1}`;
+            })
+            _.each(this.lb30Round , (lb , index)=>{
+                lb.string = `${4+index}人（30局）房卡x${2}`;
+            })
+       }
+
+    }
 });

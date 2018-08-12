@@ -11,6 +11,6 @@ module.exports.getRes = function ( path , type , cb ) {
         cc.loader.loadRes( path , type , cb );
         return ;
     }
-    if( cb ) cb();
+    if( cb ) cb(null, res);
 }
 

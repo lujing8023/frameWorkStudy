@@ -41,7 +41,7 @@ cc.Class({
 
         //初始化游戏监听
         GamesMgr.initGame("nn");
-
+        // window.DataHelper = require('DataHelper').initHelper();
 
         if(!cc.sys.isNative && cc.sys.isMobile){
             var cvs = this.node.getComponent(cc.Canvas);
@@ -182,8 +182,8 @@ cc.Class({
     
     initLabels:function(){
         this.lblName.string = UserHandler.getNick();
-        this.lblMoney.string = cc.vv.userMgr.coins;
-        this.lblGems.string = cc.vv.userMgr.gems;
+        // this.lblMoney.string = cc.vv.userMgr.coins;
+        // this.lblGems.string = cc.vv.userMgr.gems;
         this.lblID.string = "ID:" + UserHandler.getId();
     },
     
@@ -227,7 +227,7 @@ cc.Class({
         // // this.createRoomWin.active = true; 
         // let msg = {baseScore: 10, scoreMin: 1000}
         // RoomServer.createRoom( msg, ()=>{
-        //     cc.director.loadScene("mjgame");
+        //     cc.director.loadScene("GameScene_NN");
         // })
         this.createRoomWin.active = true
     },

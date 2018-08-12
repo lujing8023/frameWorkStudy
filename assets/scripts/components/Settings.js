@@ -92,9 +92,16 @@ cc.Class({
             this.node.active = false;
         }
         else if(event.target.name == "btn_exit"){
-            cc.sys.localStorage.removeItem("wx_account");
-            cc.sys.localStorage.removeItem("wx_sign");
-            cc.director.loadScene("login");
+            UserServer.logout( ()=>{
+                // WalletHandler.setAddress(null);
+                // WalletHandler.setEth(null);
+                // WalletHandler.setUpg(null);
+                // WalletHandler.setGold(null);
+                // WalletHandler.setFee(null);
+                
+                cc.director.loadScene("login");
+                //     GameHelper.loadLoginScene() 
+            });
         }
         else if(event.target.name == "btn_yx_open"){
             cc.vv.audioMgr.setSFXVolume(1.0);

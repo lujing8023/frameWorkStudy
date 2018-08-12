@@ -63,6 +63,7 @@ class AudioMgr_NN {
 
 
     _playBySex = function( folder , filePre , index , isBoy = true ){
+        // DZPATH = 'resources/Audio'
         let file = `${  this.DZPATH}/${folder}/${isBoy?'Boy':'Girl'}/${filePre}_${index}.mp3` ;
         AudioHelper._playEffect( file );
     };

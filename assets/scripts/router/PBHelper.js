@@ -140,7 +140,7 @@ module.exports.addNode = function( name , parent = null , cb = null , zorder = 9
  * Name , cb(node)
  */
 module.exports.getNode = function( name , cb = null , setShowLoading = null ){
-    let showLoading = setShowLoading == null ? gLoadingScene == null : setShowLoading ;
+    // let showLoading = setShowLoading == null ? gLoadingScene == null : setShowLoading ;
     let cbDone = cb ;
     // if( showLoading ){
     //     cbDone = (node)=>{ 

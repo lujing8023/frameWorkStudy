@@ -1,5 +1,5 @@
 
-const LZString    = require("LZString");
+// const LZString    = require("LZString");
 
 /**
  * 录音组件，将该组件挂在发起语音的按钮上

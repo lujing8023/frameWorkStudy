@@ -205,19 +205,19 @@ helper.loadLoginScene = function( cb ){
 
 helper.loadHallScene = function( cb ){
     // web || package all
-    if ( Configs.PACKAGE_MODE == Configs.PACKAGE_MODE_ALL || !cc.sys.isNative ){
+    // if ( Configs.PACKAGE_MODE == Configs.PACKAGE_MODE_ALL || !cc.sys.isNative ){
         let callfunc = ()=>{
             // AudioMgr_Game.playMusic("loadHallScene");
             if(cb)cb();
         }
-        cc.director.loadScene('HallScene', callfunc );
+        cc.director.loadScene('hall', callfunc );
         return ;
-    }
+    // }
 
-    var gameName = UpdateHelper.gameType();
-    var storagePath = UpdateHelper.genStoragePath(gameName);
-    cc.log(storagePath);
-    require(storagePath + "/src/dating.js");
+    // var gameName = UpdateHelper.gameType();
+    // var storagePath = UpdateHelper.genStoragePath(gameName);
+    // cc.log(storagePath);
+    // require(storagePath + "/src/dating.js");
     return;
 }
 

@@ -40,6 +40,7 @@ cc.Class({
         // ...
         _mima:null,
         _mimaIndex:0,
+        ebAccountL  : cc.EditBox ,  // login
     },
 
     // use this for initialization
@@ -72,6 +73,11 @@ cc.Class({
             cc.find("Canvas/btn_yk").active = false;
             cc.find("Canvas/btn_weixin").active = true;
         }
+        //初始化输入框
+
+        if(gLocalData.userInfo.account){
+            this.ebAccountL.string  = gLocalData.userInfo.account ;
+        }
     },
     
     start:function(){
@@ -88,24 +94,27 @@ cc.Class({
     },
     
     onBtnQuickStartClicked:function(){
-        let account = _.random( 100000,999999 ) + "";
-        let guestLogin        = 'connector.authorizationHandler.login';
-        let param             = {  type:0 , account : account , game:cc.currentGame ? cc.currentGame : 'nn' }
-        // let obj = {  type:0 , account : account , game:cc.currentGame ? cc.currentGame : 'nn' }
-        cc.log("【初次請求發送的消息】",param)
-        SocketHelper.request( guestLogin , param , 
-            (msg) => { 
-                // cc.log('111');
-                UserHandler.setData(msg);
-                // cc.log("【获取玩家ID】",UserHandler.getId());
-                cc.director.loadScene("hall");
-                // server._onLoginSuccess(msg); 
-                // if( cb ) cb();
-            } ,
-            // (action) => { server._onLoginFailed(action); } ,
-            true
-        );
-        // cc.vv.Net.send(guestLogin , obj);
+        // let account = _.random( 100000,999999 ) + "";
+        // let guestLogin        = 'connector.authorizationHandler.login';
+        // let param             = {  type:0 , account : account , game:cc.currentGame ? cc.currentGame : 'nn' }
+        // // let obj = {  type:0 , account : account , game:cc.currentGame ? cc.currentGame : 'nn' }
+        // cc.log("【初次請求發送的消息】",param)
+        // SocketHelper.request( guestLogin , param , 
+        //     (msg) => { 
+        //         // cc.log('111');
+        //         UserHandler.setData(msg);
+        //         // cc.log("【获取玩家ID】",UserHandler.getId());
+        //         cc.director.loadScene("hall");
+        //         // server._onLoginSuccess(msg); 
+        //         // if( cb ) cb();
+        //         //为了快速登录用
+        //         gLocalData.userInfo.account = UserHandler.getData().account ;
+        //         DataHelper.saveAllData();
+        //     } ,
+        //     // (action) => { server._onLoginFailed(action); } ,
+        //     true
+        // );
+        // // cc.vv.Net.send(guestLogin , obj);
     },
     
     onBtnWeichatClicked:function(){
@@ -124,10 +133,28 @@ cc.Class({
             console.log("oh ho~~~");
             this._mimaIndex = 0;
         }
-    }
+    },
 
     // called every frame, uncomment this function to activate update callback
     // update: function (dt) {
 
     // },
+    //随机登录里的随机账号
+    randomLogin:function(){
+        UserServer.guestLogin( _.random( 100000,999999 ) + '' , (event)=>{
+            cc.director.loadScene("hall");
+            gLocalData.userInfo.account = UserHandler.getData().account ;
+            DataHelper.saveAllData();
+        });
+    },
+
+    //随机登录里面的账号登录
+    debugLogin:function(){
+        if( this.ebAccountL.string.length > 5 )
+                    UserServer.guestLogin( this.ebAccountL.string , (event)=>{
+                        cc.director.loadScene("hall");
+                        gLocalData.userInfo.account = UserHandler.getData().account ;
+                        DataHelper.saveAllData();
+                });
+    }
 });

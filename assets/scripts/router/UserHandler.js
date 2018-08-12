@@ -142,6 +142,7 @@ handler.setDesp = function(desp) {
 };
 
 handler.getNick = function() {
+    cc.log("【handler.getData()】",handler.getData().nick);
     return handler.getData().nick ? handler.getData().nick : handler.getData().account ;
 };
 
@@ -273,8 +274,8 @@ handler.removeNetListeners = function(){
     SocketHelper.offNetListener( ServerRouters.OnAction_History.ROUTE , handler._onHandleHistory );
     //email
     SocketHelper.offNetListener( ServerRouters.OnAction_Broadcast.EMAIL , handler._onEmailReceive );
-    RecordsHandler.removeNetListeners();
-    GroupHandler.removeNetListeners();
+    // RecordsHandler.removeNetListeners();
+    // GroupHandler.removeNetListeners();
 };
 
 
