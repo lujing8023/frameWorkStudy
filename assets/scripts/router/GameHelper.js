@@ -223,7 +223,7 @@ helper.loadHallScene = function( cb ){
 
 
 helper.loadChooseScene = function( cb ){
-    cc.director.loadScene('ChooseGame' ,()=>{
+    cc.director.loadScene('hall' ,()=>{
        if(cb)cb();
     });
 }

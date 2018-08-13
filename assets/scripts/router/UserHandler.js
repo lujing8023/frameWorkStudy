@@ -258,8 +258,8 @@ handler.initNetListeners = function(){
     SocketHelper.onNetListener( ServerRouters.OnAction_History.ROUTE , handler._onHandleHistory );
     //email
     SocketHelper.onNetListener( ServerRouters.OnAction_Broadcast.EMAIL , handler._onEmailReceive );
-    RecordsHandler.initNetListeners();
-    GroupHandler.initNetListeners();
+    // RecordsHandler.initNetListeners();
+    // GroupHandler.initNetListeners();
 };
 
 

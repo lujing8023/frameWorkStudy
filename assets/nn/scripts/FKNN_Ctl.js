@@ -426,8 +426,8 @@ cc.Class({
     initRoomInfo : function(){
         let infos = GameMsgHandler.getRoomInfos();
         this._target._ui.showRoomInfo( infos );
-        this._target._ui.lbRoomType.string =  GameMsgHandler.getData().type == 2 ? '房型：' + $G.gStrings.Room.names[ GameMsgHandler.getData().area - 1 ] : '房号：' + GameMsgHandler.getData().id ;
-        this._target._ui.lbScoreMin.string =  '准入：' + StringHelper.getValueChinese( GameMsgHandler.getData().scoreMin );
+        // this._target._ui.lbRoomType.string =  GameMsgHandler.getData().type == 2 ? '房型：' + $G.gStrings.Room.names[ GameMsgHandler.getData().area - 1 ] : '房号：' + GameMsgHandler.getData().id ;
+        // this._target._ui.lbScoreMin.string =  '准入：' + StringHelper.getValueChinese( GameMsgHandler.getData().scoreMin );
         // this._target._ui.ndBtnChangeTable.active = GameMsgHandler.getData().type == 2 ;
         this._target._ui.ndBtnCopyRoomId.active  = GameMsgHandler.getData().type == 3 ;
     },

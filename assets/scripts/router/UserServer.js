@@ -164,8 +164,8 @@ server._sendLogin = function( route , param , cb ){
     // cc.log("【请求格式】",param);
     SocketHelper.request( route , param , (msg) => { 
             UserHandler.setData( msg );
-            // server._onLoginSuccess(msg); 
-            // MsgHelper.initHelper();
+            server._onLoginSuccess(msg); 
+            MsgHelper.initHelper();
             if( cb ) cb();
         } ,
         (action) => { server._onLoginFailed(action); } ,
@@ -178,12 +178,12 @@ server._sendLogin = function( route , param , cb ){
  */
 server._onLoginSuccess = function( msg ){
     $G.gCData.gIsLogined = true ;
-    RoomHistoryHandler.setRecording(false);
+    // RoomHistoryHandler.setRecording(false);
     UserHandler.setData( msg );
     UserHandler.initNetListeners();
     // GroupServer.listenGroupApplyNotify();
     SocketHelper.onLoginSuccess();
-    MsgHelper.removeLoading();
+    // MsgHelper.removeLoading();
     // if( !MWHelper.checkAndExecute() ){
     if( UserHandler.shouldReconnect()){
         RoomServer.reconnectRoom();
@@ -191,11 +191,11 @@ server._onLoginSuccess = function( msg ){
         // if( !gHallScene ) GameHelper.loadHallScene( ()=>{FuncHelper.execute(); });
         if(gGameScene){
             GameHelper.loadHallScene( ()=>{
-                GameHelper.showNoticeAuto();
+                // GameHelper.showNoticeAuto();
             });
         }else{
             GameHelper.loadChooseScene( ()=>{
-                GameHelper.showNoticeAuto();
+                // GameHelper.showNoticeAuto();
             });
         }
         return ;
