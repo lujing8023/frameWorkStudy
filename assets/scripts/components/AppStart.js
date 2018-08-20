@@ -105,6 +105,7 @@ cc.Class({
         window.DataHelper = require('DataHelper').initHelper();
         //初始化网络
         SocketHelper.initNet();
+        UserHandler.initNetListeners();
         // SocketHelper.initNet( ()=>{ this._onLoadDone();} );
         if(!cc.sys.isNative && cc.sys.isMobile){
             var cvs = this.node.getComponent(cc.Canvas);

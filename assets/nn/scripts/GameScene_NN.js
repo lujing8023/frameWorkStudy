@@ -76,7 +76,9 @@ cc.Class({
                     break;
                 }
             case 'dismiss' :
-                RoomServer.dismissRoom();
+                RoomServer.dismissRoom(()=>{
+                    RoomServer.dismissVote(true);
+                });
                 break;
             // case 'leaveSit' :
             // case 'leave' :
@@ -168,9 +170,10 @@ cc.Class({
                 this._ui.ndMoreBtns.active = false ;
                 break ;
             case 'leave' :
-                RoomServer.leaveRoom(()=>{
-                    GameLogic.leaveRoom();
-                });
+                // RoomServer.dismissStart(()=>{RoomServer.dismissVote(true);});
+                // RoomServer.dismissRoom(()=>{
+                //     GameLogic.leaveRoom();
+                // });
                 break ;
             case 'changeTable' :
                 this._ctl.changeTable();

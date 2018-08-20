@@ -128,7 +128,7 @@ server.dismissStart = function( cb ){
  * 
  */
 server.dismissVote = function( agree = true , cb ){
-    SocketHelper.request( ServerRouters.RqGame_TWMJ.dismissVote , { vote:agree }, cb , true );
+    SocketHelper.request( ServerRouters.RqRoom.dismissVote , { vote:agree }, cb , true );
 };
 
 

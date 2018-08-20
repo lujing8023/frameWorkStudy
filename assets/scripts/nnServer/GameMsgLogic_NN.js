@@ -54,6 +54,12 @@ handler.onHandleMsg_Data = function( action ){
         $G.gCData.gRoomLeaved = true ;
         return;
     }
+
+    // if( name === OnAction.DISMISS_ROOM ){
+    //     UserHandler.getData()['room'] = null ;
+    //     $G.gCData.gRoomLeaved = true ;
+    //     return;
+    // }
     
 
     /**

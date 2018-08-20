@@ -42,7 +42,9 @@ cc.Class({
         //     }
         // }.bind(this)); 
         // var roomId = this.parseRoomID();
-        RoomServer.joinRoom( $G.gCData.gAreaType ,  roomId );
+        RoomServer.joinRoom( $G.gCData.gAreaType ,  roomId ,()=>{
+            cc.director.loadScene("GameScene_NN");
+        });
     },
     
     onInput:function(num){

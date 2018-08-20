@@ -205,6 +205,7 @@ SocketHelper.prototype.request = function( route , params = {} , cb1 = null , cb
     
     // request
     log("@ request sended : " + route );
+    cc.log('params ------- ',  params );
     // let before = TimeHelper.getCTime() ;
     pomelo.request( route, params, (data) => {
         if( this.state === state.REQUESTING ){

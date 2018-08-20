@@ -105,13 +105,15 @@ module.exports.RqGroup_YTNN.match                   = 'zone.matchHandler.match' 
 /***
  * Request - Room
  */
-module.exports.RqRoom               = {}                                ;
+module.exports.RqRoom               = {}  
+//baseScore 底分  capacity  人数  round  回合数                             ;
 module.exports.RqRoom.createRoom    = 'zone.privateHandler.createRoom'     ;  // "game": "nn" , rounds : 10/20 ,timesMode : 1经典 2疯狂 , bankerMode : 1抢庄 2轮庄 3固定庄
 module.exports.RqRoom.joinRoom      = 'zone.privateHandler.enterRoom'      ;  // id
 module.exports.RqRoom.viewRoom      = 'zone.privateHandler.viewRoom'       ; 
 module.exports.RqRoom.dismissRoom   = 'room.playHandler.dismiss'        ;  // 直接解散
 module.exports.RqRoom.leaveRoom     = 'room.playHandler.leave'          ;
 module.exports.RqRoom.reconnectRoom = 'room.playHandler.reconnect'      ;
+module.exports.RqRoom.dismissVote   = 'room.playHandler.dismissVote'    ;//将玩家的请求解散房间状态切换成true或者false
 
 
 
@@ -345,7 +347,10 @@ module.exports.OnAction_FKNN.PLAYER_SHOW_CARDS      = 'PlayerShowCards'         
 module.exports.OnAction_FKNN.ROOM_RESULT            = 'ROOM_RESULT'                  ;
 module.exports.OnAction_FKNN.RoundResult            = 'RoundResult'                  ;
 module.exports.OnAction_FKNN.PLAYER_HOST            = 'PlayerHost'                   ;
-module.exports.OnAction_FKNN.PLAYER_SIT             = 'PlayerSit'                    ;
+module.exports.OnAction_FKNN.PLAYER_SIT             = 'PlayerSit'  
+module.exports.OnAction_FKNN.DismissVote            = 'DismissVote'    ;//接收解散房间状态
+module.exports.OnAction_FKNN.DismissStart           = 'DismissStart'    ;//接收解散房间开始
+                  ;
 // module.exports.OnAction_FKNN.ROUND_BEGIN            = 'RoundBegin'                   ;
 // module.exports.OnAction_FKNN.PlayerScore            = 'PlayerScore'                  ; // 消息格式 {id: 用户id, change: 变动, score: 剩余}
 // module.exports.OnAction_FKNN.ROUND_END              = 'RoundEnd'                     ;
@@ -634,11 +639,11 @@ module.exports.OnAction_SLWH.PlayerBidRepeat        = 'PlayerBidRepeat'         
 module.exports.OnAction_SLWH.RoomStateBet           = 'RoomStateBet'                 ; // 下注集合 
 module.exports.OnAction_SLWH.PlayerBidRepeat        = 'PlayerBidRepeat'              ; // 重复下注
 
-// constants.RoomAction = {};
+module.exports.RoomAction = {};
 // constants.RoomAction.ROUTE               = _.constant('room.action');
 // constants.RoomAction.CHAT                = _.constant("Chat");
 // constants.RoomAction.DISMISS_START       = _.constant("DismissStart");
-// constants.RoomAction.DISMISS_VOTE        = _.constant("DismissVote");
+module.exports.RoomAction.DISMISS_VOTE      = "DismissVote";
 // constants.RoomAction.DISMISS_STOP        = _.constant("DismissStop");
 // constants.RoomAction.PLAYER_ADD_CARDS    = _.constant('PlayerAddCards');
 // constants.RoomAction.PLAYER_BANKER       = _.constant('PlayerBanker');

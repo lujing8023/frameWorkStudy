@@ -106,9 +106,11 @@ cc.Class({
     },
 
     createRoom: function () {
-        RoomServer.match(4 , ()=>{
-            cc.director.loadScene("GameScene_NN");
-        });
+        //创建房间数据格式  {baseScore : 0 , capacity : 4 , round : 12}
+        this._send({capacity : 2 , rounds : 3 });
+        // RoomServer.match(4 , ()=>{
+        //     cc.director.loadScene("GameScene_NN");
+        // });
         var self = this;
         // var onCreate = function (ret) {
         //     if (ret.errcode !== 0) {
@@ -146,6 +148,18 @@ cc.Class({
         // console.log(data);
         // cc.vv.wc.show("正在创建房间");
         // cc.vv.http.sendRequest("/create_private_room", data, onCreate);
+    },
+
+    _send : function( params ){
+        RoomServer.createRoom( params , (msg)=>{
+            cc.director.loadScene("GameScene_NN");
+            // MsgHelper.pushToast('创建成功');
+            // let store = gLocalData.roomChoices[ cc.currentGame ];
+            // store[0] = this.baseScoreIdx ;
+            // store[1] = this.scoreMinIdx  ;
+            // DataHelper.saveAllData();
+            // this.onCloseDlg();
+        } )
     },
 
     constructSCMJConf: function () {

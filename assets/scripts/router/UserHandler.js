@@ -258,6 +258,8 @@ handler.initNetListeners = function(){
     SocketHelper.onNetListener( ServerRouters.OnAction_History.ROUTE , handler._onHandleHistory );
     //email
     SocketHelper.onNetListener( ServerRouters.OnAction_Broadcast.EMAIL , handler._onEmailReceive );
+    SocketHelper.onNetListener( ServerRouters.RoomAction.DISMISS_VOTE , handler._onVoteReceive );
+
     // RecordsHandler.initNetListeners();
     // GroupHandler.initNetListeners();
 };
@@ -271,9 +273,10 @@ handler.removeNetListeners = function(){
     SocketHelper.offNetListener( ServerRouters.OnAction_Item.ROUTE , handler._onHandleItem );
     SocketHelper.offNetListener( ServerRouters.OnAction_Broadcast.ROUTE , handler._onHandleBroadcast );
     SocketHelper.offNetListener( ServerRouters.OnAction_Broadcast.ACTION , handler._onBroadcastACTION );
-    SocketHelper.offNetListener( ServerRouters.OnAction_History.ROUTE , handler._onHandleHistory );
+    SocketHelper.offNetListener( ServerRouters.RqRoom.dismissVote , handler._onHandleHistory );
     //email
     SocketHelper.offNetListener( ServerRouters.OnAction_Broadcast.EMAIL , handler._onEmailReceive );
+    SocketHelper.offNetListener( ServerRouters.RqRoom.dismissVote , handler._onVoteReceive );
     // RecordsHandler.removeNetListeners();
     // GroupHandler.removeNetListeners();
 };
@@ -358,4 +361,16 @@ handler._onBroadcastACTION = function( action ){
     NotifyHelper.notify( NOTIFY_UPDATE_EMAIL);
     cc.log("邮件消息收到");
 };
+
+/***
+ * 接收玩家請求解散房間
+ */
+ /////////////////////////////////////////////////////////////////////////////////////////
+ handler._onVoteReceive = function(){
+    // handler.getData().redPoint.mail = true;
+    // NotifyHelper.notify( NOTIFY_UPDATE_EMAIL);
+    cc.log("【請求解散房间】");
+};
+
+
 

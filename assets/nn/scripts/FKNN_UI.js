@@ -72,6 +72,8 @@ cc.Class({
         spDealer                    : cc.Sprite ,
 
         ndTime                      : cc.Node   ,
+        lbRoomID                    : cc.Label  ,
+        lbRoundNum                  : cc.Label  ,
     },  
 
     onLoad: function () {
@@ -85,6 +87,7 @@ cc.Class({
         this.roundCostTime          = 3 ;   //  提示收取手续费的展示时间
         this.mostWinTime            = 5 ;   //  提示输赢不能超过携带值的展示时间
         this.dealerSpeakTime        = 5 ;   //  荷官说话时间
+        this.roomRounNum            = 0 ;
         this.ndMoreBtns.active      = false ;
         this.ndCardCountBtns.active = false ;
         this.ndVictory.active       = false ;
@@ -93,6 +96,9 @@ cc.Class({
         this.isiwns = this.ndVictory.parent;
         // this.ndGoldItem.active = false ;
         // this.ndResultAni.active = false ;
+        this.roomId();
+        this.showRoundString();
+
 
     },
 
@@ -366,9 +372,18 @@ cc.Class({
 
     onDestroy : function(){
         this._comScheduler.clearAll();
-    }
-    
+    },
 
+    //显示房间号
+    roomId:function(){
+        this.lbRoomID.string = `房号：${GameMsgHandler.getData().id}`
+    },
+
+    //刷新剩余局数
+    showRoundString:function(){
+        this.roomRounNum += 1;
+        this.lbRoundNum.string = `当前局数：${this.roomRounNum}`
+    }
 
 
 

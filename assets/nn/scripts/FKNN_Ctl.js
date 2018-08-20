@@ -275,6 +275,28 @@ cc.Class({
                 this._comRandomBanker.enableBankerAction(true);
             }
         });
+
+        // 开始解散房间
+        NTF.register( ACFG.DismissStart       , (event)=>{ 
+            cc.log("【开始解散房间】")
+            // AudioMgr_Game.playSpecial('banker');
+            // if(event.detail == null){
+
+            // }else{
+            //     this._comRandomBanker.enableBankerAction(true);
+            // }
+        });
+
+        // 解散的玩家的状态
+        NTF.register( ACFG.DismissVote       , (event)=>{ 
+            cc.log("【解散房间玩家的状态】")
+            // AudioMgr_Game.playSpecial('banker');
+            // if(event.detail == null){
+
+            // }else{
+            //     this._comRandomBanker.enableBankerAction(true);
+            // }
+        });
         
         // 玩家的手牌
         NTF.register( ACFG.PLAYER_ADD_CARDS  , (event)=>{ 
@@ -598,6 +620,7 @@ cc.Class({
                 case 0 : 
                     break;
                 case 1 :
+                    this._target._ui.showRoundString();
                     this._resetAll();
                     this.updatePlayers();
                     this.updateEvenyRound(); 
