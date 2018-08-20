@@ -277,8 +277,9 @@ cc.Class({
         });
 
         // 开始解散房间
-        NTF.register( ACFG.DismissStart       , (event)=>{ 
+        NTF.register( ACFG.DISMISS_START       , (event)=>{ 
             cc.log("【开始解散房间】")
+            this._target._ui.ndDisRoom.active = true;
             // AudioMgr_Game.playSpecial('banker');
             // if(event.detail == null){
 
@@ -287,8 +288,14 @@ cc.Class({
             // }
         });
 
+        NTF.register( ACFG.DISMISS_STOP , ()=>{ 
+            // if( RoomHistoryHandler.isRecording() ) return ;
+            // MsgHelper.pushToast( $G.gStrings.Error.dismissStop );
+            this._target._ui.ndDisRoom.active = false;
+        } );
+
         // 解散的玩家的状态
-        NTF.register( ACFG.DismissVote       , (event)=>{ 
+        NTF.register( ACFG.DISMISS_VOTE       , (event)=>{ 
             cc.log("【解散房间玩家的状态】")
             // AudioMgr_Game.playSpecial('banker');
             // if(event.detail == null){

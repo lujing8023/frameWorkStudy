@@ -348,9 +348,9 @@ module.exports.OnAction_FKNN.ROOM_RESULT            = 'ROOM_RESULT'             
 module.exports.OnAction_FKNN.RoundResult            = 'RoundResult'                  ;
 module.exports.OnAction_FKNN.PLAYER_HOST            = 'PlayerHost'                   ;
 module.exports.OnAction_FKNN.PLAYER_SIT             = 'PlayerSit'  
-module.exports.OnAction_FKNN.DismissVote            = 'DismissVote'    ;//接收解散房间状态
-module.exports.OnAction_FKNN.DismissStart           = 'DismissStart'    ;//接收解散房间开始
-                  ;
+module.exports.OnAction_FKNN.DISMISS_VOTE           = 'DismissVote'    ;//接收解散房间状态
+module.exports.OnAction_FKNN.DISMISS_START          = 'DismissStart'    ;//接收解散房间开始
+module.exports.OnAction_FKNN.DISMISS_STOP           = 'DismissStop'      ; // 解散结束
 // module.exports.OnAction_FKNN.ROUND_BEGIN            = 'RoundBegin'                   ;
 // module.exports.OnAction_FKNN.PlayerScore            = 'PlayerScore'                  ; // 消息格式 {id: 用户id, change: 变动, score: 剩余}
 // module.exports.OnAction_FKNN.ROUND_END              = 'RoundEnd'                     ;

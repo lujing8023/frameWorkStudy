@@ -76,15 +76,32 @@ cc.Class({
                     break;
                 }
             case 'dismiss' :
-                RoomServer.dismissRoom(()=>{
-                    RoomServer.dismissVote(true);
-                });
+                this._ui.ndAskDisRoom.active = true;
+                // RoomServer.dismissRoom(()=>{
+                //     RoomServer.dismissVote(true);
+                // });
                 break;
             // case 'leaveSit' :
             // case 'leave' :
             //     RoomServer.leaveRoom( ()=>{
             //         GameLogic.leaveRoom() ;
             //     });
+                break;
+            case 'sure' :
+                RoomServer.dismissRoom(()=>{
+                    RoomServer.dismissVote(true);
+                });
+                // this._ui.ndDisRoom.active = true;
+                this._ui.ndAskDisRoom.active = false;
+                break;
+            case 'cancel' :
+                this._ui.ndAskDisRoom.active = false;
+                break;
+            case 'disSure' :
+                RoomServer.dismissVote(true);
+                break;
+            case 'disCancel' :
+                RoomServer.dismissVote(false);
                 break;
             case 'sit' :
                 GameMsgServer.sit( ()=>{

@@ -287,6 +287,23 @@ handler.setCardTypeBySid = function( sid , formation ){
     handler.getHandBySid(sid).formation = formation ;
 }
 
+//解散房间
+/**
+ * DISMISS
+ * 
+ */
+handler.getDismiss = function(){
+    return handler.getData().dismiss ;
+};
+
+handler.setDismiss = function( dis ){
+    handler.getData().dismiss = dis ;
+};
+
+handler.voteDismiss = function( sid , vote ){
+    handler.getDismiss().voters[sid] = vote;
+};
+
 
 
 /***

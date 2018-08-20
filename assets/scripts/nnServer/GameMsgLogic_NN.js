@@ -49,9 +49,56 @@ handler.onHandleMsg_Data = function( action ){
     /**
      * << DISMISS_ROOM >>
      */
-    if( name === OnAction.DISMISS_ROOM ){
-        UserHandler.getData()['room'] = null ;
-        $G.gCData.gRoomLeaved = true ;
+    // if( name === OnAction.DISMISS_ROOM ){
+    //     GameMsgHandler.setDismiss( action.msg );
+    //     cc.log("【解散的状态】",GameMsgHandler.getDismiss( action.msg ))
+    //     // UserHandler.getData()['room'] = null ;
+    //     // $G.gCData.gRoomLeaved = true ;
+    //     return;
+    // }
+
+    
+
+    // /**
+    //  * << PLAYER_PASS >>
+    //  */
+    // if( name === OnAction.PLAYER_PASS ){
+    //     return;
+    // }
+
+    
+    /**
+     * << DISMISS_START >>
+     */
+    if( name === OnAction.DISMISS_START ){
+        GameMsgHandler.setDismiss( action.msg );
+        cc.log("【解散的状态】",GameMsgHandler.getDismiss( action.msg ))
+        return;
+    }
+
+    /**
+     * << DISMISS_VOTE >>
+     * seat,vote
+     */
+    if( name === OnAction.DISMISS_VOTE ){
+        // GameMsgHandler.voteDismiss( action.msg.seat , action.msg.vote );
+        return;
+    }
+
+    /**
+     * << DISMISS_STOP >>
+     * lastPlay , seats[{ roundScore , totalScore }] , winners[ { index times specifics{ DiWin:16 ... } formation{type,cards}} ]
+     */
+    if( name === OnAction.DISMISS_STOP ){
+        return;
+    }
+
+
+    /**
+     * << ROOM_RESULT >>
+     */
+    if( name === OnAction.ROOM_RESULT ){
+        RoomHandler.getData().state.balance = action.msg ;
         return;
     }
 

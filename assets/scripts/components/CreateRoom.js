@@ -107,7 +107,7 @@ cc.Class({
 
     createRoom: function () {
         //创建房间数据格式  {baseScore : 0 , capacity : 4 , round : 12}
-        this._send({capacity : 2 , rounds : 3 });
+        this._send({capacity : 2 , rounds : 8 });
         // RoomServer.match(4 , ()=>{
         //     cc.director.loadScene("GameScene_NN");
         // });

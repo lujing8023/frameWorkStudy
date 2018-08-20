@@ -74,6 +74,8 @@ cc.Class({
         ndTime                      : cc.Node   ,
         lbRoomID                    : cc.Label  ,
         lbRoundNum                  : cc.Label  ,
+        ndAskDisRoom                : cc.Node   ,
+        ndDisRoom                   : cc.Node   ,  
     },  
 
     onLoad: function () {
