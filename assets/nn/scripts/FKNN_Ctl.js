@@ -21,7 +21,7 @@ cc.Class({
         // this._target._ui.ndMic.addComponent('ComVoiceRecorder');
 
         //UI
-        this._target._ui.showArmGameStart( false );
+        // this._target._ui.showArmGameStart( false );
         // if(GameMsgHandler.getData().type == 2)this._target._ui.showMatching();
         // this._target._ui.showCountDown( GameMsgHandler.getData().state.timer ? GameMsgHandler.getData().state.timer / 1000 : 0 , true );
         // this._target._ui.showInviteBtns( true , GameMsgHandler.isRoomOwner() , !GameMsgHandler.getData().guild ,!GameMsgHandler.getData().guild );
@@ -34,6 +34,7 @@ cc.Class({
         this.showBankerswitch = false;
         this._comRandomBanker.reset();
         this.bankerActionOver = true ;
+        this.gameStart        = 0;//0 房间未开始  1 房间开始
         
         
     },
@@ -192,13 +193,20 @@ cc.Class({
 
         // 玩家牛币变动
         NTF.register( ACFG.PlayerScore , ()=>{
-            // this.updateEvenyRound();
+            this.updateEvenyRound();
         });
 
         // 房间解散
         NTF.register( ACFG.DISMISS_ROOM , ()=>{
             GameLogic.leaveRoom( true ) ;
         });
+
+         // 大结算
+         NTF.register( ACFG.ROOM_RESULT , ()=>{
+            this._target._ui.resultShow();
+        });
+
+        
 
         // 进入房间 - 平时不会触发，当在结算界面点击别人分享的微信链接回到游戏时，会触发
         NTF.register( ACFG.PLAYER_ENTER_ROOM , ()=>{
@@ -239,8 +247,11 @@ cc.Class({
         // Round
         NTF.register( ACFG.ROUND_BEGIN , ()=>{
             // this._target._ui.lbGameTurn.string = GameMsgHandler.getRoundInfo();
+            this.gameStart = 1;
+            let round = GameMsgHandler.getData().state.round
+            this._target._ui.showRoundString(round);
             this._target._ui.showCountDown( 0 , false );
-            this._target._ui.showArmGameStart( true );
+            // this._target._ui.showArmGameStart( true );
             // this._target._ui.showDealerSpeak( GameMsgHandler.getData().area ? GameMsgHandler.getData().area : 0 );
         });
         

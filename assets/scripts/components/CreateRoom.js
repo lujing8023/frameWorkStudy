@@ -48,8 +48,27 @@ cc.Class({
         //默认第一个选项
         this.chooseRoomType(null , 0);
 
+        //默认检查房间
+        this._checkRoomType();
+
         //默认选择房主付
         this.chooseRoomPay(null , 0);
+
+        //房间配置
+        this._initRoomData();
+    },
+
+    _initRoomData:function(){
+        this.roomData = [
+            {capacity : 4 , rounds : 12 },
+            {capacity : 5 , rounds : 12 },
+            {capacity : 6 , rounds : 12 },
+            {capacity : 7 , rounds : 12 },
+            {capacity : 4 , rounds : 30 },
+            {capacity : 5 , rounds : 30 },
+            {capacity : 6 , rounds : 30 },
+            {capacity : 7 , rounds : 30 },
+        ]
     },
 
     onBtnBack: function () {
@@ -106,8 +125,12 @@ cc.Class({
     },
 
     createRoom: function () {
+        let type = this._checkRoomType();
+        //根据类型获取房间的数据
+        let data = this.roomData[type];
+
         //创建房间数据格式  {baseScore : 0 , capacity : 4 , round : 12}
-        this._send({capacity : 2 , rounds : 8 });
+        this._send({capacity : 2 , rounds : 2 });
         // RoomServer.match(4 , ()=>{
         //     cc.director.loadScene("GameScene_NN");
         // });
@@ -218,6 +241,19 @@ cc.Class({
                 node.active = false;
             }
         })
+    },
+
+    //检查房间类型
+    _checkRoomType:function(){
+        let type = "";
+        cc.log("【房间按钮】",this.ndBtnsOfRoomType);
+        _.each(this.ndBtnsOfRoomType , (node , index)=>{
+            if(node.active){
+                type = index
+                cc.log("【type】")
+            }
+        })
+        return type;
     },
 
     //选择房间支付类型

@@ -356,20 +356,38 @@ handler.setStateResult = function( result ){
 }
 
 /**
+ * roomsult(在使用)
+ */
+handler.setRoomResult = function( roomSult ){
+    handler.getData().roomSult = roomSult ;
+}
+
+handler.getRoomResult = function(){
+    return handler.getData().roomSult ;
+}
+
+//查看房间所有者
+handler.getRoomOwner = function(){
+    return handler.getData().owner;
+}
+
+
+
+/**
  * RoomResult
  */
-handler.setRoomResult = function( results ){
-    let seats = handler.getSeats();
-    _.each( results , (result,index) => {
-        if( result === null ) return ;
-        seats[index].takeAllTimes = result.takeAllTimes;
-        seats[index].payAllTimes = result.payAllTimes;
-        seats[index].nnTimes = result.nnTimes;
-        seats[index].noTimes = result.noTimes;
-        seats[index].winTimes = result.winTimes;
-        seats[index].finalScore = result.changedGold;
-    });
-}
+// handler.setRoomResult = function( results ){
+//     let seats = handler.getSeats();
+//     _.each( results , (result,index) => {
+//         if( result === null ) return ;
+//         seats[index].takeAllTimes = result.takeAllTimes;
+//         seats[index].payAllTimes = result.payAllTimes;
+//         seats[index].nnTimes = result.nnTimes;
+//         seats[index].noTimes = result.noTimes;
+//         seats[index].winTimes = result.winTimes;
+//         seats[index].finalScore = result.changedGold;
+//     });
+// }
 
 handler.setRoomCost = function( costs ){
     handler.getData().roomCosts = costs ;

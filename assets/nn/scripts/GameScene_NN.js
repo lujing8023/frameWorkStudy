@@ -76,16 +76,35 @@ cc.Class({
                     break;
                 }
             case 'dismiss' :
-                this._ui.ndAskDisRoom.active = true;
+                let gameState =  this._ctl.gameStart;
+                let owner = GameMsgHandler.getRoomOwner();
+                let user = GameMsgHandler.getUserByCid( 0 ).id;
+                if(owner == user){
+                    this._ui.ndAskDisRoom.active = true;
+                }else{
+                    if(!gameState){
+                        RoomServer.leaveRoom( ()=>{
+                            GameLogic.leaveRoom() ;
+                        });
+                    }else{
+                        this._ui.ndAskDisRoom.active = true;
+                    }
+                }
+                // let owner = GameMsgHandler.getRoomOwner();
+                // let user = GameMsgHandler.getUserByCid( 0 ).id;
+                // if(owner == user){
+                //     this._ui.ndAskDisRoom.active = true;
+                // }
+                // cc.log("【房间所有者】",owner , user);
                 // RoomServer.dismissRoom(()=>{
                 //     RoomServer.dismissVote(true);
                 // });
                 break;
             // case 'leaveSit' :
-            // case 'leave' :
-            //     RoomServer.leaveRoom( ()=>{
-            //         GameLogic.leaveRoom() ;
-            //     });
+            case 'leave' :
+                RoomServer.leaveRoom( ()=>{
+                    GameLogic.leaveRoom() ;
+                });
                 break;
             case 'sure' :
                 RoomServer.dismissRoom(()=>{

@@ -218,13 +218,13 @@ SocketHelper.prototype.request = function( route , params = {} , cb1 = null , cb
                 if( cb1 && _.isFunction(cb1) ) cb1( data.msg );
             }else{
                 log("@ request error : " + route + " Error code : " + data.code + ' : ' + data.msg );
-                // if( cbError && _.isFunction(cbError) ){
-                //     cbError( data );
-                // }else{
-                //     // let info = data.msg + ' (error:' + data.code + ')';
-                //     let info = data.msg ;
-                //     // MsgHelper.pushToast( info );
-                // }
+                if( cbError && _.isFunction(cbError) ){
+                    cbError( data );
+                }else{
+                    // let info = data.msg + ' (error:' + data.code + ')';
+                    let info = data.msg ;
+                    MsgHelper.pushToast( info );
+                }
             }
         }
     });

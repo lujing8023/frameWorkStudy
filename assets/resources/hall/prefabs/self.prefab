@@ -26,13 +26,9 @@
     ],
     "_tag": -1,
     "_active": true,
-    "_components": [
-      {
-        "__id__": 193
-      }
-    ],
+    "_components": [],
     "_prefab": {
-      "__id__": 194
+      "__id__": 193
     },
     "_id": "",
     "_opacity": 255,
@@ -6611,75 +6607,6 @@
     },
     "fileId": "e8Lueq58pHGp4Ax7vUosgz",
     "sync": false
-  },
-  {
-    "__type__": "4c6c07A4m5Km5xsX7LKo5ur",
-    "_name": "",
-    "_objFlags": 0,
-    "node": {
-      "__id__": 1
-    },
-    "_enabled": true,
-    "ndHead": {
-      "__id__": 16
-    },
-    "lbName": {
-      "__id__": 34
-    },
-    "lbScore": {
-      "__id__": 37
-    },
-    "spHead": null,
-    "ndMiss": {
-      "__id__": 19
-    },
-    "ndBanker": {
-      "__id__": 27
-    },
-    "ndBankerLight": null,
-    "ndOxBg": {
-      "__id__": 51
-    },
-    "spOxResult": {
-      "__id__": 55
-    },
-    "spState": {
-      "__id__": 58
-    },
-    "sfReady": {
-      "__uuid__": "9913f250-c267-4eb6-96be-300a0017ed9e"
-    },
-    "sfFinish": {
-      "__uuid__": "2fbab736-6332-4972-bd38-11bb7839f60d"
-    },
-    "sfRob": {
-      "__uuid__": "6ad905ec-aa58-41c0-8879-548ed0540cfe"
-    },
-    "sfUnRob": {
-      "__uuid__": "6a9f2148-9e07-419d-9b8b-d6edf57a5e96"
-    },
-    "sfBet1": {
-      "__uuid__": "a2ead4de-1338-479f-a5a0-c280b7b6f6c3"
-    },
-    "sfBet2": {
-      "__uuid__": "d8dd4615-a134-479e-9ec4-f133fcbb35e3"
-    },
-    "sfBet3": {
-      "__uuid__": "b8255be2-7538-43ca-8c77-3b939b9ee721"
-    },
-    "ndCardHolderContainer": {
-      "__id__": 62
-    },
-    "ndCardShowContainer": {
-      "__id__": 190
-    },
-    "ndChatFace": {
-      "__id__": 39
-    },
-    "ndChatInfo": null,
-    "ndLoseScore": null,
-    "ndWinScore": null,
-    "ndChatBubble": null
   },
   {
     "__type__": "cc.PrefabInfo",

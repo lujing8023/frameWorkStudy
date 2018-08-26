@@ -12,7 +12,7 @@
  * Path['Key'] = Value ;
  */
 var Paths   = {
-    // PbToast     : 'hall/prefabs/NodePools/pbToast'          ,  //@注意：‘pb’的大小写
+    PbToast        : 'hall/prefabs/NodePools/pbToast'          ,  //@注意：‘pb’的大小写
     // PbTopInfo   : 'hall/prefabs/NodePools/pbTopInfo'        ,
     // PbLoading   : 'hall/prefabs/NodePools/pbLoading'        ,
     PbCard         : 'hall/prefabs/NodePools/pbCard'           ,

@@ -26,7 +26,7 @@ cc.Class({
 
         ndClock             : cc.Node   ,
 
-        armGameStart        : dragonBones.ArmatureDisplay   ,
+        // armGameStart        : dragonBones.ArmatureDisplay   ,
 
         ndBtns_Init         : cc.Node   ,
         //wait,rob,bet,showOx(btnsPlay)
@@ -75,7 +75,11 @@ cc.Class({
         lbRoomID                    : cc.Label  ,
         lbRoundNum                  : cc.Label  ,
         ndAskDisRoom                : cc.Node   ,
-        ndDisRoom                   : cc.Node   ,  
+        ndDisRoom                   : cc.Node   , 
+        
+        pbResult                    : cc.Prefab ,
+
+        ndResule                    : cc.Node   ,
     },  
 
     onLoad: function () {
@@ -99,7 +103,7 @@ cc.Class({
         // this.ndGoldItem.active = false ;
         // this.ndResultAni.active = false ;
         this.roomId();
-        this.showRoundString();
+        // this.showRoundString();
 
 
     },
@@ -295,6 +299,7 @@ cc.Class({
         time = parseInt( time );
         if( time <= 0 ) return ;
         this.ndClockContainer.active = show ;
+        if(this.ndClockContainer.children[0])this.ndClockContainer.children[0].active = show ;
         if(show) {
             if(this.ndClockContainer.children[0]){
                 this.ndClockContainer.children[0].getComponent('PbClock').initTime( time );
@@ -382,11 +387,15 @@ cc.Class({
     },
 
     //刷新剩余局数
-    showRoundString:function(){
-        this.roomRounNum += 1;
-        this.lbRoundNum.string = `当前局数：${this.roomRounNum}`
-    }
+    showRoundString:function(round = 0){
+        // this.roomRounNum += 1;
+        this.lbRoundNum.string = `当前局数：${round}`
+    },
 
-
+    //显示大结算
+    resultShow:function(){
+        let pbResult = cc.instantiate( this.pbResult );
+        this.ndResule.addChild(pbResult);
+    },
 
 });

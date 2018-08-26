@@ -97,10 +97,10 @@ handler.onHandleMsg_Data = function( action ){
     /**
      * << ROOM_RESULT >>
      */
-    if( name === OnAction.ROOM_RESULT ){
-        RoomHandler.getData().state.balance = action.msg ;
-        return;
-    }
+    // if( name === OnAction.ROOM_RESULT ){
+    //     RoomHandler.getData().state.balance = action.msg ;
+    //     return;
+    // }
 
     // if( name === OnAction.DISMISS_ROOM ){
     //     UserHandler.getData()['room'] = null ;
@@ -308,8 +308,10 @@ handler.onHandleMsg_Data = function( action ){
      * 
      */
     if( name === OnAction.ROOM_RESULT ){
-        GameMsgHandler.setRoomResult( action.msg.seats );
-        GameMsgHandler.setRoomCost( action.msg.meter );
+        cc.log("【大结算存入的数据】",action.msg);
+        GameMsgHandler.setRoomResult(action.msg);
+        // GameMsgHandler.setRoomResult( action.msg.seats );
+        // GameMsgHandler.setRoomCost( action.msg.meter );
         return;
     }
 
@@ -322,6 +324,7 @@ handler.onHandleMsg_Data = function( action ){
      */
     if( name === OnAction.RoundResult ){
         GameMsgHandler.setStateResult(action.msg);
+        // cc.log("【大结算】",GameMsgHandler.getRoomResult());
         return;
     }
 
