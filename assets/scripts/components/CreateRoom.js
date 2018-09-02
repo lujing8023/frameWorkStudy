@@ -129,8 +129,8 @@ cc.Class({
         //根据类型获取房间的数据
         let data = this.roomData[type];
 
-        //创建房间数据格式  {baseScore : 0 , capacity : 4 , round : 12}
-        this._send({capacity : 2 , rounds : 2 });
+        //创建房间数据格式  {baseScore : 0 , capacity : 4 , round : 12 , payMode : 1}  payMode : 1(房主付) 2 AA 付
+        this._send({capacity : 2 , rounds : 2 , payMode: 1 });
         // RoomServer.match(4 , ()=>{
         //     cc.director.loadScene("GameScene_NN");
         // });

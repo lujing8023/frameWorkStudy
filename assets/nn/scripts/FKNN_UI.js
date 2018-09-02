@@ -80,6 +80,7 @@ cc.Class({
         pbResult                    : cc.Prefab ,
 
         ndResule                    : cc.Node   ,
+        ndleave2                    : cc.Node   ,
     },  
 
     onLoad: function () {
@@ -98,6 +99,7 @@ cc.Class({
         this.ndCardCountBtns.active = false ;
         this.ndVictory.active       = false ;
         this.ndFailure.active       = false ;
+        this.LeaveBtn               = true  ;
         
         this.isiwns = this.ndVictory.parent;
         // this.ndGoldItem.active = false ;
@@ -125,6 +127,10 @@ cc.Class({
                 }
             },false);
         });
+    },
+
+    initButton:function(){
+        this.ndleave2.active = false;
     },
 
     updateTable : function () {

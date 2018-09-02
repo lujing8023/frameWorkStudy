@@ -251,7 +251,8 @@ cc.Class({
             let round = GameMsgHandler.getData().state.round
             this._target._ui.showRoundString(round);
             this._target._ui.showCountDown( 0 , false );
-            // this._target._ui.showArmGameStart( true );
+            this._target._ui.initButton();
+            this._target._ui.showArmGameStart( true );
             // this._target._ui.showDealerSpeak( GameMsgHandler.getData().area ? GameMsgHandler.getData().area : 0 );
         });
         

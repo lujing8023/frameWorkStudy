@@ -8,6 +8,7 @@ cc.Class({
         lblMoney:cc.Label,
         lblGems:cc.Label,
         lblID:cc.Label,
+        spHead:cc.Sprite,
         lblNotice:cc.Label,
         joinGameWin:cc.Node,
         createRoomWin:cc.Node,
@@ -52,7 +53,7 @@ cc.Class({
             cc.director.loadScene("loading");
             return;
         }
-        this.initLabels();
+        this.initPlayer();
         
         if(cc.vv.gameNetMgr.roomId == null){
             this.btnJoinGame.active = true;
@@ -70,8 +71,8 @@ cc.Class({
             cc.vv.userMgr.enterRoom(roomId);
         }
         
-        var imgLoader = this.sprHeadImg.node.getComponent("ImageLoader");
-        imgLoader.setUserID(cc.vv.userMgr.userId);
+        // var imgLoader = this.sprHeadImg.node.getComponent("ImageLoader");
+        // imgLoader.setUserID(cc.vv.userMgr.userId);
         cc.vv.utils.addClickEvent(this.sprHeadImg.node,this.node,"Hall","onBtnClicked");
         
         
@@ -180,11 +181,31 @@ cc.Class({
     
     
     
-    initLabels:function(){
-        this.lblName.string = UserHandler.getNick();
-        // this.lblMoney.string = cc.vv.userMgr.coins;
-        // this.lblGems.string = cc.vv.userMgr.gems;
-        this.lblID.string = "ID:" + UserHandler.getId();
+    initPlayer:function(){
+        let info = cc.sys.localStorage.getItem("userInfo");
+        info = JSON.parse(info);
+        cc.log("【消息消息。。。】",info.nickname , info.sex);
+        if(info){
+            this.lblName.string = info.nickname;
+            let id = UserHandler.getId();
+            cc.log("本地消息打印",id);
+            this.lblID.string = "ID:" + UserHandler.getId();
+            let head = info.headimgurl;
+            this._showHead(head);
+        }else{
+            this.lblName.string = "测试账号"
+            this.lblID.string = "ID:" + UserHandler.getId();
+        }
+    },
+    //head 为地址获取后需要转换为img格式
+    _showHead:function(head){
+        cc.loader.load({ url : head , type : "png"} , (err, img) => {
+            if (err) return cc.log(err);
+            let spriteFrame = new cc.SpriteFrame();
+            spriteFrame.setTexture(img);
+            // cc.sys.localStorage.setItem("userHead", spriteFrame);
+            this.spHead.spriteFrame = spriteFrame;
+        })
     },
     
     onBtnClicked:function(event){

@@ -41,6 +41,7 @@ SocketHelper.prototype.initNet = function( cb ){
     this.state = state.INITED ;
     this.serverList = [{
         host: '118.25.176.115',
+        // host: '192.168.1.112',
         port: '31101'
     }];
     this.connect( cb , ()=>{ this.onListeners() } );

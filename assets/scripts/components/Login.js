@@ -24,6 +24,9 @@ String.prototype.format = function(args) {
         return this; 
     } 
 };
+
+let APPID = 'wxf909a05e2c5ff4df';
+let SECRET = 'df413b579789857f3765749f5e105429';
  
 cc.Class({
     extends: cc.Component,
@@ -41,10 +44,16 @@ cc.Class({
         _mima:null,
         _mimaIndex:0,
         ebAccountL  : cc.EditBox ,  // login
+
+        icon : cc.Sprite,
+        nickName : cc.Label ,
     },
 
     // use this for initialization
     onLoad: function () {
+        cc.nn = {};
+        cc.nn.callback = this.cbCode.bind(this);
+        // this.label.string = this.text;
         if(!cc.sys.isNative && cc.sys.isMobile){
             var cvs = this.node.getComponent(cc.Canvas);
             cvs.fitHeight = true;
@@ -78,6 +87,8 @@ cc.Class({
         if(gLocalData.userInfo.account){
             this.ebAccountL.string  = gLocalData.userInfo.account ;
         }
+        cc.nn = {};
+        cc.nn.callback = this.cbCode.bind(this);
     },
     
     start:function(){
@@ -118,8 +129,11 @@ cc.Class({
     },
     
     onBtnWeichatClicked:function(){
-        var self = this;
-        cc.vv.anysdkMgr.login();
+        jsb.reflection.callStaticMethod("org/cocos2dx/javascript/wxLogin",
+        "login",
+        "(Ljava/lang/String;)V",
+        "this is a message from js");
+        // this._sendInfo();
     },
     
     onBtnMIMAClicked:function(event){
@@ -156,5 +170,104 @@ cc.Class({
                         gLocalData.userInfo.account = UserHandler.getData().account ;
                         DataHelper.saveAllData();
                 });
-    }
+    },
+
+
+    // onButtonClick: function () {
+    //     jsb.reflection.callStaticMethod("org/cocos2dx/javascript/wxLogin",
+    //         "login",
+    //         "(Ljava/lang/String;)V",
+    //         "this is a message from js");
+    // },
+
+    cbCode(code) {
+        // this.label.string = code;
+        // cc.log('Js code --- ' + code);
+        this.getAccessToken(code);
+    },
+
+    getAccessToken(code) {
+        let url = 'https://api.weixin.qq.com/sns/oauth2/access_token?' +
+        'appid=' + APPID +
+        '&secret=' + SECRET +
+        '&code=' + code +
+        '&grant_type=authorization_code';
+        this.getUrl(url , (data) => {
+            data = JSON.parse(data);
+            // cc.sys.localStorage.setItem('', data);
+            this.getUserInfo(data);
+            
+        })
+    },
+
+    getUserInfo(data) {
+        let openid = data.openid;
+        let access_token = data.access_token;
+        let url = 'https://api.weixin.qq.com/sns/userinfo?access_token='+
+        access_token + '&openid='+ openid;
+        this.getUrl(url, (data) => {
+            data = JSON.parse(data);
+            cc.sys.localStorage.setItem("userInfo", JSON.stringify(data));
+            this.head = data.headimgurl;
+            // this.nickName.string = data.nickname;
+            this.showIcon(this.head, this.icon);
+            this._sendInfo(data);
+        })
+    },
+
+    showIcon(url, sprite) {
+        cc.loader.load({url: url, type: 'png'}, (err, img) => {
+            if (err) return cc.log(err);
+            let spriteFrame = new cc.SpriteFrame();
+            spriteFrame.setTexture(img);
+            cc.sys.localStorage.setItem("userHead", JSON.stringify(spriteFrame));
+            // sprite.spriteFrame = spriteFrame;
+        })
+    },
+
+    getUrl(url, cb) {
+        cc.log('Req --- ' + url);
+        let xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function () {
+            if (xhr.readyState === 4 && (xhr.status >= 200 && xhr.status < 400)) {
+                let data = xhr.responseText;
+                cc.log('Reseponse ---- ' + data);
+                cb(data);
+            }
+        }
+        xhr.open('GET', url, true);
+        xhr.send();
+    },
+
+    //将获取的数据发给服务器  platformName , game , openid ,  account , head , nick , sex , cb
+    _sendInfo:function(data){
+        let info = data;
+        let game = "nn";
+        cc.log("【openID】",info.openid);
+        let openid = info.openid;
+        let account = null;
+        let head = info.headimgurl;
+        let nick = info.nickname;
+        let sex = info.sex;
+
+        // let game = "nn";
+        // let openid = "oi72NuC26zNunBVvUxjfqycR8ZFI";
+        // let account = null;
+        // let head = "https://open.weixin.qq.com/cgi-bin/showdocument?action=dir_list&t=resource/res_list&verify=1&id=open1419317851&token=&lang=zh_CN";
+        // let nick = "猪猪侠";
+        // let sex = 1;
+        // cc.log("【点击发送按钮】");
+        // cc.log("【game】",game)
+        // cc.log("【openid】",openid)
+        // cc.log("【account】",account)
+        // cc.log("【head】",head)
+        // cc.log("【nick】",nick)
+        // cc.log("【sex】",sex)
+        UserServer.platformLogin( null , game , openid , account , head , nick , sex , (event)=>{
+            cc.log("【登录成功】",1111111111);
+            gLocalData.userInfo.account = UserHandler.getData().account ;
+            DataHelper.saveAllData();
+            cc.director.loadScene("hall");
+        });
+    },
 });

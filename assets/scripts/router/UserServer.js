@@ -8,10 +8,10 @@ var server = module.exports;
 /***
  * platformLogin
  */
-server.platformLogin = function( platformName , game , account , nick , head , sex , cb ){
+server.platformLogin = function( platformName , game , openid ,  account , head , nick , sex , cb ){
     cc.log('platformLogin:' + account );
     sex = parseInt(sex) ;
-    server._sendLogin( ServerRouters.RqUser.platformLogin , { type:2 , game:cc.currentGame ? cc.currentGame : 'nn' , account : account , nick : nick , head : head , sex : sex , gps:null } , cb );
+    server._sendLogin( ServerRouters.RqUser.platformLogin , { game:cc.currentGame ? cc.currentGame : 'nn' ,openid : openid ,  account : account , head : head , nick : nick , sex : sex } , cb );
 };
 
 server.platformLoginFast = function( account , cb ){
