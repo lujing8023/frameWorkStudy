@@ -19422,6 +19422,9 @@
     "ndClock": {
       "__id__": 135
     },
+    "armGameStart": {
+      "__id__": 139
+    },
     "ndBtns_Init": null,
     "ndBtnsOfPlayer": [
       {

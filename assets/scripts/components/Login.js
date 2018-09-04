@@ -51,6 +51,11 @@ cc.Class({
 
     // use this for initialization
     onLoad: function () {
+        let OnAction = ServerRouters.OnAction_FKNN ;
+        this._ntf = this.addComponent('ComNotify');
+        this._ntf.register( OnAction.PLAYER_ENTER_ROOM , ()=>{
+            GameHelper.loadGameScene();
+        });
         cc.nn = {};
         cc.nn.callback = this.cbCode.bind(this);
         // this.label.string = this.text;
@@ -156,7 +161,7 @@ cc.Class({
     //随机登录里的随机账号
     randomLogin:function(){
         UserServer.guestLogin( _.random( 100000,999999 ) + '' , (event)=>{
-            cc.director.loadScene("hall");
+            // cc.director.loadScene("hall");
             gLocalData.userInfo.account = UserHandler.getData().account ;
             DataHelper.saveAllData();
         });
@@ -166,7 +171,7 @@ cc.Class({
     debugLogin:function(){
         if( this.ebAccountL.string.length > 5 )
                     UserServer.guestLogin( this.ebAccountL.string , (event)=>{
-                        cc.director.loadScene("hall");
+                        // cc.director.loadScene("hall");
                         gLocalData.userInfo.account = UserHandler.getData().account ;
                         DataHelper.saveAllData();
                 });

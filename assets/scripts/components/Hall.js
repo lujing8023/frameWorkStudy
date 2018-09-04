@@ -43,7 +43,7 @@ cc.Class({
         //初始化游戏监听
         GamesMgr.initGame("nn");
         // window.DataHelper = require('DataHelper').initHelper();
-
+        this._ntf = this.addComponent('ComNotify');
         if(!cc.sys.isNative && cc.sys.isMobile){
             var cvs = this.node.getComponent(cc.Canvas);
             cvs.fitHeight = true;
@@ -107,6 +107,11 @@ cc.Class({
         cc.vv.audioMgr.playBGM("bgMain.mp3");
 
         cc.vv.utils.addEscEvent(this.node);
+        let OnAction = ServerRouters.OnAction_FKNN ;
+        this._ntf.register( OnAction.PLAYER_ENTER_ROOM , ()=>{
+            // if( $G.gGroupId ) GroupServer.unlistenGroupMatch( $G.gGroupId );
+            cc.director.loadScene("GameScene_NN");
+        });
     },
     
     refreshInfo:function(){
@@ -184,7 +189,7 @@ cc.Class({
     initPlayer:function(){
         let info = cc.sys.localStorage.getItem("userInfo");
         info = JSON.parse(info);
-        cc.log("【消息消息。。。】",info.nickname , info.sex);
+        // cc.log("【消息消息。。。】",info.nickname , info.sex);
         if(info){
             this.lblName.string = info.nickname;
             let id = UserHandler.getId();

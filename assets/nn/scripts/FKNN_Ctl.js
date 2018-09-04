@@ -21,7 +21,7 @@ cc.Class({
         // this._target._ui.ndMic.addComponent('ComVoiceRecorder');
 
         //UI
-        // this._target._ui.showArmGameStart( false );
+        this._target._ui.showArmGameStart( false );
         // if(GameMsgHandler.getData().type == 2)this._target._ui.showMatching();
         // this._target._ui.showCountDown( GameMsgHandler.getData().state.timer ? GameMsgHandler.getData().state.timer / 1000 : 0 , true );
         // this._target._ui.showInviteBtns( true , GameMsgHandler.isRoomOwner() , !GameMsgHandler.getData().guild ,!GameMsgHandler.getData().guild );
@@ -198,7 +198,7 @@ cc.Class({
 
         // 房间解散
         NTF.register( ACFG.DISMISS_ROOM , ()=>{
-            GameLogic.leaveRoom( true ) ;
+            // GameLogic.leaveRoom( true ) ;
         });
 
          // 大结算
@@ -652,7 +652,7 @@ cc.Class({
                     if( GameMsgHandler.getRoomStateType() === 2 ){
                         AudioMgr_Game.playSpecial('start');
                         // this._target._ui.showCountDown( 0 , false );
-                        // this._target._ui.showArmGameStart( true );
+                        this._target._ui.showArmGameStart( true );
                     }
                     // 固定庄模式/轮庄模式直接显示庄家
                     if(( GameMsgHandler.getData().bankerMode == 3 )||( GameMsgHandler.getData().bankerMode == 2 && GameMsgHandler.getCurrentRound() >= 1 )  ){

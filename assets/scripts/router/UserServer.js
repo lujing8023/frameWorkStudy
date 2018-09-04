@@ -19,9 +19,9 @@ server.platformLoginFast = function( account , cb ){
     server._sendLogin( ServerRouters.RqUser.platformLoginFast , { account : account , game:cc.currentGame ? cc.currentGame : 'nn' } , cb );
 };
 
-server.guestLogin = function( account , cb ){
-    cc.log('guestLogin:' + account );
-    server._sendLogin( ServerRouters.RqUser.guestLogin , {  type:0 , account : account , game:cc.currentGame ? cc.currentGame : 'nn' } , cb );
+server.guestLogin = function( openid , cb ){
+    cc.log('guestLogin:' + openid );
+    server._sendLogin( ServerRouters.RqUser.guestLogin , {  type:0 , openid : openid , game:cc.currentGame ? cc.currentGame : 'nn' } , cb );
 };
 
 

@@ -49,7 +49,7 @@ cc.Class({
     },
     
     login:function(){
-        cc.director.loadScene("hall");
+        // cc.director.loadScene("hall");
         // var self = this;
         // var onLogin = function(ret){
         //     if(ret.errcode !== 0){

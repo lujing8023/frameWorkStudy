@@ -230,7 +230,7 @@ helper.loadChooseScene = function( cb ){
 
 helper.loadGameScene = function( cb ){
     // web || package all
-    if ( Configs.PACKAGE_MODE == Configs.PACKAGE_MODE_ALL || !cc.sys.isNative ){
+    // if ( Configs.PACKAGE_MODE == Configs.PACKAGE_MODE_ALL || !cc.sys.isNative ){
         // MsgHelper.pushToast( 'enter game :' + cc.currentGame );
         let callfunc = ()=>{
             if(cb)cb();
@@ -263,17 +263,17 @@ helper.loadGameScene = function( cb ){
                 break;
         }
         return;
-    }
+    // }
 
     // native 
-    UpdateHelper.init(cc.currentGame);
-    var searchPaths = jsb.fileUtils.getSearchPaths();
-    var storagePath = UpdateHelper.storagePath();
-    cc.log("storagePath = ", storagePath);
-    searchPaths.unshift(storagePath);
-    jsb.fileUtils.setSearchPaths(searchPaths);
-    helper.resortSearchPaths(cc.currentGame);
-    require(storagePath + "/src/main.js");
+    // UpdateHelper.init(cc.currentGame);
+    // var searchPaths = jsb.fileUtils.getSearchPaths();
+    // var storagePath = UpdateHelper.storagePath();
+    // cc.log("storagePath = ", storagePath);
+    // searchPaths.unshift(storagePath);
+    // jsb.fileUtils.setSearchPaths(searchPaths);
+    // helper.resortSearchPaths(cc.currentGame);
+    // require(storagePath + "/src/main.js");
 }
 
 helper.resortSearchPaths = function (topGameName) {

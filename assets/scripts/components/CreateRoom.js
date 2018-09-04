@@ -130,7 +130,7 @@ cc.Class({
         let data = this.roomData[type];
 
         //创建房间数据格式  {baseScore : 0 , capacity : 4 , round : 12 , payMode : 1}  payMode : 1(房主付) 2 AA 付
-        this._send({capacity : 2 , rounds : 2 , payMode: 1 });
+        this._send({capacity : 2 , rounds : 5 , payMode: 1 });
         // RoomServer.match(4 , ()=>{
         //     cc.director.loadScene("GameScene_NN");
         // });
@@ -175,7 +175,7 @@ cc.Class({
 
     _send : function( params ){
         RoomServer.createRoom( params , (msg)=>{
-            cc.director.loadScene("GameScene_NN");
+            // cc.director.loadScene("GameScene_NN");
             // MsgHelper.pushToast('创建成功');
             // let store = gLocalData.roomChoices[ cc.currentGame ];
             // store[0] = this.baseScoreIdx ;

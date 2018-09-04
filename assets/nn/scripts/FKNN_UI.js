@@ -26,7 +26,7 @@ cc.Class({
 
         ndClock             : cc.Node   ,
 
-        // armGameStart        : dragonBones.ArmatureDisplay   ,
+        armGameStart        : dragonBones.ArmatureDisplay   ,
 
         ndBtns_Init         : cc.Node   ,
         //wait,rob,bet,showOx(btnsPlay)
