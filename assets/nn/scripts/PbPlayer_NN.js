@@ -81,7 +81,7 @@ cc.Class({
     updateRoundScore : function ( score , cb ) {
         this.ndLoseScore.active = score <= 0 ;
         this.ndWinScore.active  = score > 0 ;
-        score = StringHelper.getValueChinese(score)
+        // score = StringHelper.getValueChinese(score)
         let ndLoseScore =  this.ndLoseScore.getChildByName('score') ;
         let ndWinScore  =  this.ndWinScore.getChildByName('score')  ;
         if(this.ndLoseScore.active){
@@ -178,12 +178,21 @@ cc.Class({
     },
 
     showHead : function( head ){
-        // TexHelper.setSpriteByUrl( this.spHead , url );
-        head = head == '' ? 0 : head ;
-        if(this._isPositiveInteger( head )){
-            // if(TexHelper.getHead( head ))this.spHead.spriteFrame = TexHelper.getHead( head );
-        }else{
-            // TexHelper.setSpriteByUrl( this.spHead , head );
+        // // TexHelper.setSpriteByUrl( this.spHead , url );
+        // head = head == '' ? 0 : head ;
+        // if(this._isPositiveInteger( head )){
+        //     // if(TexHelper.getHead( head ))this.spHead.spriteFrame = TexHelper.getHead( head );
+        // }else{
+        //     // TexHelper.setSpriteByUrl( this.spHead , head );
+        // }
+        if(head){
+            cc.loader.load({ url : head , type : "png"} , (err, img) => {
+                if (err) return cc.log(err);
+                let spriteFrame = new cc.SpriteFrame();
+                spriteFrame.setTexture(img);
+                // cc.sys.localStorage.setItem("userHead", spriteFrame);
+                this.spHead.spriteFrame = spriteFrame;
+            })
         }
     },
 

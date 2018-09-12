@@ -60,18 +60,25 @@ cc.Class({
 
     _initRoomData:function(){
         this.roomData = [
+            {capacity : 2 , rounds : 12 },
+            {capacity : 3 , rounds : 12 },
             {capacity : 4 , rounds : 12 },
             {capacity : 5 , rounds : 12 },
             {capacity : 6 , rounds : 12 },
             {capacity : 7 , rounds : 12 },
+
+            {capacity : 2 , rounds : 30 },
+            {capacity : 3 , rounds : 30 },
             {capacity : 4 , rounds : 30 },
             {capacity : 5 , rounds : 30 },
             {capacity : 6 , rounds : 30 },
             {capacity : 7 , rounds : 30 },
-        ]
+        ];
+        this.cardData = [2 , 3 , 4 , 5 , 6 , 7 , 4 , 6 , 8 , 10 , 12 , 14];
     },
 
     onBtnBack: function () {
+        AudioMgr_Game.playButton();
         this.node.active = false;
     },
 
@@ -125,12 +132,19 @@ cc.Class({
     },
 
     createRoom: function () {
-        let type = this._checkRoomType();
+        AudioMgr_Game.playButton();
         //根据类型获取房间的数据
+        let type = this._checkRoomType();
         let data = this.roomData[type];
-
+        let pay = this._checkRoomPayType();
+        if(pay == 0){
+            data.roomCard = this.cardData[type];
+        }else{
+            data.roomCard = pay + 1;
+        }
+        data.payMode = pay+1;
         //创建房间数据格式  {baseScore : 0 , capacity : 4 , round : 12 , payMode : 1}  payMode : 1(房主付) 2 AA 付
-        this._send({capacity : 2 , rounds : 5 , payMode: 1 });
+        this._send(data);
         // RoomServer.match(4 , ()=>{
         //     cc.director.loadScene("GameScene_NN");
         // });
@@ -233,6 +247,7 @@ cc.Class({
     },
     //选房间类型的按钮
     chooseRoomType:function(Event , custom){
+        AudioMgr_Game.playButton();
         let type = parseInt(custom)
         _.each(this.ndBtnsOfRoomType , (node , index)=>{
             if(type == index){
@@ -256,8 +271,21 @@ cc.Class({
         return type;
     },
 
+    //检查房间支付类型
+    _checkRoomPayType:function(){
+        let pay = "";
+        _.each(this.ndBtnsOfRoomPay , (node , index)=>{
+            if(node.active){
+                pay = index
+                cc.log("pay")
+            }
+        })
+        return pay;
+    },
+
     //选择房间支付类型
     chooseRoomPay:function(Event , custom){
+        AudioMgr_Game.playButton();
         let type = parseInt(custom)
         _.each(this.ndBtnsOfRoomPay , (node , index)=>{
             if(type == index){
@@ -274,17 +302,17 @@ cc.Class({
     _changePayNum:function(type){
        if(type == 0){
            _.each(this.lb12Round , (lb , index)=>{
-               lb.string = `${4+index}人（12局）房卡x${4+index}`;
+               lb.string = `${2+index}人（12局）房卡x${2+index}`;
            })
            _.each(this.lb30Round , (lb , index)=>{
-                lb.string = `${4+index}人（30局）房卡x${8+index*2}`;
+                lb.string = `${2+index}人（30局）房卡x${4+index*2}`;
            })
        }else{
             _.each(this.lb12Round , (lb , index)=>{
-                lb.string = `${4+index}人（12局）房卡x${1}`;
+                lb.string = `${2+index}人（12局）房卡x${1}`;
             })
             _.each(this.lb30Round , (lb , index)=>{
-                lb.string = `${4+index}人（30局）房卡x${2}`;
+                lb.string = `${2+index}人（30局）房卡x${2}`;
             })
        }
 

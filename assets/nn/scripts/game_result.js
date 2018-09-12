@@ -9,11 +9,12 @@ cc.Class({
     },
 
     onLoad () {
-        this.init();
+        // this.init();
     },
 
 
-    init:function(){
+    init:function(com){
+        this._ctl = com
         this.comNodePool        = this.addComponent('ComNodePool');
         this._removeChild();
         this._initPlayerInfo();
@@ -40,6 +41,10 @@ cc.Class({
     //初始化玩家信息
     _addItem:function(){
         let ndItem = this.comNodePool.getNode(this.ndItem);
+        // ndItem.getChildByName("head").getComponent(cc.Sprite).spriteFrame = "";
+        // ndItem.getChildByName("id").getComponent(cc.Label).string = player.id;
+        // ndItem.getChildByName("score").getComponent(cc.Label).string = player.roomCard;
+        // ndItem.getChildByName("nick").getComponent(cc.Label).string = player.nick;
         this.ndList.addChild(ndItem);
         let msg = GameMsgHandler.getRoomResult();
         cc.log("【大结算里的 消息。。。。】",msg)
@@ -47,9 +52,13 @@ cc.Class({
 
     //按钮
     onButtonClick:function(){
-        RoomServer.leaveRoom(()=>{
-            GameLogic.leaveRoom();
-        });
+        if(this._ctl.gameState == 1){
+            cc.director.loadScene("hall");
+        }else{
+            RoomServer.leaveRoom(()=>{
+                GameLogic.leaveRoom();
+            });
+        }
     }
 
 });

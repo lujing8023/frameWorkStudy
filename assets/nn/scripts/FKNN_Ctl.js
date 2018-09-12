@@ -21,7 +21,7 @@ cc.Class({
         // this._target._ui.ndMic.addComponent('ComVoiceRecorder');
 
         //UI
-        this._target._ui.showArmGameStart( false );
+        // this._target._ui.showArmGameStart( false );
         // if(GameMsgHandler.getData().type == 2)this._target._ui.showMatching();
         // this._target._ui.showCountDown( GameMsgHandler.getData().state.timer ? GameMsgHandler.getData().state.timer / 1000 : 0 , true );
         // this._target._ui.showInviteBtns( true , GameMsgHandler.isRoomOwner() , !GameMsgHandler.getData().guild ,!GameMsgHandler.getData().guild );
@@ -35,6 +35,7 @@ cc.Class({
         this._comRandomBanker.reset();
         this.bankerActionOver = true ;
         this.gameStart        = 0;//0 房间未开始  1 房间开始
+        this.gameState = 0;       //0 正常解散    1主动解散
         
         
     },
@@ -203,7 +204,7 @@ cc.Class({
 
          // 大结算
          NTF.register( ACFG.ROOM_RESULT , ()=>{
-            this._target._ui.resultShow();
+            this._target._ui.resultShow(this);
         });
 
         
@@ -232,8 +233,12 @@ cc.Class({
         // LEAVE_ROOM
         NTF.register( ACFG.LEAVE_ROOM , (event)=>{ 
             
-            if( Constants.ClearReason.REQUEST() != event.detail ){
+            if( Constants.ClearReason.REQUEST() == event.detail ){
                 GameLogic.leaveRoom();
+            }else{
+                if(event.detail == 3){
+                    this.gameState = 1;
+                }
             }
             this._comScheduler2.clearAll();
             this._resetAll();
@@ -252,7 +257,7 @@ cc.Class({
             this._target._ui.showRoundString(round);
             this._target._ui.showCountDown( 0 , false );
             this._target._ui.initButton();
-            this._target._ui.showArmGameStart( true );
+            // this._target._ui.showArmGameStart( true );
             // this._target._ui.showDealerSpeak( GameMsgHandler.getData().area ? GameMsgHandler.getData().area : 0 );
         });
         
@@ -556,6 +561,8 @@ cc.Class({
      */
      updatePlayer : function( cid = 0 ){
         cc.log("updatePlayer " + cid );
+        // let info = cc.sys.localStorage.getItem("userInfo");
+        // info = JSON.parse(info);
         let user = GameMsgHandler.getUserByCid( cid );
         let com  = $G.gCData.gComPlayers[ cid ] ;
         if( !user ){
@@ -567,6 +574,7 @@ cc.Class({
         com.showName( user.nick );
         com.showScore( user.score ? user.score : 0 );
         com.showMiss( GameMsgHandler.getSeatByCid(cid).hosting );
+        //url
         com.showHead( user.head );
         if(GameMsgHandler.getCurrentRound() <= 1){
             com.showReady( GameMsgHandler.getSeatByCid(cid).ready );
@@ -652,7 +660,7 @@ cc.Class({
                     if( GameMsgHandler.getRoomStateType() === 2 ){
                         AudioMgr_Game.playSpecial('start');
                         // this._target._ui.showCountDown( 0 , false );
-                        this._target._ui.showArmGameStart( true );
+                        // this._target._ui.showArmGameStart( true );
                     }
                     // 固定庄模式/轮庄模式直接显示庄家
                     if(( GameMsgHandler.getData().bankerMode == 3 )||( GameMsgHandler.getData().bankerMode == 2 && GameMsgHandler.getCurrentRound() >= 1 )  ){

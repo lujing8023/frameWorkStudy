@@ -183,9 +183,9 @@ handler.getScore = function(){
 
 // 总牛币
 handler.getRoomCardsAll= function(){
-    let card       = handler.getData().bag[ 2 ] ? handler.getData().bag[ 2 ] : 0;
+    // let card       = handler.getData().bag[ 2 ] ? handler.getData().bag[ 2 ] : 0;
     let bindedCard = handler.getData().bag[ 3 ] ? handler.getData().bag[ 3 ] : 0;
-    let count = card + bindedCard ;
+    let count = bindedCard;
     if( count == undefined || count == null ) count = 0 ;
     return count ;
 }

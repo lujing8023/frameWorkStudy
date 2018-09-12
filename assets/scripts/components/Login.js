@@ -43,7 +43,7 @@ cc.Class({
         // ...
         _mima:null,
         _mimaIndex:0,
-        ebAccountL  : cc.EditBox ,  // login
+        ebAccount  : cc.EditBox ,  // login
 
         icon : cc.Sprite,
         nickName : cc.Label ,
@@ -80,17 +80,17 @@ cc.Class({
         this._mima = ["A","A","B","B","A","B","A","B","A","A","A","B","B","B"];
         
         if(!cc.sys.isNative || cc.sys.os == cc.sys.OS_WINDOWS){
-            cc.find("Canvas/btn_yk").active = true;
-            cc.find("Canvas/btn_weixin").active = false;
+            cc.find("Canvas/down/btn_yk").active = true;
+            cc.find("Canvas/down/btn_weixin").active = false;
         }
         else{
-            cc.find("Canvas/btn_yk").active = false;
-            cc.find("Canvas/btn_weixin").active = true;
+            cc.find("Canvas/down/btn_yk").active = false;
+            cc.find("Canvas/down/btn_weixin").active = true;
         }
         //初始化输入框
 
-        if(gLocalData.userInfo.account){
-            this.ebAccountL.string  = gLocalData.userInfo.account ;
+        if(gLocalData.userInfo.openid){
+            this.ebAccount.string  = gLocalData.userInfo.openid ;
         }
         cc.nn = {};
         cc.nn.callback = this.cbCode.bind(this);
@@ -162,19 +162,27 @@ cc.Class({
     randomLogin:function(){
         UserServer.guestLogin( _.random( 100000,999999 ) + '' , (event)=>{
             // cc.director.loadScene("hall");
-            gLocalData.userInfo.account = UserHandler.getData().account ;
+            gLocalData.userInfo.openid = UserHandler.getData().openid ;
             DataHelper.saveAllData();
         });
     },
 
     //随机登录里面的账号登录
     debugLogin:function(){
-        if( this.ebAccountL.string.length > 5 )
-                    UserServer.guestLogin( this.ebAccountL.string , (event)=>{
-                        // cc.director.loadScene("hall");
-                        gLocalData.userInfo.account = UserHandler.getData().account ;
+        // if( this.ebAccountL.string.length > 5 )
+        //     UserServer.guestLogin( this.ebAccountL.string , (event)=>{
+        //         // cc.director.loadScene("hall");
+        //         gLocalData.userInfo.account = UserHandler.getData().id ;
+        //         DataHelper.saveAllData();
+        // });
+
+        if( this.ebAccount.string.toString().length > 5 )
+                    UserServer.guestLogin( this.ebAccount.string + "" , (event)=>{
+                        gLocalData.userInfo.openid = UserHandler.getData().openid ;
                         DataHelper.saveAllData();
                 });
+                else
+                    MsgHelper.pushToast($G.gStrings.CommonTips.importAccount);
     },
 
 
@@ -254,6 +262,11 @@ cc.Class({
         let head = info.headimgurl;
         let nick = info.nickname;
         let sex = info.sex;
+        // if(sex == 1){
+        //     sex = 0;
+        // }else{
+        //     sex = 1;
+        // }
 
         // let game = "nn";
         // let openid = "oi72NuC26zNunBVvUxjfqycR8ZFI";
@@ -270,7 +283,7 @@ cc.Class({
         // cc.log("【sex】",sex)
         UserServer.platformLogin( null , game , openid , account , head , nick , sex , (event)=>{
             cc.log("【登录成功】",1111111111);
-            gLocalData.userInfo.account = UserHandler.getData().account ;
+            gLocalData.userInfo.openid = UserHandler.getData().openid ;
             DataHelper.saveAllData();
             cc.director.loadScene("hall");
         });

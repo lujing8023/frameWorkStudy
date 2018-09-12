@@ -52,7 +52,7 @@ cc.Class({
     },
 
     onButtonClicked : function( event , custom ){
-        // AudioMgr_Game.playButton();
+        AudioMgr_Game.playButton();
         switch( custom ){
             case 'gamerules' :
                 GameHelper.addGameRulesView(true);
@@ -102,9 +102,13 @@ cc.Class({
                 break;
             // case 'leaveSit' :
             case 'leave' :
-                RoomServer.leaveRoom( ()=>{
-                    GameLogic.leaveRoom() ;
-                });
+                // if(this._ctl.gameState == 1){
+                //     cc.director.loadScene("Hall");
+                // }else{
+                    RoomServer.leaveRoom( ()=>{
+                        GameLogic.leaveRoom() ;
+                    });
+                // }
                 break;
             case 'sure' :
                 RoomServer.dismissRoom(()=>{

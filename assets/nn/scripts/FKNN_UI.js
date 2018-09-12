@@ -26,7 +26,7 @@ cc.Class({
 
         ndClock             : cc.Node   ,
 
-        armGameStart        : dragonBones.ArmatureDisplay   ,
+        // armGameStart        : dragonBones.ArmatureDisplay   ,
 
         ndBtns_Init         : cc.Node   ,
         //wait,rob,bet,showOx(btnsPlay)
@@ -121,7 +121,7 @@ cc.Class({
             PBHelper.getNode( name , (node)=>{
                 containers[i].addChild( node );
                 switch( i ){
-                    case 2 : 
+                    case 1 : 
                         self.node.getComponent( 'GameScene_NN' )._goldActionLayer = self.ndGoldActionLayerContainer.children[0].getComponent('PbGoldActionLayer') ;
                         break;
                 }
@@ -399,9 +399,10 @@ cc.Class({
     },
 
     //显示大结算
-    resultShow:function(){
+    resultShow:function(com){
         let pbResult = cc.instantiate( this.pbResult );
         this.ndResule.addChild(pbResult);
+        pbResult.getComponent("game_result").init(com);
     },
 
 });

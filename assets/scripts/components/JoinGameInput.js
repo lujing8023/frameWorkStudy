@@ -48,6 +48,7 @@ cc.Class({
     },
     
     onInput:function(num){
+        AudioMgr_Game.playButton();
         if(this._inputIndex >= this.nums.length){
             return;
         }
@@ -92,22 +93,26 @@ cc.Class({
         this.onInput(9);
     },
     onResetClicked:function(){
+        AudioMgr_Game.playButton();
         for(var i = 0; i < this.nums.length; ++i){
             this.nums[i].string = "";
         }
         this._inputIndex = 0;
     },
     onDelClicked:function(){
+        AudioMgr_Game.playButton();
         if(this._inputIndex > 0){
             this._inputIndex -= 1;
             this.nums[this._inputIndex].string = "";
         }
     },
     onCloseClicked:function(){
+        AudioMgr_Game.playButton();
         this.node.active = false;
     },
     
     parseRoomID:function(){
+        // AudioMgr_Game.playButton();
         var str = "";
         for(var i = 0; i < this.nums.length; ++i){
             str += this.nums[i].string;

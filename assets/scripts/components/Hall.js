@@ -196,15 +196,17 @@ cc.Class({
             cc.log("本地消息打印",id);
             this.lblID.string = "ID:" + UserHandler.getId();
             let head = info.headimgurl;
-            this._showHead(head);
         }else{
             this.lblName.string = "测试账号"
             this.lblID.string = "ID:" + UserHandler.getId();
+            this.lblGems.string =  UserHandler.getRoomCardsAll();
+            this._showHead();
         }
     },
     //head 为地址获取后需要转换为img格式
-    _showHead:function(head){
-        cc.loader.load({ url : head , type : "png"} , (err, img) => {
+    _showHead:function(){
+        let Head = "http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJ6SE29G1caIYkbbc8aLeTEYlibxj8O9PibKseNd7gpHtfFlQPK2r0VGPBAL7qYGl4lluzRUYMLwLrw/132";
+        cc.loader.load({ url :Head  , type : "png"} , (err, img) => {
             if (err) return cc.log(err);
             let spriteFrame = new cc.SpriteFrame();
             spriteFrame.setTexture(img);
@@ -214,6 +216,7 @@ cc.Class({
     },
     
     onBtnClicked:function(event){
+        AudioMgr_Game.playButton();
         if(event.target.name == "btn_shezhi"){
             this.settingsWin.active = true;
         }   
@@ -229,6 +232,7 @@ cc.Class({
     },
     
     onJoinGameClicked:function(){
+        AudioMgr_Game.playButton();
         this.joinGameWin.active = true;
     },
     
@@ -241,10 +245,11 @@ cc.Class({
         cc.vv.alert.show("提示",cc.vv.userMgr.gemstip.msg,function(){
             this.onBtnTaobaoClicked();
         }.bind(this));
-        this.refreshInfo();
+        // this.refreshInfo();
     },
     
     onCreateRoomClicked:function(){
+        AudioMgr_Game.playButton();
         // if(cc.vv.gameNetMgr.roomId != null){
         //     cc.vv.alert.show("提示","房间已经创建!\n必须解散当前房间才能创建新的房间");
         //     return;
@@ -274,6 +279,31 @@ cc.Class({
         if(cc.vv && cc.vv.userMgr.roomData != null){
             cc.vv.userMgr.enterRoom(cc.vv.userMgr.roomData);
             cc.vv.userMgr.roomData = null;
+        }
+    },
+
+    onButtonClick:function(event , custom){
+        AudioMgr_Game.playButton();
+        switch(custom){
+            case "line":
+                MsgHelper.pushToast('该功能暂未开放');
+                break;
+            case "turn":
+                MsgHelper.pushToast('该功能暂未开放');
+                break;
+            case "share":
+                jsb.reflection.callStaticMethod("org/cocos2dx/javascript/wxShare",
+                "share",
+                "(Ljava/lang/String;)V",
+                "this is a message from js");
+                // this._sendInfo();
+                break;
+            case "invite":
+                MsgHelper.pushToast('该功能暂未开放');
+                break;
+            case "activity":
+                MsgHelper.pushToast('该功能暂未开放');
+                break;
         }
     },
 });
