@@ -71,7 +71,7 @@ handler.onHandleMsg_Data = function( action ){
      * << DISMISS_START >>
      */
     if( name === OnAction.DISMISS_START ){
-        GameMsgHandler.setDismiss( action.msg );
+        
         cc.log("【解散的状态】",GameMsgHandler.getDismiss( action.msg ))
         return;
     }
@@ -81,7 +81,7 @@ handler.onHandleMsg_Data = function( action ){
      * seat,vote
      */
     if( name === OnAction.DISMISS_VOTE ){
-        // GameMsgHandler.voteDismiss( action.msg.seat , action.msg.vote );
+        GameMsgHandler.setDismiss( action.msg );
         return;
     }
 

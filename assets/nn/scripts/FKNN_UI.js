@@ -75,12 +75,15 @@ cc.Class({
         lbRoomID                    : cc.Label  ,
         lbRoundNum                  : cc.Label  ,
         ndAskDisRoom                : cc.Node   ,
-        ndDisRoom                   : cc.Node   , 
+        ndDisRoom                   : cc.Prefab ,
         
         pbResult                    : cc.Prefab ,
 
         ndResule                    : cc.Node   ,
+        ndDis                       : cc.Node   ,
         ndleave2                    : cc.Node   ,
+
+        btnInvite                   : cc.Node   ,
     },  
 
     onLoad: function () {
@@ -104,6 +107,7 @@ cc.Class({
         this.isiwns = this.ndVictory.parent;
         // this.ndGoldItem.active = false ;
         // this.ndResultAni.active = false ;
+        this.initPayMode();
         this.roomId();
         // this.showRoundString();
 
@@ -360,6 +364,7 @@ cc.Class({
     },
 
     _updateTime : function(){
+        this.showInviteButton(false);
         this.timeInt -- ;
         if( this.timeInt < 0 ) return ;
         this.lbCountDown.string = `游戏即将开始：${Math.ceil(this.timeInt)}` ;
@@ -367,6 +372,7 @@ cc.Class({
     },
 
     _updateLight : function(dt){
+        
         this.timeFloat -= dt ;
         if( this.timeFloat < 0 ){
             this._removeSchedule();
@@ -387,9 +393,17 @@ cc.Class({
         this._comScheduler.clearAll();
     },
 
-    //显示房间号
+    //显示房间信息
     roomId:function(){
-        this.lbRoomID.string = `房号：${GameMsgHandler.getData().id}`
+        this.lbRoomID.string = `房号：${GameMsgHandler.getData().id}`;
+        //几人
+        let people = GameMsgHandler.getCapacity() + '人'+ GameMsgHandler.getRounds()  +'局';
+        //付款
+        let pay = this.payMode[GameMsgHandler.getPayMode()-1];
+        let roomType = people + '、' + pay;
+        // cc.log("【房间信息】",roomType)
+        this.lbRoomInfo.string = roomType
+        
     },
 
     //刷新剩余局数
@@ -404,5 +418,50 @@ cc.Class({
         this.ndResule.addChild(pbResult);
         pbResult.getComponent("game_result").init(com);
     },
+
+    //显示解散中
+    showDis:function(com){
+        if(this.ndDis.children[0]){
+            this.ndDis.children[0].getComponent("DissMiss").init();
+        }
+        let ndDisRoom = cc.instantiate( this.ndDisRoom );
+        this.ndDis.addChild(ndDisRoom);
+        ndDisRoom.getComponent("DissMiss");
+    },
+
+
+    //移除解散
+    removeDis:function(){
+        this.ndDis.children[0].removeFromParent();
+    },
+
+    //改变房卡数量
+    _changePayNum:function(type){
+        if(type == 0){
+            _.each(this.lb12Round , (lb , index)=>{
+                lb.string = `${2+index}人（12局）房卡x${2+index}`;
+            })
+            _.each(this.lb30Round , (lb , index)=>{
+                 lb.string = `${2+index}人（30局）房卡x${4+index*2}`;
+            })
+        }else{
+             _.each(this.lb12Round , (lb , index)=>{
+                 lb.string = `${2+index}人（12局）房卡x${1}`;
+             })
+             _.each(this.lb30Round , (lb , index)=>{
+                 lb.string = `${2+index}人（30局）房卡x${2}`;
+             })
+        }
+ 
+     },
+     //支付类型
+     initPayMode:function(){
+        this.payMode = ["房主付" , "AA付"]
+     },
+
+     //邀请好友按钮
+     showInviteButton:function(state){
+        this.btnInvite.active = state;
+     }
 
 });

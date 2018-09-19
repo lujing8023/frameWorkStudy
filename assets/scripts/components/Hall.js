@@ -196,6 +196,8 @@ cc.Class({
             cc.log("本地消息打印",id);
             this.lblID.string = "ID:" + UserHandler.getId();
             let head = info.headimgurl;
+            this._showHead(head);
+            this.lblGems.string =  UserHandler.getRoomCardsAll();
         }else{
             this.lblName.string = "测试账号"
             this.lblID.string = "ID:" + UserHandler.getId();
@@ -204,8 +206,9 @@ cc.Class({
         }
     },
     //head 为地址获取后需要转换为img格式
-    _showHead:function(){
-        let Head = "http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJ6SE29G1caIYkbbc8aLeTEYlibxj8O9PibKseNd7gpHtfFlQPK2r0VGPBAL7qYGl4lluzRUYMLwLrw/132";
+    _showHead:function(Head){
+        // cc.log("【头像地址】",Head);
+        Head = "http://thirdwx.qlogo.cn/mmopen/vi_32/Q0j4TwGTfTJ6SE29G1caIYkbbc8aLeTEYlibxj8O9PibKseNd7gpHtfFlQPK2r0VGPBAL7qYGl4lluzRUYMLwLrw/132";
         cc.loader.load({ url :Head  , type : "png"} , (err, img) => {
             if (err) return cc.log(err);
             let spriteFrame = new cc.SpriteFrame();
@@ -292,10 +295,11 @@ cc.Class({
                 MsgHelper.pushToast('该功能暂未开放');
                 break;
             case "share":
-                jsb.reflection.callStaticMethod("org/cocos2dx/javascript/wxShare",
-                "share",
-                "(Ljava/lang/String;)V",
-                "this is a message from js");
+                MsgHelper.pushToast('该功能暂未开放');
+                // jsb.reflection.callStaticMethod("org/cocos2dx/javascript/wxShare",
+                // "share",
+                // "(Ljava/lang/String;)V",
+                // "this is a message from js");
                 // this._sendInfo();
                 break;
             case "invite":

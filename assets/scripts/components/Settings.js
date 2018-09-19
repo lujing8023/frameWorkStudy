@@ -105,10 +105,12 @@ cc.Class({
         }
         else if(event.target.name == "btn_yx_open"){
             cc.vv.audioMgr.setSFXVolume(1.0);
+            gLocalData.sysInfo.shouldEffect = !gLocalData.sysInfo.shouldEffect ;
             this.refreshVolume(); 
         }
         else if(event.target.name == "btn_yx_close"){
             cc.vv.audioMgr.setSFXVolume(0);
+            gLocalData.sysInfo.shouldEffect = !gLocalData.sysInfo.shouldEffect ;
             this.refreshVolume();
         }
         else if(event.target.name == "btn_yy_open"){

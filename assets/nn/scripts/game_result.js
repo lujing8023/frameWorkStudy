@@ -39,15 +39,20 @@ cc.Class({
     },
 
     //初始化玩家信息
-    _addItem:function(){
+    _addItem:function(player){
         let ndItem = this.comNodePool.getNode(this.ndItem);
-        // ndItem.getChildByName("head").getComponent(cc.Sprite).spriteFrame = "";
-        // ndItem.getChildByName("id").getComponent(cc.Label).string = player.id;
-        // ndItem.getChildByName("score").getComponent(cc.Label).string = player.roomCard;
-        // ndItem.getChildByName("nick").getComponent(cc.Label).string = player.nick;
-        this.ndList.addChild(ndItem);
-        let msg = GameMsgHandler.getRoomResult();
         cc.log("【大结算里的 消息。。。。】",msg)
+        let msg = GameMsgHandler.getRoomResult();
+        // ndItem.getChildByName("head").getComponent(cc.Sprite).spriteFrame = "";
+        ndItem.getChildByName("id").getComponent(cc.Label).string = 'ID:' + player.id;
+        ndItem.getChildByName("score").getComponent(cc.Label).string = player.score;
+        ndItem.getChildByName("name").getComponent(cc.Label).string = player.nick;
+        if(player.roomCard){
+            ndItem.getChildByName("card").getComponent(cc.Label).string = '-' + player.roomCard;
+        }else{
+            ndItem.getChildByName("card").getComponent(cc.Label).string = 0;
+        }
+        this.ndList.addChild(ndItem);
     },
 
     //按钮

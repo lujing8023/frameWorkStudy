@@ -95,7 +95,7 @@ helper.autoLogin = function(){
 
     // 10游客  11账号密码
     let accountType = UserHandler.getData().type ;
-    let account     = gLocalData.userInfo.account ;
+    let account     = gLocalData.userInfo.openid ;
     let phone       = gLocalData.userInfo.phone ;
     let pass        = gLocalData.userInfo.password ;
     if( accountType == 10 ){

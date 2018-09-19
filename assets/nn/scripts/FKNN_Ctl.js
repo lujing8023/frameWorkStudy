@@ -214,13 +214,17 @@ cc.Class({
             // CLEAR
             this._comScheduler2.clearAll();
             this._resetAll();
-
+            let round = GameMsgHandler.getData().state.round
+            this._target._ui.showRoundString(round);
             // INIT
             this.initRoomInfo();
             this.initDealer();
             this.updatePlayers();
             this.updateSelfBtns();
             this.jumpRoomState( GameMsgHandler.getRoomStateType() );
+            // if(GameMsgHandler.getRoomStateType()){
+            //     this._target._ui.showInviteButton(false);
+            // }
 
             // Show cards
             this.updateCardsAll();
@@ -253,10 +257,12 @@ cc.Class({
         NTF.register( ACFG.ROUND_BEGIN , ()=>{
             // this._target._ui.lbGameTurn.string = GameMsgHandler.getRoundInfo();
             this.gameStart = 1;
+            this._target._ui.showInviteButton(false);
             let round = GameMsgHandler.getData().state.round
             this._target._ui.showRoundString(round);
             this._target._ui.showCountDown( 0 , false );
             this._target._ui.initButton();
+          
             // this._target._ui.showArmGameStart( true );
             // this._target._ui.showDealerSpeak( GameMsgHandler.getData().area ? GameMsgHandler.getData().area : 0 );
         });
@@ -296,7 +302,6 @@ cc.Class({
         // 开始解散房间
         NTF.register( ACFG.DISMISS_START       , (event)=>{ 
             cc.log("【开始解散房间】")
-            this._target._ui.ndDisRoom.active = true;
             // AudioMgr_Game.playSpecial('banker');
             // if(event.detail == null){
 
@@ -308,11 +313,12 @@ cc.Class({
         NTF.register( ACFG.DISMISS_STOP , ()=>{ 
             // if( RoomHistoryHandler.isRecording() ) return ;
             // MsgHelper.pushToast( $G.gStrings.Error.dismissStop );
-            this._target._ui.ndDisRoom.active = false;
+            this._target._ui.removeDis();
         } );
 
         // 解散的玩家的状态
         NTF.register( ACFG.DISMISS_VOTE       , (event)=>{ 
+            this._target._ui.showDis();
             cc.log("【解散房间玩家的状态】")
             // AudioMgr_Game.playSpecial('banker');
             // if(event.detail == null){

@@ -421,6 +421,26 @@ handler.canRubCard = function(){
 }
 
 
+// 房间号
+handler.getRoomID = function(){
+    return handler.getData().id ;
+}
+
+// 几个人
+handler.getCapacity = function(){
+    return handler.getData().capacity ;
+}
+
+// 几局
+handler.getRounds = function(){
+    return handler.getData().rounds ;
+}
+
+//付款
+handler.getPayMode = function(){
+    return handler.getData().payMode ;
+}
+
 
 
 

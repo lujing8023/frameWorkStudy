@@ -274,7 +274,7 @@ cc.Class({
     // addCard -> posType : 1 持牌区 / 2 出牌区
     addCard : function( posType , card , isFront = true , showAction = false ){
         let container = posType === 1 ? this.ndCardHolderContainer : this.ndCardShowContainer ;
-        let com = NPHelper.getNode('PbCard').getComponent('PbCard');
+        let com = NPHelper.getNode('PbCard').getComponent('Pbcard');
         com.init( card.suit , card.point , isFront );
         container.addChild( com.node );
         if( showAction ) com.showCardFrontWithFlipAction();
@@ -298,7 +298,7 @@ cc.Class({
                 let node = this.ndCardHolderContainer.children[0];
                 node.removeFromParent();
                 node.parent = this.ndCardShowContainer ;
-                let com = node.getComponent('PbCard');
+                let com = node.getComponent('Pbcard');
                 com.showCardFront(false);
                 com.showChoosed(false);
             }
@@ -314,7 +314,7 @@ cc.Class({
     //
     chooseCards : function( indexs = null ){
         _.each( this.ndCardHolderContainer.children , (node)=>{
-            let card = node.getComponent('PbCard');
+            let card = node.getComponent('Pbcard');
             card.showChoosed(false);
         });
 
@@ -322,7 +322,7 @@ cc.Class({
         _.each( indexs , (i)=>{
             let node = this.ndCardHolderContainer.children[i];
             if( node != undefined && node != null ){
-                node.getComponent('PbCard').showChoosed(true);
+                node.getComponent('Pbcard').showChoosed(true);
             }
         });
     },

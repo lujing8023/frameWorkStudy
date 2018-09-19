@@ -143,8 +143,14 @@ cc.Class({
             data.roomCard = pay + 1;
         }
         data.payMode = pay+1;
-        //创建房间数据格式  {baseScore : 0 , capacity : 4 , round : 12 , payMode : 1}  payMode : 1(房主付) 2 AA 付
-        this._send(data);
+        //创建房间数据格式  {capacity: 2, rounds: 2, roomCard: 2, payMode: 1}  payMode : 1(房主付) 2 AA 付
+        let card =  UserHandler.getRoomCardsAll();
+        if( card > data.roomCard){
+            // this._send({capacity: 2, rounds: 2, roomCard: 2, payMode: 1});
+            this._send(data);
+        }else{
+            MsgHelper.pushToast('房卡不足，请充值');
+        }
         // RoomServer.match(4 , ()=>{
         //     cc.director.loadScene("GameScene_NN");
         // });
